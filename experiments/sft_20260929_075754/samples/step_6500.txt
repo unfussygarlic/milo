@@ -1,0 +1,77 @@
+PROMPT: <|user|>
+What causes earthquakes?
+<|assistant|>
+
+OUTPUT: <|user|>
+What causes earthquakes?
+<|assistant|>
+the movement of Earth's magnetic field
+
+The movement of Earth's magnetic field causes earthquakes. The movement of Earth's magnetic field causes earthquakes.
+------------------------------------------------------------
+PROMPT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+
+OUTPUT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+To calculate the total cost of buying apples, we first need to consider the cost of the apples.
+
+Cost of apples = Price per kg * Number of kg
+                     = $3/kg * 4.5
+                     = $3
+
+Next, we need to find out the cost of the apples. We do this by multiplying the cost of the apples by the number of kg:
+
+Cost of apples = Cost of apples * Number of kg
+                  
+------------------------------------------------------------
+PROMPT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+
+OUTPUT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+The internet is like a big network that keeps us connected to others no matter where we are. It does this by allowing us to share information, images, and music with each other across the globe. It's a vast network of computers and other devices that help us do many things, such as reading, watching TV, and working on projects.
+
+The internet works by using special network technology that includes a network of special lines called "networks" that connect different computers or devices together. These “networks” can include powerful computers that help us understand and share information. Each device in the internet can have a unique address, and if someone wants to read something, they can work on it.
+
+The internet also has its
+------------------------------------------------------------
+PROMPT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+
+OUTPUT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+def is_prime(n):
+    if n == 0:
+        return False
+    for i in range(1, n):
+        if n % i == 0:
+            return False
+    return True
+------------------------------------------------------------
+PROMPT: <|user|>
+What is photosynthesis?
+<|assistant|>
+
+OUTPUT: <|user|>
+What is photosynthesis?
+<|assistant|>
+photosynthesis
+
+The process of photosynthesis, or photosynthesis, involves the use of light. This light energy is carried by the chloroplasts of the chloroplast (the green part) and is used to make glucose (sugar).
+------------------------------------------------------------
+PROMPT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+
+OUTPUT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+When summer is not warm enough, some months will get the most yield, while others months may get the most. The season may be short and dry, or it may be in season to get more yield. The days may be longer and temperatures may be higher, but not always.
+------------------------------------------------------------

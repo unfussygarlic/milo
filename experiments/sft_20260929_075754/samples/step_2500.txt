@@ -1,0 +1,75 @@
+PROMPT: <|user|>
+What causes earthquakes?
+<|assistant|>
+
+OUTPUT: <|user|>
+What causes earthquakes?
+<|assistant|>
+magnitude
+
+Miles of the Earth are always moving. You can see this in Figure below . When the Earth is moving in the same direction, it looks like the Earth is moving around the sun. The Earth is moving at a speed of about 15,000 feet per second (one of the fastest ways to travel. ). It is moving about 66,000 miles a day. The earthquake is so powerful that it has sent shock waves through the ground. The shock waves reach the ground, causing the ground to shake.
+------------------------------------------------------------
+PROMPT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+
+OUTPUT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+To calculate the total cost of buying apples, we first need to calculate the cost of each apple separately and then add them together.
+
+First, let's find the total cost of picking apples:
+
+Total cost = Number of apples * Cost per apple
+                      = 4.5 * $3
+                      = $4.5
+
+Now, let's add the cost of picking apples together:
+
+Total cost = Total cost + Cost
+                  
+------------------------------------------------------------
+PROMPT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+
+OUTPUT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+The internet is a network of computers that allow us to communicate with each other and access information from different sources. It is a complex system with various components, including a network of computers, a network of IP addresses, and a network of services. It allows us to send and receive data, such as text messages, files, and even online shopping.
+------------------------------------------------------------
+PROMPT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+
+OUTPUT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+def is_prime(n):
+    if n == 0:
+        return False
+    else:
+        return False
+------------------------------------------------------------
+PROMPT: <|user|>
+What is photosynthesis?
+<|assistant|>
+
+OUTPUT: <|user|>
+What is photosynthesis?
+<|assistant|>
+photosynthesis
+
+Photosynthesis is the process by which sunlight enters the plant cell. The energy of light is used to convert carbon dioxide from the air into oxygen. The energy from light is used by the plant to break down food for energy. The light is used by the plant to convert carbon dioxide from the air into water. This is done by photosynthesis.
+------------------------------------------------------------
+PROMPT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+
+OUTPUT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+They change
+
+The seasons change throughout the year due to the condensation of snow. The weather is also influenced by the winds and the magnetic field.
+------------------------------------------------------------

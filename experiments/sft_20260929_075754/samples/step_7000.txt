@@ -1,0 +1,76 @@
+PROMPT: <|user|>
+What causes earthquakes?
+<|assistant|>
+
+OUTPUT: <|user|>
+What causes earthquakes?
+<|assistant|>
+geologists use different types of data to understand the Earth's magnetic field. The first piece of information they need to understand is the Earth's magnetic field. The second piece of information is known as the geologic history, and it tells us about the environmental conditions of the Earth's past.
+------------------------------------------------------------
+PROMPT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+
+OUTPUT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+To find out how much each item costs, we first need to determine the cost of each part of the apple.
+
+Cost of apples = Price per kg * Number of kg
+                     = $3/kg * 4.5
+                     = $3
+
+Cost of apples = Price per kg * Number of kg
+                      = $3/kg * 4.5
+               
+------------------------------------------------------------
+PROMPT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+
+OUTPUT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+The internet is a network of interconnected computers that project and communicate information over long distances using the internet. It consists of various components such as copper, computer chips, and internet signals. These components include:
+
+1. Internet: The internet is a network of connected devices that can share information and access the internet. It consists of numerousnetworks, which include 1000-mile networks and international networks.
+
+2. Internet: The internet is a network of interconnected devices, ensuring that data is shared, organized, and accessed efficiently. It includes those who control it, such as Google, Apple, and Microsoft, as well as those who control it, such as Google Play and turns on the internet for web services.
+
+3. Data:
+------------------------------------------------------------
+PROMPT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+
+OUTPUT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+def is_prime(n):
+    if n % 2 == 0:
+        return True
+    else:
+        return False
+------------------------------------------------------------
+PROMPT: <|user|>
+What is photosynthesis?
+<|assistant|>
+
+OUTPUT: <|user|>
+What is photosynthesis?
+<|assistant|>
+photosynthesis
+
+A photosynthesis process uses energy from the sun and carbon dioxide from the air to produce oxygen. This energy is used to make glucose and oxygen. During the photosynthesis process, carbon dioxide is released and the oxygen is generated. The oxygen then moves to the chloroplast, where it is used for photosynthesis.
+------------------------------------------------------------
+PROMPT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+
+OUTPUT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+ixt the weather
+
+When the months are short and the days are long, the weather can change. A month is a months in the year. A month has 28 days. Each month has 28 hours. Each month has 28 days. So, the year you are talking about is usually 28 / 28 = 23. You can see how the months are changing in the Figure below .
+------------------------------------------------------------

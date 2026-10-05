@@ -1,0 +1,62 @@
+PROMPT: The most important thing about
+OUTPUT: The most important thing about the history of the United States is that it was a great country.
+The people who lived here have also been affected by the Spanish conquest.
+In the beginning there were many different groups of people in the United States: the Spanish, the Indians, the Spaniards and many more.
+In the beginning there were no national governments in the United States, so the people did not have a government at all.
+In the beginning there were no major towns, big cities, big cities, big
+------------------------------------------------------------
+PROMPT: Gravity is a fundamental force that
+OUTPUT: Gravity is a fundamental force that affects our lives in many ways. First, it is a powerful force that has the ability to change the way we think, act, and feel. Second, it can help us overcome our individual weaknesses and challenges. Third, it can provide a way to connect with others who are faced with similar challenges. In this way, it can be a powerful tool for personal growth and self-discovery.
+The physical and mental health benefits of energy healing are well-known. The physical and mental health
+------------------------------------------------------------
+PROMPT: <|user|>
+What causes earthquakes?
+<|assistant|>
+
+OUTPUT: <|user|>
+What causes earthquakes?
+<|assistant|>
+<|user|>
+<|lock|>
+<|user|>
+<|host/server|>
+<|user|>
+<|user|>
+<|host/server|>
+<|user|>
+<|host/server|>
+<|user|>
+<|host/server|>
+<|host/server|>
+<|host/server|>
+<|host/server|>
+<|
+------------------------------------------------------------
+PROMPT: <|user|>
+Explain how the internet works.
+<|assistant|>
+
+OUTPUT: <|user|>
+Explain how the internet works.
+<|assistant|>
+- The URL is the link in the address bar.
+- The browser buttons make the link appear on the screen.
+- The browser is usually displayed at the top of the page.
+- The browser is displayed at the bottom of the page.
+- The browser is displayed at the top of the page.
+- The browser is displayed at the bottom of the page.
+- The browser is displayed at the bottom of the page.
+- The browser is displayed at the top of
+------------------------------------------------------------
+PROMPT: <|user|>
+What is photosynthesis?
+<|assistant|>
+
+OUTPUT: <|user|>
+What is photosynthesis?
+<|assistant|>
+- The main part of photosynthesis is the production of green light that we can see in visible light in the form of a red light.
+- It is the primary process by which light energy is transferred to the chlorophyll cells in the chloroplasts to produce energy for the plants.
+- It is the primary process by which photosynthesis is carried out in the chlorophyll cells of the chlorophyll cells.
+- Photosynthesis is carried out by the chlorophyll cells of
+------------------------------------------------------------

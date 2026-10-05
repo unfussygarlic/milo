@@ -1,0 +1,6 @@
+curriculum/
+data/
+
+**.venv**
+**.pt**
+**__pycache__**

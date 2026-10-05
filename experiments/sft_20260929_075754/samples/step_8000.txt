@@ -1,0 +1,92 @@
+PROMPT: <|user|>
+What causes earthquakes?
+<|assistant|>
+
+OUTPUT: <|user|>
+What causes earthquakes?
+<|assistant|>
+coronary artery arrhythmia
+
+When amelon is taken as a drink, it can cause the same kinds of events as an apple, and it can also cause a feeling of racism, classism, and classism. The two events are related but not related.
+------------------------------------------------------------
+PROMPT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+
+OUTPUT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+To find out how much you pay, we need to multiply the price by the number of kg.
+
+For apples:
+Price = Price * kg
+       = $3 * 4.5
+       = $15
+
+For apples:
+Price = Price * kg
+       = $15 * 4.5
+       = $10
+
+Now, we can add the two prices together to find the total amount you pay:
+
+Total amount = Price + Price
+            = $15 + $10
+            = $24
+------------------------------------------------------------
+PROMPT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+
+OUTPUT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+The internet is a network of interconnected computers and devices that uses the internet to send and receive information. The internet is an essential service that allows us to access, share, and access information quickly and easily, across the world.
+
+The internet consists of a network of over 100 billion computers, which work together to process and study data. The internet allows us to use various services such as text, internet search, email, and social media, among others.
+
+There are several different types of internet connections, including:
+
+1. Browsers: This refers to computers that can access the internet and perform specific tasks. They can be used for tasks such as searching for information, reading text, or connecting to the internet.
+
+
+------------------------------------------------------------
+PROMPT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+
+OUTPUT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+def is_prime(n):
+    if n <= 1:
+        return False
+    for i in range(2, n):
+        if i % i == 0:
+            return False
+    return False
+------------------------------------------------------------
+PROMPT: <|user|>
+What is photosynthesis?
+<|assistant|>
+
+OUTPUT: <|user|>
+What is photosynthesis?
+<|assistant|>
+photosynthesis
+
+As shown in Figure below , photosynthesis is the process in which energy is converted into chemical energy. The energy of photosynthesis is changed by the addition of oxygen and carbon dioxide. The energy of photosynthesis is required for life as we know it.
+------------------------------------------------------------
+PROMPT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+
+OUTPUT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+aldiutin, a chemical in the carboxyl group of plants, changes the chemical character of leaves in the autumn. This change is essential for the growth and development of the tree, which is the source of food for the tree.
+
+On the other hand, autumn is a different time of year. The months when leaves change colors are called autumn colors. This is due to the reduction in sunlight, primarily from the sun and the air. When leaves change color, they become vibrant, vibrant, and more beautiful.
+
+In conclusion, seasons change over a year. They are not just about the colors; they can also have specific changes depending on the weather and the season.
+------------------------------------------------------------

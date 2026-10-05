@@ -1,0 +1,76 @@
+PROMPT: <|user|>
+What causes earthquakes?
+<|assistant|>
+
+OUTPUT: <|user|>
+What causes earthquakes?
+<|assistant|>
+potential energy
+
+The most common cause of earthquakes is movement of the ground. The ground moves, but not the energy. The energy is kinetic energy.
+------------------------------------------------------------
+PROMPT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+
+OUTPUT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+Let's reason through this problem:
+
+1. We know that the store sells apples for $3 per kg.
+2. They also sell 4.5 kg of apples.
+3. To find out how much they pay, we need to divide the total cost by the number of kilograms: $3/kg * 4.5 = $2.
+
+So, the store pays $2.
+
+Final answer: The store pays $2.
+------------------------------------------------------------
+PROMPT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+
+OUTPUT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+The internet is a global network of computers and information technology, with over 150,000 users around the world. It is responsible for providing us with the internet, connecting people and information worldwide, and making it a global and efficient platform for communication.
+
+The internet consists of several components, such as the internet, its components, and the systems that support it. The internet is responsible for allowing us to communicate with each other, access important information, and share experiences and ideas with others.
+
+The internet is responsible for providing you with the internet, and many other systems, including the internet, have been designed and developed to overcome the challenges of today. These include public internet services (PWS), which provide a global communication network, and
+------------------------------------------------------------
+PROMPT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+
+OUTPUT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+def is_prime(n):
+    if n == 1:
+        return False
+    for i in range(2, n+1):
+        if n == 1:
+            return False
+    return True
+------------------------------------------------------------
+PROMPT: <|user|>
+What is photosynthesis?
+<|assistant|>
+
+OUTPUT: <|user|>
+What is photosynthesis?
+<|assistant|>
+photosynthesis
+
+After the cells of an organism reproduce, the photosynthesis process takes place inside the cells of the organism. As the cells grow larger and larger, they release energy in the form of glucose. The energy is used by the cells to build up the glucose in the tissues. As the glucose is used to make ATP, the cells of the organism use this energy to make other molecules. Light is used to make ATP that is used for the energy needed to perform the work of the cell.
+------------------------------------------------------------
+PROMPT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+
+OUTPUT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+As the season changes, the seasons change. This can be because of changes in the climate, weather, food availability, and sun exposure. For example, some seasons might be more dry and wet than others, which can lead to more saltier temperatures than others. The seasons also change how plants and animals are able to survive and reproduce, which can affect the ecosystems and food sources for different animals.
+------------------------------------------------------------

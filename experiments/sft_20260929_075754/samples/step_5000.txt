@@ -1,0 +1,86 @@
+PROMPT: <|user|>
+What causes earthquakes?
+<|assistant|>
+
+OUTPUT: <|user|>
+What causes earthquakes?
+<|assistant|>
+acceleration
+
+ archaeology has found that earthquakes are caused by the acceleration of the earth’s crust. This is the biggest earthquake ever recorded.
+------------------------------------------------------------
+PROMPT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+
+OUTPUT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+To calculate the cost of buying 4.5 kg of apples, we first need to determine the cost of the apples:
+
+Cost of apples: 4.5 kg * Number of kg = $3.
+
+Cost of apples = 4.5 kg * 3 kg = $18.
+
+Now, let's find out how many apples are needed for 4.5 kg:
+
+Total cost = Cost of apples * Number of kg = $18
+
+Next, we need to find out how much you pay for 4.5 kg of apples:
+
+Total cost = Number of apples * Price per kg = $18
+
+Cost of apples = 4.5 kg * $18 = $36
+
+Finally, we
+------------------------------------------------------------
+PROMPT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+
+OUTPUT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+The internet is a global network that connects computers and people, allowing them to communicate and share information. It's like a big online library where everyone can view the things they want and need.
+
+To start, you have to visit a place called Google. Google has a special website called "www.google.com". It's a place where there are many computers all around the world to talk to each other.
+
+There are special wires called "ipafactions" that make things like photos and videos look like they are from a computer or a computer. They're like tiny boxes where information can be sent between people.
+
+Now, the internet is a big network of these boxes that help people share and share things with each other
+------------------------------------------------------------
+PROMPT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+
+OUTPUT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+def is_prime(n):
+    if n % 2 == 0: 
+        return False 
+    for i in range(2,n): 
+        if i % 2 == 0: 
+            return False 
+    return True
+------------------------------------------------------------
+PROMPT: <|user|>
+What is photosynthesis?
+<|assistant|>
+
+OUTPUT: <|user|>
+What is photosynthesis?
+<|assistant|>
+photosynthesis
+
+Photosynthesis is the process that breaks down glucose into oxygen and water.
+------------------------------------------------------------
+PROMPT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+
+OUTPUT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+The months of May and June are both part of the month of June. Each month, the weather changes due to the weather. This is because the climate in the year changes from one day to the next. The months of May and June are cooler and drier, while the months of June are warmer and drier.
+------------------------------------------------------------

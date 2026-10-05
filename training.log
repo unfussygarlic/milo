@@ -1,0 +1,630 @@
+GPU: NVIDIA A10G
+VRAM: 23.7 GB
+Device: cuda
+
+Model: 116,473,344 params (116.5M)
+Architecture: d=768, layers=24, q_heads=16, kv_heads=8, shared=True
+
+Loading curriculum data from data/pretrain_data/curriculum:
+  stage_1_simple: 1,003,781 tokens (1953 examples)
+  stage_2_intermediate: 2,369,174 tokens (6178 examples)
+  stage_3_advanced: 2,311,381 tokens (5807 examples)
+  validation: 100,000 tokens
+
+Curriculum schedule:
+  Steps 0-5,000: stage_1_simple
+  Steps 5,000-20,000: stage_2_intermediate
+  Steps 20,000-30,000: stage_3_advanced
+  Total: 30,000 steps
+  Effective batch: 128
+  Tokens per step: 65,536
+  Total tokens processed: 1,966,080,000
+
+============================================================
+TRAINING START
+============================================================
+
+Step     0/30000 | stage_1_simple | Loss: 10.9827 | LR: 6.00e-07 | Tok/s: 0
+Step    50/30000 | stage_1_simple | Loss: 9.1662 | LR: 3.06e-05 | Tok/s: 10,150
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/home/ubuntu/milo/train.py", line 359, in <module>
+    train()
+    ~~~~~^^
+  File "/home/ubuntu/milo/train.py", line 359, in <module>
+    train()
+    ~~~~~^^
+  File "/home/ubuntu/milo/train.py", line 270, in train
+    accum_loss += loss.item()
+                  ~~~~~~~~~^^
+  File "/home/ubuntu/milo/train.py", line 270, in train
+    accum_loss += loss.item()
+                  ~~~~~~~~~^^
+KeyboardInterrupt
+KeyboardInterrupt
+GPU: NVIDIA A10G
+VRAM: 23.7 GB
+Device: cuda
+
+Model: 116,473,344 params (116.5M)
+Architecture: d=768, layers=24, q_heads=16, kv_heads=8, shared=True
+
+Loading curriculum data from data/pretrain_data/curriculum:
+  stage_1_simple: 1,003,781 tokens (1953 examples)
+  stage_2_intermediate: 2,369,174 tokens (6178 examples)
+  stage_3_advanced: 2,311,381 tokens (5807 examples)
+  validation: 100,000 tokens
+
+Curriculum schedule:
+  Steps 0-500: stage_1_simple
+  Steps 500-2,500: stage_2_intermediate
+  Steps 2,500-4,000: stage_3_advanced
+  Total: 4,000 steps
+  Effective batch: 128
+  Tokens per step: 65,536
+  Total tokens processed: 262,144,000
+
+============================================================
+TRAINING START
+============================================================
+
+Step     0/4000 | stage_1_simple | Loss: 10.9736 | LR: 6.00e-07 | Tok/s: 0
+Step    20/4000 | stage_1_simple | Loss: 10.1549 | LR: 1.26e-05 | Tok/s: 10,149
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/home/ubuntu/milo/train.py", line 359, in <module>
+    train()
+    ~~~~~^^
+  File "/home/ubuntu/milo/train.py", line 359, in <module>
+    train()
+    ~~~~~^^
+  File "/home/ubuntu/milo/train.py", line 269, in train
+    scaler.scale(loss).backward()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/ubuntu/milo/train.py", line 269, in train
+    scaler.scale(loss).backward()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/_tensor.py", line 623, in backward
+    torch.autograd.backward(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        self, gradient, retain_graph, create_graph, inputs=inputs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/_tensor.py", line 623, in backward
+    torch.autograd.backward(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        self, gradient, retain_graph, create_graph, inputs=inputs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/autograd/__init__.py", line 395, in backward
+    _engine_run_backward(
+    ~~~~~~~~~~~~~~~~~~~~^
+        tensors,
+        ^^^^^^^^
+    ...<5 lines>...
+        accumulate_grad=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/autograd/__init__.py", line 395, in backward
+    _engine_run_backward(
+    ~~~~~~~~~~~~~~~~~~~~^
+        tensors,
+        ^^^^^^^^
+    ...<5 lines>...
+        accumulate_grad=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/autograd/graph.py", line 1072, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        t_outputs, *args, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )  # Calls into the C++ engine to run the backward pass
+    ^
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/autograd/graph.py", line 1072, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        t_outputs, *args, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )  # Calls into the C++ engine to run the backward pass
+    ^
+KeyboardInterrupt
+KeyboardInterrupt
+GPU: NVIDIA A10G
+VRAM: 23.7 GB
+Device: cuda
+
+Model: 116,473,344 params (116.5M)
+Architecture: d=768, layers=24, q_heads=16, kv_heads=8, shared=True
+
+Loading curriculum data from data/pretrain_data/curriculum:
+  stage_1_simple: 1,003,781 tokens (1953 examples)
+  stage_2_intermediate: 2,369,174 tokens (6178 examples)
+  stage_3_advanced: 2,311,381 tokens (5807 examples)
+  validation: 100,000 tokens
+
+Curriculum schedule:
+  Steps 0-500: stage_1_simple
+  Steps 500-2,500: stage_2_intermediate
+  Steps 2,500-4,000: stage_3_advanced
+  Total: 4,000 steps
+  Effective batch: 96
+  Tokens per step: 49,152
+  Total tokens processed: 196,608,000
+
+============================================================
+TRAINING START
+============================================================
+
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/home/ubuntu/milo/train.py", line 359, in <module>
+    train()
+    ~~~~~^^
+  File "/home/ubuntu/milo/train.py", line 359, in <module>
+    train()
+    ~~~~~^^
+  File "/home/ubuntu/milo/train.py", line 267, in train
+    _, loss = model(x, y)
+              ~~~~~^^^^^^
+  File "/home/ubuntu/milo/train.py", line 267, in train
+    _, loss = model(x, y)
+              ~~~~~^^^^^^
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/milo/model.py", line 170, in forward
+    x = block(x, self.rope_cos, self.rope_sin)
+  File "/home/ubuntu/milo/model.py", line 170, in forward
+    x = block(x, self.rope_cos, self.rope_sin)
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/milo/model.py", line 104, in forward
+    x = x + self.attn(self.ln1(x), rope_cos, rope_sin)
+            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/milo/model.py", line 104, in forward
+    x = x + self.attn(self.ln1(x), rope_cos, rope_sin)
+            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/milo/.venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/milo/model.py", line 74, in forward
+    out = (attn_weights @ V).transpose(1, 2).contiguous().view(B, T, -1)
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/ubuntu/milo/model.py", line 74, in forward
+    out = (attn_weights @ V).transpose(1, 2).contiguous().view(B, T, -1)
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 18.00 MiB. GPU 0 has a total capacity of 22.06 GiB of which 19.44 MiB is free. Including non-PyTorch memory, this process has 22.03 GiB memory in use. Of the allocated memory 21.66 GiB is allocated by PyTorch, and 73.52 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 18.00 MiB. GPU 0 has a total capacity of 22.06 GiB of which 19.44 MiB is free. Including non-PyTorch memory, this process has 22.03 GiB memory in use. Of the allocated memory 21.66 GiB is allocated by PyTorch, and 73.52 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+GPU: NVIDIA A10G
+VRAM: 23.7 GB
+Device: cuda
+
+Model: 116,473,344 params (116.5M)
+Architecture: d=768, layers=24, q_heads=16, kv_heads=8, shared=True
+
+Loading curriculum data from data/pretrain_data/curriculum:
+  stage_1_simple: 1,003,781 tokens (1953 examples)
+  stage_2_intermediate: 2,369,174 tokens (6178 examples)
+  stage_3_advanced: 2,311,381 tokens (5807 examples)
+  validation: 100,000 tokens
+
+Curriculum schedule:
+  Steps 0-500: stage_1_simple
+  Steps 500-2,500: stage_2_intermediate
+  Steps 2,500-4,000: stage_3_advanced
+  Total: 4,000 steps
+  Effective batch: 128
+  Tokens per step: 65,536
+  Total tokens processed: 262,144,000
+
+============================================================
+TRAINING START
+============================================================
+
+Step     0/4000 | stage_1_simple | Loss: 10.9625 | LR: 6.00e-07 | Tok/s: 0
+Step    20/4000 | stage_1_simple | Loss: 10.1605 | LR: 1.26e-05 | Tok/s: 10,147
+Step    40/4000 | stage_1_simple | Loss: 9.3892 | LR: 2.46e-05 | Tok/s: 10,147
+Step    60/4000 | stage_1_simple | Loss: 8.8915 | LR: 3.66e-05 | Tok/s: 10,147
+Step    80/4000 | stage_1_simple | Loss: 8.2485 | LR: 4.86e-05 | Tok/s: 10,148
+Step   100/4000 | stage_1_simple | Loss: 7.5676 | LR: 6.06e-05 | Tok/s: 10,147
+Step   120/4000 | stage_1_simple | Loss: 7.2101 | LR: 7.26e-05 | Tok/s: 10,148
+Step   140/4000 | stage_1_simple | Loss: 6.9614 | LR: 8.46e-05 | Tok/s: 10,148
+Step   160/4000 | stage_1_simple | Loss: 6.7966 | LR: 9.66e-05 | Tok/s: 10,148
+Step   180/4000 | stage_1_simple | Loss: 6.6072 | LR: 1.09e-04 | Tok/s: 10,148
+Step   200/4000 | stage_1_simple | Loss: 6.4213 | LR: 1.21e-04 | Tok/s: 10,148
+
+  >>> Val loss: 6.6582 (new best!)
+Step   220/4000 | stage_1_simple | Loss: 6.2837 | LR: 1.33e-04 | Tok/s: 9,801
+Step   240/4000 | stage_1_simple | Loss: 6.0266 | LR: 1.45e-04 | Tok/s: 10,149
+Step   260/4000 | stage_1_simple | Loss: 5.9764 | LR: 1.57e-04 | Tok/s: 10,149
+Step   280/4000 | stage_1_simple | Loss: 5.8571 | LR: 1.69e-04 | Tok/s: 10,149
+Step   300/4000 | stage_1_simple | Loss: 5.7052 | LR: 1.81e-04 | Tok/s: 10,148
+Step   320/4000 | stage_1_simple | Loss: 5.5972 | LR: 1.93e-04 | Tok/s: 10,147
+Step   340/4000 | stage_1_simple | Loss: 5.5153 | LR: 2.05e-04 | Tok/s: 10,149
+Step   360/4000 | stage_1_simple | Loss: 5.3641 | LR: 2.17e-04 | Tok/s: 10,148
+Step   380/4000 | stage_1_simple | Loss: 5.3157 | LR: 2.29e-04 | Tok/s: 10,148
+Step   400/4000 | stage_1_simple | Loss: 5.1460 | LR: 2.41e-04 | Tok/s: 10,149
+
+  >>> Val loss: 6.1456 (new best!)
+Step   420/4000 | stage_1_simple | Loss: 5.0189 | LR: 2.53e-04 | Tok/s: 9,620
+Step   440/4000 | stage_1_simple | Loss: 4.8486 | LR: 2.65e-04 | Tok/s: 10,149
+Step   460/4000 | stage_1_simple | Loss: 4.7534 | LR: 2.77e-04 | Tok/s: 10,148
+Step   480/4000 | stage_1_simple | Loss: 4.5961 | LR: 2.89e-04 | Tok/s: 10,148
+Step   500/4000 | stage_2_intermediate | Loss: 6.1298 | LR: 3.00e-04 | Tok/s: 10,144
+
+  --- Samples at step 500 ---
+  'The most important thing about...' →
+    The most important thing about the life of being a city of the rise.
+
+“We don’t believe the Australian government’s economic challenges is a great role to the current issue,” said the council, the Com
+  'Gravity is a fundamental force that...' →
+    Gravity is a fundamental force that will be a bit of the one it should be.
+
+There is a few being an actual part of the all, and I have changed in the first time it's not a lot of the most basic types 
+  '<|user|>
+What causes earthquakes?
+<|assi...' →
+    A way to start an open because a "en" problem" in the first place. In the words of the outside, he has built a couple of the two. The first "it" thing that knows what he is trying to get a "huge" one,
+  '<|user|>
+Explain how the internet works....' →
+    There are some species that get around $50,000 per year, and that it doesn't bother to be the first body video. They can do very sad with them, but even if it can be very safe to change the day, the m
+
+  >>> Checkpoint saved at step 500
+Step   520/4000 | stage_2_intermediate | Loss: 5.5695 | LR: 3.00e-04 | Tok/s: 9,484
+Step   540/4000 | stage_2_intermediate | Loss: 5.4494 | LR: 3.00e-04 | Tok/s: 10,141
+Step   560/4000 | stage_2_intermediate | Loss: 5.1900 | LR: 3.00e-04 | Tok/s: 10,141
+Step   580/4000 | stage_2_intermediate | Loss: 4.9922 | LR: 3.00e-04 | Tok/s: 10,141
+Step   600/4000 | stage_2_intermediate | Loss: 4.9413 | LR: 2.99e-04 | Tok/s: 10,140
+
+  >>> Val loss: 5.2030 (new best!)
+Step   620/4000 | stage_2_intermediate | Loss: 4.8304 | LR: 2.99e-04 | Tok/s: 9,621
+Step   640/4000 | stage_2_intermediate | Loss: 4.7356 | LR: 2.99e-04 | Tok/s: 10,144
+Step   660/4000 | stage_2_intermediate | Loss: 4.6270 | LR: 2.99e-04 | Tok/s: 10,143
+Step   680/4000 | stage_2_intermediate | Loss: 4.4558 | LR: 2.98e-04 | Tok/s: 10,143
+Step   700/4000 | stage_2_intermediate | Loss: 4.3889 | LR: 2.98e-04 | Tok/s: 10,141
+Step   720/4000 | stage_2_intermediate | Loss: 4.2562 | LR: 2.97e-04 | Tok/s: 10,141
+Step   740/4000 | stage_2_intermediate | Loss: 4.2433 | LR: 2.97e-04 | Tok/s: 10,141
+Step   760/4000 | stage_2_intermediate | Loss: 4.1016 | LR: 2.96e-04 | Tok/s: 6,288
+Step   780/4000 | stage_2_intermediate | Loss: 3.9924 | LR: 2.95e-04 | Tok/s: 10,147
+Step   800/4000 | stage_2_intermediate | Loss: 3.8758 | LR: 2.95e-04 | Tok/s: 10,148
+
+  >>> Val loss: 5.0830 (new best!)
+Step   820/4000 | stage_2_intermediate | Loss: 3.7314 | LR: 2.94e-04 | Tok/s: 9,619
+Step   840/4000 | stage_2_intermediate | Loss: 3.7885 | LR: 2.93e-04 | Tok/s: 10,148
+Step   860/4000 | stage_2_intermediate | Loss: 3.5483 | LR: 2.92e-04 | Tok/s: 10,148
+Step   880/4000 | stage_2_intermediate | Loss: 3.5174 | LR: 2.92e-04 | Tok/s: 10,148
+Step   900/4000 | stage_2_intermediate | Loss: 3.4002 | LR: 2.91e-04 | Tok/s: 10,148
+Step   920/4000 | stage_2_intermediate | Loss: 3.2625 | LR: 2.90e-04 | Tok/s: 10,148
+Step   940/4000 | stage_2_intermediate | Loss: 3.2174 | LR: 2.89e-04 | Tok/s: 10,146
+Step   960/4000 | stage_2_intermediate | Loss: 3.1343 | LR: 2.88e-04 | Tok/s: 10,148
+Step   980/4000 | stage_2_intermediate | Loss: 2.9772 | LR: 2.87e-04 | Tok/s: 10,144
+Step  1000/4000 | stage_2_intermediate | Loss: 3.0080 | LR: 2.86e-04 | Tok/s: 10,136
+
+  >>> Val loss: 5.2533 
+
+  --- Samples at step 1000 ---
+  'The most important thing about...' →
+    The most important thing about your life. The more sleep you make, the more precise your heart can make your brain feel better at home and heat up, making it easier to respond and restore heart diseas
+  'Gravity is a fundamental force that...' →
+    Gravity is a fundamental force that can be transformed against the surface of the planet's atmosphere. These objects can be slightly different from the Sun because they pull freely around it. When the
+  '<|user|>
+What causes earthquakes?
+<|assi...' →
+    Most modern cells use known links to the immune system and have access to these cells, causing them to gradually leak them toward the immune system. This process continues together to produce signific
+  '<|user|>
+Explain how the internet works....' →
+    Southeast Asia has a growing network of 1,200,000 milliliters per day and needs 3 days to burn by 3,200 minutes. At that time, 8 hours per kilowatt minutes can also be seen for 2 days, according to Ga
+
+  >>> Checkpoint saved at step 1000
+Step  1020/4000 | stage_2_intermediate | Loss: 2.7451 | LR: 2.84e-04 | Tok/s: 9,193
+Step  1040/4000 | stage_2_intermediate | Loss: 2.7669 | LR: 2.83e-04 | Tok/s: 10,136
+Step  1060/4000 | stage_2_intermediate | Loss: 2.7022 | LR: 2.82e-04 | Tok/s: 10,135
+Step  1080/4000 | stage_2_intermediate | Loss: 2.5597 | LR: 2.81e-04 | Tok/s: 10,136
+Step  1100/4000 | stage_2_intermediate | Loss: 2.5275 | LR: 2.79e-04 | Tok/s: 10,136
+Step  1120/4000 | stage_2_intermediate | Loss: 2.5520 | LR: 2.78e-04 | Tok/s: 10,136
+Step  1140/4000 | stage_2_intermediate | Loss: 2.3623 | LR: 2.77e-04 | Tok/s: 10,136
+Step  1160/4000 | stage_2_intermediate | Loss: 2.2814 | LR: 2.75e-04 | Tok/s: 10,136
+Step  1180/4000 | stage_2_intermediate | Loss: 2.2593 | LR: 2.74e-04 | Tok/s: 10,135
+Step  1200/4000 | stage_2_intermediate | Loss: 2.0780 | LR: 2.72e-04 | Tok/s: 10,135
+
+  >>> Val loss: 5.7423 
+Step  1220/4000 | stage_2_intermediate | Loss: 2.0335 | LR: 2.71e-04 | Tok/s: 9,822
+Step  1240/4000 | stage_2_intermediate | Loss: 2.0502 | LR: 2.69e-04 | Tok/s: 10,136
+Step  1260/4000 | stage_2_intermediate | Loss: 1.9834 | LR: 2.68e-04 | Tok/s: 10,135
+Step  1280/4000 | stage_2_intermediate | Loss: 1.8662 | LR: 2.66e-04 | Tok/s: 10,136
+Step  1300/4000 | stage_2_intermediate | Loss: 1.8236 | LR: 2.64e-04 | Tok/s: 10,135
+Step  1320/4000 | stage_2_intermediate | Loss: 1.7701 | LR: 2.62e-04 | Tok/s: 10,135
+Step  1340/4000 | stage_2_intermediate | Loss: 1.7638 | LR: 2.61e-04 | Tok/s: 10,136
+Step  1360/4000 | stage_2_intermediate | Loss: 1.6530 | LR: 2.59e-04 | Tok/s: 10,135
+Step  1380/4000 | stage_2_intermediate | Loss: 1.5588 | LR: 2.57e-04 | Tok/s: 10,135
+Step  1400/4000 | stage_2_intermediate | Loss: 1.4826 | LR: 2.55e-04 | Tok/s: 10,135
+
+  >>> Val loss: 6.0065 
+Step  1420/4000 | stage_2_intermediate | Loss: 1.4239 | LR: 2.53e-04 | Tok/s: 9,822
+Step  1440/4000 | stage_2_intermediate | Loss: 1.4302 | LR: 2.51e-04 | Tok/s: 10,135
+Step  1460/4000 | stage_2_intermediate | Loss: 1.3760 | LR: 2.49e-04 | Tok/s: 10,136
+Step  1480/4000 | stage_2_intermediate | Loss: 1.2979 | LR: 2.47e-04 | Tok/s: 10,135
+Step  1500/4000 | stage_2_intermediate | Loss: 1.2533 | LR: 2.45e-04 | Tok/s: 10,136
+
+  --- Samples at step 1500 ---
+  'The most important thing about...' →
+    The most important thing about being people, if the point is between the two — “Look” — but the reason why I was talking about them, the concept of “acceptuing policy” is a kind of “mom in the right m
+  'Gravity is a fundamental force that...' →
+    Gravity is a fundamental force that signals how often a circuit be able to run a grid; a small number can be found by a military dictatorship, because it controls the local government and sends the cu
+  '<|user|>
+What causes earthquakes?
+<|assi...' →
+    The greenhouse effect occurs when sunlight enters sunlight in the atmosphere across the surface of the chloroplasts. The sun heats up clouds, leaving only a longer cold to become too thin and circulat
+  '<|user|>
+Explain how the internet works....' →
+    Think of the internet like a security team of around a big internet — like a local radio book, a personal computer, or a Daily Mail app. Many computers used to host the internet to protect the data, a
+
+  >>> Checkpoint saved at step 1500
+Step  1520/4000 | stage_2_intermediate | Loss: 1.2942 | LR: 2.43e-04 | Tok/s: 9,256
+Step  1540/4000 | stage_2_intermediate | Loss: 1.1268 | LR: 2.41e-04 | Tok/s: 10,135
+Step  1560/4000 | stage_2_intermediate | Loss: 1.1370 | LR: 2.39e-04 | Tok/s: 10,136
+Step  1580/4000 | stage_2_intermediate | Loss: 1.0218 | LR: 2.37e-04 | Tok/s: 10,132
+Step  1600/4000 | stage_2_intermediate | Loss: 1.0118 | LR: 2.35e-04 | Tok/s: 10,134
+
+  >>> Val loss: 6.4312 
+Step  1620/4000 | stage_2_intermediate | Loss: 1.0201 | LR: 2.33e-04 | Tok/s: 9,821
+Step  1640/4000 | stage_2_intermediate | Loss: 1.0312 | LR: 2.30e-04 | Tok/s: 10,135
+Step  1660/4000 | stage_2_intermediate | Loss: 0.9439 | LR: 2.28e-04 | Tok/s: 10,132
+Step  1680/4000 | stage_2_intermediate | Loss: 0.8906 | LR: 2.26e-04 | Tok/s: 10,135
+Step  1700/4000 | stage_2_intermediate | Loss: 0.8429 | LR: 2.24e-04 | Tok/s: 10,135
+Step  1720/4000 | stage_2_intermediate | Loss: 0.8161 | LR: 2.21e-04 | Tok/s: 10,134
+Step  1740/4000 | stage_2_intermediate | Loss: 0.7644 | LR: 2.19e-04 | Tok/s: 10,136
+Step  1760/4000 | stage_2_intermediate | Loss: 0.7809 | LR: 2.17e-04 | Tok/s: 10,135
+Step  1780/4000 | stage_2_intermediate | Loss: 0.7323 | LR: 2.14e-04 | Tok/s: 10,135
+Step  1800/4000 | stage_2_intermediate | Loss: 0.6887 | LR: 2.12e-04 | Tok/s: 10,136
+
+  >>> Val loss: 6.5819 
+Step  1820/4000 | stage_2_intermediate | Loss: 0.6684 | LR: 2.10e-04 | Tok/s: 9,821
+Step  1840/4000 | stage_2_intermediate | Loss: 0.6751 | LR: 2.07e-04 | Tok/s: 10,135
+Step  1860/4000 | stage_2_intermediate | Loss: 0.6640 | LR: 2.05e-04 | Tok/s: 10,136
+Step  1880/4000 | stage_2_intermediate | Loss: 0.6082 | LR: 2.02e-04 | Tok/s: 10,136
+Step  1900/4000 | stage_2_intermediate | Loss: 0.6013 | LR: 2.00e-04 | Tok/s: 10,136
+Step  1920/4000 | stage_2_intermediate | Loss: 0.5763 | LR: 1.97e-04 | Tok/s: 10,135
+Step  1940/4000 | stage_2_intermediate | Loss: 0.5380 | LR: 1.95e-04 | Tok/s: 10,135
+Step  1960/4000 | stage_2_intermediate | Loss: 0.5235 | LR: 1.92e-04 | Tok/s: 10,136
+Step  1980/4000 | stage_2_intermediate | Loss: 0.5304 | LR: 1.90e-04 | Tok/s: 10,136
+Step  2000/4000 | stage_2_intermediate | Loss: 0.4862 | LR: 1.87e-04 | Tok/s: 10,135
+
+  >>> Val loss: 6.7338 
+
+  --- Samples at step 2000 ---
+  'The most important thing about...' →
+    The most important thing about either society is that they value their love, help their partner decisions.
+
+There is a critical sense that people don’t encounter self-driving by fear of fear, not just
+  'Gravity is a fundamental force that...' →
+    In this material is the difference between meaning and motion, standard comprehension means a particular tool in which humanizes information and requires no:b = c² + c(1 + r) −
+  '<|user|>
+What causes earthquakes?
+<|assi...' →
+    Earthquakes are caused by the movement of tectonic plates, which are large molecules of water, not with dissolves in the air. For example, they can alter magma's wings and fall under the plumes, which
+  '<|user|>
+Explain how the internet works....' →
+    Imagine a huge library of 12 books that a private internet is a little more personal. The internet works the same way—regvers are filled by bands like Google , and each road is very popular and expens
+
+  >>> Checkpoint saved at step 2000
+Step  2020/4000 | stage_2_intermediate | Loss: 0.5026 | LR: 1.85e-04 | Tok/s: 9,051
+Step  2040/4000 | stage_2_intermediate | Loss: 0.4772 | LR: 1.82e-04 | Tok/s: 10,136
+Step  2060/4000 | stage_2_intermediate | Loss: 0.4470 | LR: 1.80e-04 | Tok/s: 10,135
+Step  2080/4000 | stage_2_intermediate | Loss: 0.4527 | LR: 1.77e-04 | Tok/s: 10,136
+Step  2100/4000 | stage_2_intermediate | Loss: 0.4178 | LR: 1.74e-04 | Tok/s: 10,136
+Step  2120/4000 | stage_2_intermediate | Loss: 0.4036 | LR: 1.72e-04 | Tok/s: 10,135
+Step  2140/4000 | stage_2_intermediate | Loss: 0.3876 | LR: 1.69e-04 | Tok/s: 10,136
+Step  2160/4000 | stage_2_intermediate | Loss: 0.3899 | LR: 1.67e-04 | Tok/s: 10,135
+Step  2180/4000 | stage_2_intermediate | Loss: 0.3649 | LR: 1.64e-04 | Tok/s: 10,136
+Step  2200/4000 | stage_2_intermediate | Loss: 0.3648 | LR: 1.62e-04 | Tok/s: 10,135
+
+  >>> Val loss: 6.8863 
+Step  2220/4000 | stage_2_intermediate | Loss: 0.3541 | LR: 1.59e-04 | Tok/s: 9,820
+Step  2240/4000 | stage_2_intermediate | Loss: 0.3465 | LR: 1.56e-04 | Tok/s: 10,135
+Step  2260/4000 | stage_2_intermediate | Loss: 0.3238 | LR: 1.54e-04 | Tok/s: 10,135
+Step  2280/4000 | stage_2_intermediate | Loss: 0.3220 | LR: 1.51e-04 | Tok/s: 10,135
+Step  2300/4000 | stage_2_intermediate | Loss: 0.3266 | LR: 1.48e-04 | Tok/s: 10,135
+Step  2320/4000 | stage_2_intermediate | Loss: 0.3042 | LR: 1.46e-04 | Tok/s: 10,135
+Step  2340/4000 | stage_2_intermediate | Loss: 0.2954 | LR: 1.43e-04 | Tok/s: 10,134
+Step  2360/4000 | stage_2_intermediate | Loss: 0.2988 | LR: 1.41e-04 | Tok/s: 10,135
+Step  2380/4000 | stage_2_intermediate | Loss: 0.3041 | LR: 1.38e-04 | Tok/s: 10,135
+Step  2400/4000 | stage_2_intermediate | Loss: 0.2827 | LR: 1.36e-04 | Tok/s: 10,135
+
+  >>> Val loss: 7.4682 
+Step  2420/4000 | stage_2_intermediate | Loss: 0.2727 | LR: 1.33e-04 | Tok/s: 9,822
+Step  2440/4000 | stage_2_intermediate | Loss: 0.2673 | LR: 1.30e-04 | Tok/s: 10,136
+Step  2460/4000 | stage_2_intermediate | Loss: 0.2658 | LR: 1.28e-04 | Tok/s: 10,136
+Step  2480/4000 | stage_2_intermediate | Loss: 0.2696 | LR: 1.25e-04 | Tok/s: 10,136
+Step  2500/4000 | stage_3_advanced | Loss: 7.4499 | LR: 1.23e-04 | Tok/s: 10,136
+
+  --- Samples at step 2500 ---
+  'The most important thing about...' →
+    The most important thing about this all but I don’t know.”
+
+“I’m really looking forward to seeing exactly what the age of dozen out there is now and they’re not going to want it. I think that’s a repr
+  'Gravity is a fundamental force that...' →
+    Gravity is a fundamental force that you can play into 30 or 90 times. This method works because itertates what you want, making it easy to focus on what you want or what a human body is. The same logi
+  '<|user|>
+What causes earthquakes?
+<|assi...' →
+    Earthquakes are caused by the lightning basin found in the mantle, which formed during earthquakes and fish called nebulae. When the sophisticated droplets collide, the droplets bump into different dr
+  '<|user|>
+Explain how the internet works....' →
+    Imagine a huge library of mobile devices running along a massive cloud, and the internet cannot travel through a network of 4,500 microgravity content. That money could keep the internet running throu
+
+  >>> Checkpoint saved at step 2500
+Step  2520/4000 | stage_3_advanced | Loss: 4.6552 | LR: 1.20e-04 | Tok/s: 9,340
+Step  2540/4000 | stage_3_advanced | Loss: 4.5621 | LR: 1.18e-04 | Tok/s: 10,136
+Step  2560/4000 | stage_3_advanced | Loss: 4.4144 | LR: 1.15e-04 | Tok/s: 10,136
+Step  2580/4000 | stage_3_advanced | Loss: 4.1896 | LR: 1.13e-04 | Tok/s: 10,136
+Step  2600/4000 | stage_3_advanced | Loss: 4.2294 | LR: 1.10e-04 | Tok/s: 10,136
+
+  >>> Val loss: 4.1273 (new best!)
+Step  2620/4000 | stage_3_advanced | Loss: 3.8514 | LR: 1.08e-04 | Tok/s: 9,606
+Step  2640/4000 | stage_3_advanced | Loss: 3.9362 | LR: 1.05e-04 | Tok/s: 10,136
+Step  2660/4000 | stage_3_advanced | Loss: 3.7204 | LR: 1.03e-04 | Tok/s: 10,136
+Step  2680/4000 | stage_3_advanced | Loss: 3.7608 | LR: 1.00e-04 | Tok/s: 10,136
+Step  2700/4000 | stage_3_advanced | Loss: 3.5984 | LR: 9.80e-05 | Tok/s: 10,136
+Step  2720/4000 | stage_3_advanced | Loss: 3.5671 | LR: 9.56e-05 | Tok/s: 10,136
+Step  2740/4000 | stage_3_advanced | Loss: 3.5170 | LR: 9.33e-05 | Tok/s: 10,136
+Step  2760/4000 | stage_3_advanced | Loss: 3.3150 | LR: 9.09e-05 | Tok/s: 10,136
+Step  2780/4000 | stage_3_advanced | Loss: 3.3897 | LR: 8.86e-05 | Tok/s: 10,135
+Step  2800/4000 | stage_3_advanced | Loss: 3.3298 | LR: 8.63e-05 | Tok/s: 10,136
+
+  >>> Val loss: 3.0390 (new best!)
+Step  2820/4000 | stage_3_advanced | Loss: 3.1645 | LR: 8.40e-05 | Tok/s: 9,603
+Step  2840/4000 | stage_3_advanced | Loss: 3.0517 | LR: 8.17e-05 | Tok/s: 10,135
+Step  2860/4000 | stage_3_advanced | Loss: 2.9684 | LR: 7.95e-05 | Tok/s: 10,135
+Step  2880/4000 | stage_3_advanced | Loss: 2.9261 | LR: 7.73e-05 | Tok/s: 10,135
+Step  2900/4000 | stage_3_advanced | Loss: 2.8885 | LR: 7.51e-05 | Tok/s: 10,143
+Step  2920/4000 | stage_3_advanced | Loss: 2.8550 | LR: 7.30e-05 | Tok/s: 10,138
+Step  2940/4000 | stage_3_advanced | Loss: 2.7421 | LR: 7.08e-05 | Tok/s: 10,125
+Step  2960/4000 | stage_3_advanced | Loss: 2.6585 | LR: 6.87e-05 | Tok/s: 9,785
+Step  2980/4000 | stage_3_advanced | Loss: 2.5309 | LR: 6.66e-05 | Tok/s: 10,143
+Step  3000/4000 | stage_3_advanced | Loss: 2.4599 | LR: 6.46e-05 | Tok/s: 10,139
+
+  >>> Val loss: 1.9749 (new best!)
+
+  --- Samples at step 3000 ---
+  'The most important thing about...' →
+    The most important thing about what happened to the last 12 months.
+
+In the end, the U.S. has changed the way that is under Obama’s ability to produce importer problems and to have greater uncertainty
+  'Gravity is a fundamental force that...' →
+    Gravity is a fundamental force that requires that you are eager to work with. It is known by the way things are built around video games, which builds the tension between the human body and the traini
+  '<|user|>
+What causes earthquakes?
+<|assi...' →
+    Earthquakes are caused by the sudden release of energy stored in Earth's crust, typically when tectonic plates move, collide, or slide past one another along fractures called faults. The stress that b
+  '<|user|>
+Explain how the internet works....' →
+    Think of the internet like a massive security conference thankful. At the initial conflict, the internet stretched a network of more than 6,300 public-purpose data stored on infrastructure. They opera
+
+  >>> Checkpoint saved at step 3000
+Step  3020/4000 | stage_3_advanced | Loss: 2.3205 | LR: 6.26e-05 | Tok/s: 8,700
+Step  3040/4000 | stage_3_advanced | Loss: 2.3863 | LR: 6.06e-05 | Tok/s: 9,849
+Step  3060/4000 | stage_3_advanced | Loss: 2.3587 | LR: 5.86e-05 | Tok/s: 10,143
+Step  3080/4000 | stage_3_advanced | Loss: 2.2682 | LR: 5.67e-05 | Tok/s: 10,144
+Step  3100/4000 | stage_3_advanced | Loss: 2.2337 | LR: 5.48e-05 | Tok/s: 10,145
+Step  3120/4000 | stage_3_advanced | Loss: 2.1885 | LR: 5.29e-05 | Tok/s: 10,144
+Step  3140/4000 | stage_3_advanced | Loss: 2.2069 | LR: 5.11e-05 | Tok/s: 10,145
+Step  3160/4000 | stage_3_advanced | Loss: 2.2330 | LR: 4.93e-05 | Tok/s: 10,144
+Step  3180/4000 | stage_3_advanced | Loss: 2.1170 | LR: 4.75e-05 | Tok/s: 10,144
+Step  3200/4000 | stage_3_advanced | Loss: 2.0518 | LR: 4.58e-05 | Tok/s: 10,145
+
+  >>> Val loss: 1.5112 (new best!)
+Step  3220/4000 | stage_3_advanced | Loss: 1.9852 | LR: 4.41e-05 | Tok/s: 9,616
+Step  3240/4000 | stage_3_advanced | Loss: 2.0001 | LR: 4.25e-05 | Tok/s: 10,145
+Step  3260/4000 | stage_3_advanced | Loss: 1.9777 | LR: 4.08e-05 | Tok/s: 10,145
+Step  3280/4000 | stage_3_advanced | Loss: 1.9364 | LR: 3.92e-05 | Tok/s: 10,145
+Step  3300/4000 | stage_3_advanced | Loss: 2.0299 | LR: 3.77e-05 | Tok/s: 10,145
+Step  3320/4000 | stage_3_advanced | Loss: 1.8847 | LR: 3.62e-05 | Tok/s: 10,145
+Step  3340/4000 | stage_3_advanced | Loss: 1.8183 | LR: 3.47e-05 | Tok/s: 10,145
+Step  3360/4000 | stage_3_advanced | Loss: 1.9102 | LR: 3.33e-05 | Tok/s: 10,144
+Step  3380/4000 | stage_3_advanced | Loss: 1.7313 | LR: 3.19e-05 | Tok/s: 10,145
+Step  3400/4000 | stage_3_advanced | Loss: 1.8280 | LR: 3.05e-05 | Tok/s: 10,145
+
+  >>> Val loss: 1.2040 (new best!)
+Step  3420/4000 | stage_3_advanced | Loss: 1.7907 | LR: 2.92e-05 | Tok/s: 9,616
+Step  3440/4000 | stage_3_advanced | Loss: 1.6728 | LR: 2.79e-05 | Tok/s: 10,145
+Step  3460/4000 | stage_3_advanced | Loss: 1.6914 | LR: 2.67e-05 | Tok/s: 10,145
+Step  3480/4000 | stage_3_advanced | Loss: 1.7008 | LR: 2.55e-05 | Tok/s: 10,145
+Step  3500/4000 | stage_3_advanced | Loss: 1.5981 | LR: 2.44e-05 | Tok/s: 10,145
+
+  --- Samples at step 3500 ---
+  'The most important thing about...' →
+    The most important thing about targeting the original result. We are at a reasonable disadvantage with the first period that the other major
+
+  'Gravity is a fundamental force that...' →
+    Gravity is a fundamental force that prevents over time, like cutting a piece, planting a line, and getting that time together.
+
+  '<|user|>
+What causes earthquakes?
+<|assi...' →
+    Earthquakes are caused by the movement of tectonic plates, which are massive slabs of rock that make up Earth's outer shell. When these plates grind against, slide under, or pull apart from each other
+  '<|user|>
+Explain how the internet works....' →
+    Think of the internet like a massive, perfectly trimmed garden — like a giant vacuum — to vibrate and grab a massive pile of pieces. The internet works completely together: like a giant vacuum cleaner
+
+  >>> Checkpoint saved at step 3500
+Step  3520/4000 | stage_3_advanced | Loss: 1.6937 | LR: 2.33e-05 | Tok/s: 9,631
+Step  3540/4000 | stage_3_advanced | Loss: 1.6465 | LR: 2.22e-05 | Tok/s: 10,145
+Step  3560/4000 | stage_3_advanced | Loss: 1.6053 | LR: 2.12e-05 | Tok/s: 10,145
+Step  3580/4000 | stage_3_advanced | Loss: 1.6306 | LR: 2.02e-05 | Tok/s: 10,144
+Step  3600/4000 | stage_3_advanced | Loss: 1.7088 | LR: 1.92e-05 | Tok/s: 10,145
+
+  >>> Val loss: 1.0811 (new best!)
+Step  3620/4000 | stage_3_advanced | Loss: 1.6534 | LR: 1.84e-05 | Tok/s: 9,617
+Step  3640/4000 | stage_3_advanced | Loss: 1.5889 | LR: 1.75e-05 | Tok/s: 10,145
+Step  3660/4000 | stage_3_advanced | Loss: 1.6409 | LR: 1.67e-05 | Tok/s: 10,145
+Step  3680/4000 | stage_3_advanced | Loss: 1.5583 | LR: 1.59e-05 | Tok/s: 10,144
+Step  3700/4000 | stage_3_advanced | Loss: 1.5253 | LR: 1.52e-05 | Tok/s: 10,145
+Step  3720/4000 | stage_3_advanced | Loss: 1.5070 | LR: 1.46e-05 | Tok/s: 10,145
+Step  3740/4000 | stage_3_advanced | Loss: 1.5608 | LR: 1.39e-05 | Tok/s: 10,144
+Step  3760/4000 | stage_3_advanced | Loss: 1.5397 | LR: 1.34e-05 | Tok/s: 10,139
+Step  3780/4000 | stage_3_advanced | Loss: 1.5097 | LR: 1.28e-05 | Tok/s: 10,058
+Step  3800/4000 | stage_3_advanced | Loss: 1.5151 | LR: 1.23e-05 | Tok/s: 10,145
+
+  >>> Val loss: 0.9637 (new best!)
+Step  3820/4000 | stage_3_advanced | Loss: 1.4557 | LR: 1.19e-05 | Tok/s: 9,615
+Step  3840/4000 | stage_3_advanced | Loss: 1.4615 | LR: 1.15e-05 | Tok/s: 10,141
+Step  3860/4000 | stage_3_advanced | Loss: 1.5554 | LR: 1.11e-05 | Tok/s: 10,138
+Step  3880/4000 | stage_3_advanced | Loss: 1.4701 | LR: 1.08e-05 | Tok/s: 10,138
+Step  3900/4000 | stage_3_advanced | Loss: 1.4728 | LR: 1.06e-05 | Tok/s: 10,139
+Step  3920/4000 | stage_3_advanced | Loss: 1.5001 | LR: 1.04e-05 | Tok/s: 10,139
+Step  3940/4000 | stage_3_advanced | Loss: 1.4945 | LR: 1.02e-05 | Tok/s: 10,139
+Step  3960/4000 | stage_3_advanced | Loss: 1.4862 | LR: 1.01e-05 | Tok/s: 10,139
+Step  3980/4000 | stage_3_advanced | Loss: 1.4902 | LR: 1.00e-05 | Tok/s: 10,137
+
+============================================================
+TRAINING COMPLETE
+Best val loss: 0.9637
+============================================================
+
+=== Final Generations ===
+
+Prompt: 'The most important thing about'
+Output: The most important thing about the “dirty” thing about how many people were killed, while others say it’s highly unlikely to face suspiciously because of the so-called “extremism” of a “human legacy” – persons unable to recognize the “inprogressive” movement for their actions than for “disgraceful” 
+
+Prompt: 'Gravity is a fundamental force that'
+Output: Gravity is a fundamental force that contains the gravitational field, which shows that the fundamental difference between the touch (e.g., d(n²) versus a 2-year time pass. For example, aN-2
+
+
+Prompt: '<|user|>
+What causes earthquakes?
+<|assistant|>'
+Output: Earthquakes are caused by the movement of tectonic plates, which are massive slabs of rock that make up Earth's outer shell. When these plates grind against, slide under, or pull apart from each other, stress builds up along fault lines until it is suddenly released as seismic energy. This release o
+
+Prompt: '<|user|>
+Explain how the internet works.
+<|assistant|>'
+Output: Think of the internet like a massive, old internet called a smartphone — your phone is the radio grid, and it's compressed and placed it around you. The router broadcasts your phone so you don't have to move the internet, and the router sends you stuff away, but it's like keeping your phone in a com
+

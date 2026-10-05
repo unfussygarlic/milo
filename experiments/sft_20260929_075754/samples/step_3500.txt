@@ -1,0 +1,77 @@
+PROMPT: <|user|>
+What causes earthquakes?
+<|assistant|>
+
+OUTPUT: <|user|>
+What causes earthquakes?
+<|assistant|>
+zones
+
+Earthquakes cause earthquakes.
+------------------------------------------------------------
+PROMPT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+
+OUTPUT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+First, let's calculate the total cost of buying apples and apples:
+
+Total cost = Number of apples * Cost per kg
+                      = 4.5 kg * $3
+                      = $3
+
+Now, let's calculate the total cost of buying apples and apples for $3:
+
+Total cost = Total cost * Cost per kg
+                       = $3 * $3
+         
+------------------------------------------------------------
+PROMPT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+
+OUTPUT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+The internet is a powerful tool that connects computers and other devices across the world. It lets people share information, pictures, and ideas with each other, and it's a global communication network. Just like how you can send a message to your friend on the phone or message to your teacher in the school, the internet has been helping people connect and share information across the world.
+------------------------------------------------------------
+PROMPT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+
+OUTPUT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+def is_prime(num):
+    if num % 2 == 0:
+        return False
+    for i in range(1,num + 1):
+        if num % i == 0:
+            return False
+------------------------------------------------------------
+PROMPT: <|user|>
+What is photosynthesis?
+<|assistant|>
+
+OUTPUT: <|user|>
+What is photosynthesis?
+<|assistant|>
+photosynthesis
+
+Photosynthesis is the process by which food is made.
+------------------------------------------------------------
+PROMPT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+
+OUTPUT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+There are several reasons why the months of June, July, August, September, and November are different in the year. We will consider each one in detail.
+
+1. Summer: This season is known for its long, cold weather and the long nights. The sun sets, usually late in the day, and temperatures can drop below freezing. In June, it is often felt that the temperature should be lower than June and July, as it is not very cold.
+
+2. Summer: This season is known for its warm and wet weather, with temperatures often reaching up to 35°C (78°F) during summer. The leaves of the plants are typically green, but they can also appear red, orange, or yellow.
+------------------------------------------------------------

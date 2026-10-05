@@ -1,0 +1,57 @@
+PROMPT: The most important thing about
+OUTPUT: The most important thing about the “tid management” is that it doesn’t require any extra gear. You must be very careful when you go to the vet for a TEC. The vet will clean your dog’s ears, mouth, nose, eyes, and overall, their body. You should never rub your dog’s skin, because the oils will irritate their nervous system.
+The removal of the ears, nose, and mouth is not recommended because the ears will be too
+------------------------------------------------------------
+PROMPT: Gravity is a fundamental force that
+OUTPUT: Gravity is a fundamental force that affects the motion of objects, and is the force that moves objects in a direction.
+The motion of planets is the force which is exerted on them. The force between the planets is the gravitational force. The mass of the planets is the gravitational force. The mass of the planets in the sky is the gravitational force. The gravity of the planets changes with the movement of the planets.
+Explanation of the gravitational forces:
+The gravitational force is the force that is exerted on an object.
+------------------------------------------------------------
+PROMPT: <|user|>
+What causes earthquakes?
+<|assistant|>
+
+OUTPUT: <|user|>
+What causes earthquakes?
+<|assistant|>
+Yes, earthquakes are caused by the movement of rock and water under the Earth’s surface. They are caused by the movement of fluids, rock and water that move under the Earth’s surface. The movement of fluid and water under the Earth’s surface causes earthquakes.
+How do earthquakes happen?
+Earthquakes occur due to earthquakes. These earthquakes are most often caused by the movement of rock or water under the Earth’s surface. The movement of the rock or
+------------------------------------------------------------
+PROMPT: <|user|>
+Explain how the internet works.
+<|assistant|>
+
+OUTPUT: <|user|>
+Explain how the internet works.
+<|assistant|>
+The first thing you need to do is to select a web page from the list of web pages you are looking for. In order to get a page you must select the page which you wish to visit.
+<Tagged_content>
+This is the page which is the first page of the web page.
+<Tagged_content>
+This is the page which is the second page. The first page should be the first page of the web page.
+<Tagged_content
+------------------------------------------------------------
+PROMPT: <|user|>
+What is photosynthesis?
+<|assistant|>
+
+OUTPUT: <|user|>
+What is photosynthesis?
+<|assistant|>
+What is chlorophyll?
+<|content-specific|>
+What is the name of the plant?
+<|content-specific|>
+What is photosynthesis?
+<|content-specific|>
+What is photosynthesis?
+<|content-specific|>
+What is photosynthesis?
+<|content-specific|>
+What is photosynthesis?
+<|content-specific|>
+What is photosynthesis?
+<|content-specific|
+------------------------------------------------------------

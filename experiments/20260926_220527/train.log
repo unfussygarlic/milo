@@ -1,0 +1,983 @@
+Experiment: experiments/20260926_220527
+
+Model: 201,976,320 params (202.0M)
+  d=1280, layers=16, q_heads=20, kv_heads=4, shared=True
+
+Loading data from data/smollm:
+  stage_1: 560,000,000 tokens (mmap)
+  stage_2: 1,980,000,000 tokens (mmap)
+  stage_3: 1,080,000,000 tokens (mmap)
+  validation: 200,000 tokens
+
+Curriculum:
+  Steps 0-8,000: stage_1
+  Steps 8,000-38,000: stage_2
+  Steps 38,000-55,000: stage_3
+  Total: 55,000 steps
+  Effective batch: 64
+  Tokens/step: 32,768
+  Total tokens: 1,802,240,000
+
+============================================================
+TRAINING START
+============================================================
+
+Step     0/55000 | stage_1 | Loss: 11.0431 | LR: 3.00e-07 | Tok/s: 0 | ETA: 0.0h
+Step   100/55000 | stage_1 | Loss: 7.8695 | LR: 3.03e-05 | Tok/s: 9,304 | ETA: 54.3h
+Step   200/55000 | stage_1 | Loss: 6.7498 | LR: 6.03e-05 | Tok/s: 9,317 | ETA: 53.9h
+Step   300/55000 | stage_1 | Loss: 5.8593 | LR: 9.03e-05 | Tok/s: 9,326 | ETA: 53.7h
+Step   400/55000 | stage_1 | Loss: 5.5011 | LR: 1.20e-04 | Tok/s: 9,331 | ETA: 53.5h
+Step   500/55000 | stage_1 | Loss: 5.1621 | LR: 1.50e-04 | Tok/s: 9,333 | ETA: 53.3h
+Step   600/55000 | stage_1 | Loss: 4.6687 | LR: 1.80e-04 | Tok/s: 9,335 | ETA: 53.2h
+Step   700/55000 | stage_1 | Loss: 4.4325 | LR: 2.10e-04 | Tok/s: 9,336 | ETA: 53.1h
+Step   800/55000 | stage_1 | Loss: 4.3272 | LR: 2.40e-04 | Tok/s: 9,337 | ETA: 53.0h
+Step   900/55000 | stage_1 | Loss: 4.1314 | LR: 2.70e-04 | Tok/s: 9,337 | ETA: 52.9h
+Step  1000/55000 | stage_1 | Loss: 4.0438 | LR: 3.00e-04 | Tok/s: 9,338 | ETA: 52.7h
+Step  1100/55000 | stage_1 | Loss: 3.8790 | LR: 3.00e-04 | Tok/s: 9,338 | ETA: 52.6h
+Step  1200/55000 | stage_1 | Loss: 3.8024 | LR: 3.00e-04 | Tok/s: 9,338 | ETA: 52.5h
+Step  1300/55000 | stage_1 | Loss: 3.7514 | LR: 3.00e-04 | Tok/s: 9,338 | ETA: 52.4h
+Step  1400/55000 | stage_1 | Loss: 3.5561 | LR: 3.00e-04 | Tok/s: 9,339 | ETA: 52.3h
+Step  1500/55000 | stage_1 | Loss: 3.6379 | LR: 3.00e-04 | Tok/s: 9,338 | ETA: 52.2h
+Step  1600/55000 | stage_1 | Loss: 3.4778 | LR: 3.00e-04 | Tok/s: 9,339 | ETA: 52.1h
+Step  1700/55000 | stage_1 | Loss: 3.3592 | LR: 3.00e-04 | Tok/s: 9,338 | ETA: 52.0h
+Step  1800/55000 | stage_1 | Loss: 3.3271 | LR: 3.00e-04 | Tok/s: 9,338 | ETA: 51.9h
+Step  1900/55000 | stage_1 | Loss: 3.2645 | LR: 3.00e-04 | Tok/s: 9,339 | ETA: 51.8h
+Step  2000/55000 | stage_1 | Loss: 3.2991 | LR: 3.00e-04 | Tok/s: 9,339 | ETA: 51.7h
+
+  >>> Val loss: 5.2763 (new best!)
+Step  2100/55000 | stage_1 | Loss: 3.2406 | LR: 3.00e-04 | Tok/s: 8,627 | ETA: 51.8h
+Step  2200/55000 | stage_1 | Loss: 3.1807 | LR: 3.00e-04 | Tok/s: 9,339 | ETA: 51.7h
+Step  2300/55000 | stage_1 | Loss: 3.2974 | LR: 3.00e-04 | Tok/s: 9,339 | ETA: 51.6h
+Step  2400/55000 | stage_1 | Loss: 3.1445 | LR: 3.00e-04 | Tok/s: 9,339 | ETA: 51.5h
+Step  2500/55000 | stage_1 | Loss: 3.0703 | LR: 2.99e-04 | Tok/s: 9,339 | ETA: 51.4h
+Step  2600/55000 | stage_1 | Loss: 3.0749 | LR: 2.99e-04 | Tok/s: 9,339 | ETA: 51.3h
+Step  2700/55000 | stage_1 | Loss: 3.0082 | LR: 2.99e-04 | Tok/s: 9,339 | ETA: 51.2h
+Step  2800/55000 | stage_1 | Loss: 3.0634 | LR: 2.99e-04 | Tok/s: 9,339 | ETA: 51.1h
+Step  2900/55000 | stage_1 | Loss: 3.0335 | LR: 2.99e-04 | Tok/s: 9,339 | ETA: 51.0h
+Step  3000/55000 | stage_1 | Loss: 3.0211 | LR: 2.99e-04 | Tok/s: 9,339 | ETA: 50.9h
+Step  3100/55000 | stage_1 | Loss: 2.9497 | LR: 2.99e-04 | Tok/s: 9,339 | ETA: 50.8h
+Step  3200/55000 | stage_1 | Loss: 3.0320 | LR: 2.99e-04 | Tok/s: 9,339 | ETA: 50.7h
+Step  3300/55000 | stage_1 | Loss: 2.8953 | LR: 2.99e-04 | Tok/s: 9,339 | ETA: 50.5h
+Step  3400/55000 | stage_1 | Loss: 2.9753 | LR: 2.99e-04 | Tok/s: 9,339 | ETA: 50.4h
+Step  3500/55000 | stage_1 | Loss: 2.9583 | LR: 2.98e-04 | Tok/s: 9,339 | ETA: 50.3h
+Step  3600/55000 | stage_1 | Loss: 2.9268 | LR: 2.98e-04 | Tok/s: 9,339 | ETA: 50.2h
+Step  3700/55000 | stage_1 | Loss: 2.8547 | LR: 2.98e-04 | Tok/s: 9,339 | ETA: 50.1h
+Step  3800/55000 | stage_1 | Loss: 2.9631 | LR: 2.98e-04 | Tok/s: 9,339 | ETA: 50.0h
+Step  3900/55000 | stage_1 | Loss: 2.8140 | LR: 2.98e-04 | Tok/s: 9,339 | ETA: 49.9h
+Step  4000/55000 | stage_1 | Loss: 2.9131 | LR: 2.98e-04 | Tok/s: 9,339 | ETA: 49.8h
+
+  >>> Val loss: 4.9778 (new best!)
+Step  4100/55000 | stage_1 | Loss: 2.9269 | LR: 2.98e-04 | Tok/s: 8,492 | ETA: 49.9h
+Step  4200/55000 | stage_1 | Loss: 2.8185 | LR: 2.97e-04 | Tok/s: 9,339 | ETA: 49.8h
+Step  4300/55000 | stage_1 | Loss: 2.7849 | LR: 2.97e-04 | Tok/s: 9,339 | ETA: 49.6h
+Step  4400/55000 | stage_1 | Loss: 2.8282 | LR: 2.97e-04 | Tok/s: 9,339 | ETA: 49.5h
+Step  4500/55000 | stage_1 | Loss: 2.7881 | LR: 2.97e-04 | Tok/s: 9,339 | ETA: 49.4h
+Step  4600/55000 | stage_1 | Loss: 2.8023 | LR: 2.97e-04 | Tok/s: 9,339 | ETA: 49.3h
+Step  4700/55000 | stage_1 | Loss: 2.7336 | LR: 2.97e-04 | Tok/s: 9,339 | ETA: 49.2h
+Step  4800/55000 | stage_1 | Loss: 2.8152 | LR: 2.96e-04 | Tok/s: 9,339 | ETA: 49.1h
+Step  4900/55000 | stage_1 | Loss: 2.7195 | LR: 2.96e-04 | Tok/s: 9,339 | ETA: 49.0h
+Step  5000/55000 | stage_1 | Loss: 2.6905 | LR: 2.96e-04 | Tok/s: 9,340 | ETA: 48.9h
+
+  --- Samples at step 5000 ---
+  'The most important thing about...'
+    The most important thing about the Nordic region is that it's full of diverse wildlife, including many of which are endangered and harmful. This means that not only do we need to take care of the anim
+
+  'Gravity is a fundamental force that...'
+    Gravity is a fundamental force that has profound implications on our universe. When we die, gravity creates the universe, altering its state. This phenomenon occurs due to the interaction between matt
+
+  '<|user|> What causes earthquakes? <|assi...'
+    |
+       |
+        |
+        |
+        |
+        |
+      |
+    |
+    |
+    |
+    |
+   |
+    |
+  |
+  |
+  |
+| |
+| |
+
+  '<|user|> Explain how the internet works....'
+    
+
+  '<|user|> What is photosynthesis? <|assis...'
+    |
+
+  >>> Checkpoint saved at step 5000
+Step  5100/55000 | stage_1 | Loss: 2.8100 | LR: 2.96e-04 | Tok/s: 8,590 | ETA: 48.9h
+Step  5200/55000 | stage_1 | Loss: 2.6909 | LR: 2.96e-04 | Tok/s: 9,339 | ETA: 48.8h
+Step  5300/55000 | stage_1 | Loss: 2.7361 | LR: 2.95e-04 | Tok/s: 9,339 | ETA: 48.7h
+Step  5400/55000 | stage_1 | Loss: 2.7161 | LR: 2.95e-04 | Tok/s: 9,339 | ETA: 48.6h
+Step  5500/55000 | stage_1 | Loss: 2.6548 | LR: 2.95e-04 | Tok/s: 9,339 | ETA: 48.5h
+Step  5600/55000 | stage_1 | Loss: 2.6759 | LR: 2.95e-04 | Tok/s: 9,339 | ETA: 48.4h
+Step  5700/55000 | stage_1 | Loss: 2.6282 | LR: 2.95e-04 | Tok/s: 9,339 | ETA: 48.3h
+Step  5800/55000 | stage_1 | Loss: 2.7786 | LR: 2.94e-04 | Tok/s: 9,339 | ETA: 48.2h
+Step  5900/55000 | stage_1 | Loss: 2.6799 | LR: 2.94e-04 | Tok/s: 9,339 | ETA: 48.1h
+Step  6000/55000 | stage_1 | Loss: 2.6684 | LR: 2.94e-04 | Tok/s: 9,339 | ETA: 48.0h
+
+  >>> Val loss: 4.9301 (new best!)
+Step  6100/55000 | stage_1 | Loss: 2.6595 | LR: 2.94e-04 | Tok/s: 8,458 | ETA: 48.0h
+Step  6200/55000 | stage_1 | Loss: 2.5992 | LR: 2.93e-04 | Tok/s: 9,324 | ETA: 47.9h
+Step  6300/55000 | stage_1 | Loss: 2.7104 | LR: 2.93e-04 | Tok/s: 9,328 | ETA: 47.8h
+Step  6400/55000 | stage_1 | Loss: 2.6529 | LR: 2.93e-04 | Tok/s: 9,331 | ETA: 47.7h
+Step  6500/55000 | stage_1 | Loss: 2.6951 | LR: 2.93e-04 | Tok/s: 9,332 | ETA: 47.6h
+Step  6600/55000 | stage_1 | Loss: 2.6629 | LR: 2.92e-04 | Tok/s: 9,333 | ETA: 47.5h
+Step  6700/55000 | stage_1 | Loss: 2.5740 | LR: 2.92e-04 | Tok/s: 9,335 | ETA: 47.4h
+Step  6800/55000 | stage_1 | Loss: 2.5584 | LR: 2.92e-04 | Tok/s: 9,336 | ETA: 47.3h
+Step  6900/55000 | stage_1 | Loss: 2.6136 | LR: 2.92e-04 | Tok/s: 9,336 | ETA: 47.2h
+Step  7000/55000 | stage_1 | Loss: 2.6707 | LR: 2.91e-04 | Tok/s: 9,338 | ETA: 47.1h
+Step  7100/55000 | stage_1 | Loss: 2.5850 | LR: 2.91e-04 | Tok/s: 9,337 | ETA: 47.0h
+Step  7200/55000 | stage_1 | Loss: 2.6569 | LR: 2.91e-04 | Tok/s: 9,337 | ETA: 46.8h
+Step  7300/55000 | stage_1 | Loss: 2.6114 | LR: 2.90e-04 | Tok/s: 9,338 | ETA: 46.7h
+Step  7400/55000 | stage_1 | Loss: 2.5743 | LR: 2.90e-04 | Tok/s: 9,338 | ETA: 46.6h
+Step  7500/55000 | stage_1 | Loss: 2.6336 | LR: 2.90e-04 | Tok/s: 9,338 | ETA: 46.5h
+Step  7600/55000 | stage_1 | Loss: 2.6219 | LR: 2.89e-04 | Tok/s: 9,338 | ETA: 46.4h
+Step  7700/55000 | stage_1 | Loss: 2.6156 | LR: 2.89e-04 | Tok/s: 9,338 | ETA: 46.3h
+Step  7800/55000 | stage_1 | Loss: 2.6207 | LR: 2.89e-04 | Tok/s: 9,338 | ETA: 46.2h
+Step  7900/55000 | stage_1 | Loss: 2.5635 | LR: 2.88e-04 | Tok/s: 9,339 | ETA: 46.1h
+Step  8000/55000 | stage_2 | Loss: 3.3216 | LR: 2.88e-04 | Tok/s: 9,337 | ETA: 46.0h
+
+  >>> Val loss: 4.7415 (new best!)
+Step  8100/55000 | stage_2 | Loss: 3.2797 | LR: 2.88e-04 | Tok/s: 8,347 | ETA: 46.0h
+Step  8200/55000 | stage_2 | Loss: 3.0365 | LR: 2.87e-04 | Tok/s: 9,223 | ETA: 45.9h
+Step  8300/55000 | stage_2 | Loss: 3.0307 | LR: 2.87e-04 | Tok/s: 9,246 | ETA: 45.8h
+Step  8400/55000 | stage_2 | Loss: 3.0671 | LR: 2.87e-04 | Tok/s: 9,263 | ETA: 45.7h
+Step  8500/55000 | stage_2 | Loss: 3.2163 | LR: 2.86e-04 | Tok/s: 9,276 | ETA: 45.6h
+Step  8600/55000 | stage_2 | Loss: 3.1175 | LR: 2.86e-04 | Tok/s: 9,287 | ETA: 45.5h
+Step  8700/55000 | stage_2 | Loss: 3.0435 | LR: 2.86e-04 | Tok/s: 9,294 | ETA: 45.4h
+Step  8800/55000 | stage_2 | Loss: 2.9453 | LR: 2.85e-04 | Tok/s: 9,301 | ETA: 45.3h
+Step  8900/55000 | stage_2 | Loss: 3.0118 | LR: 2.85e-04 | Tok/s: 9,307 | ETA: 45.2h
+Step  9000/55000 | stage_2 | Loss: 2.8079 | LR: 2.85e-04 | Tok/s: 9,312 | ETA: 45.1h
+Step  9100/55000 | stage_2 | Loss: 2.9158 | LR: 2.84e-04 | Tok/s: 9,317 | ETA: 45.0h
+Step  9200/55000 | stage_2 | Loss: 3.0787 | LR: 2.84e-04 | Tok/s: 9,319 | ETA: 44.9h
+Step  9300/55000 | stage_2 | Loss: 2.8501 | LR: 2.83e-04 | Tok/s: 9,320 | ETA: 44.8h
+Step  9400/55000 | stage_2 | Loss: 2.9890 | LR: 2.83e-04 | Tok/s: 9,322 | ETA: 44.7h
+Step  9500/55000 | stage_2 | Loss: 2.8464 | LR: 2.83e-04 | Tok/s: 9,326 | ETA: 44.6h
+Step  9600/55000 | stage_2 | Loss: 2.8866 | LR: 2.82e-04 | Tok/s: 9,326 | ETA: 44.5h
+Step  9700/55000 | stage_2 | Loss: 3.0100 | LR: 2.82e-04 | Tok/s: 9,328 | ETA: 44.4h
+Step  9800/55000 | stage_2 | Loss: 2.9290 | LR: 2.81e-04 | Tok/s: 9,330 | ETA: 44.3h
+Step  9900/55000 | stage_2 | Loss: 3.0595 | LR: 2.81e-04 | Tok/s: 9,331 | ETA: 44.2h
+Step 10000/55000 | stage_2 | Loss: 2.9264 | LR: 2.81e-04 | Tok/s: 9,331 | ETA: 44.1h
+
+  >>> Val loss: 3.9839 (new best!)
+
+  --- Samples at step 10000 ---
+  'The most important thing about...'
+    The most important thing about these amazing systems is that they don't need to be expensive or expensive. We can compare them to the ones you may have seen in your own neighborhood.
+
+Bob: Oh, I see. 
+
+  'Gravity is a fundamental force that...'
+    Gravity is a fundamental force that has long fascinated scientists and philosophers alike. It is a fundamental force that exists and is subject to the law and order of law. In this chapter, we will de
+
+  '<|user|> What causes earthquakes? <|assi...'
+    <...confused | <...confused |
+  | --- | ... | --- |
+  | --- | ... | ... |
+  | ... | ... | ... | ... | ... | ... | ... | ... | ... | ... | ... | ... | ... | ... | ... | ... | --- | ... | ... | ... | ..
+
+  '<|user|> Explain how the internet works....'
+    | shy | w > | w > | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | w | 
+
+  '<|user|> What is photosynthesis? <|assis...'
+    - | Active carbon|                    |
+- | Active carbon| |                    |
+- | Active carbon| |                  |
+| | Active carbon| |               |
+
+  >>> Checkpoint saved at step 10000
+Step 10100/55000 | stage_2 | Loss: 2.7845 | LR: 2.80e-04 | Tok/s: 7,448 | ETA: 44.1h
+Step 10200/55000 | stage_2 | Loss: 2.8101 | LR: 2.80e-04 | Tok/s: 9,332 | ETA: 44.0h
+Step 10300/55000 | stage_2 | Loss: 2.9574 | LR: 2.79e-04 | Tok/s: 9,334 | ETA: 43.9h
+Step 10400/55000 | stage_2 | Loss: 2.8674 | LR: 2.79e-04 | Tok/s: 9,333 | ETA: 43.8h
+Step 10500/55000 | stage_2 | Loss: 2.8731 | LR: 2.78e-04 | Tok/s: 9,334 | ETA: 43.7h
+Step 10600/55000 | stage_2 | Loss: 2.9777 | LR: 2.78e-04 | Tok/s: 9,335 | ETA: 43.6h
+Step 10700/55000 | stage_2 | Loss: 2.9144 | LR: 2.78e-04 | Tok/s: 9,335 | ETA: 43.5h
+Step 10800/55000 | stage_2 | Loss: 2.9860 | LR: 2.77e-04 | Tok/s: 9,335 | ETA: 43.4h
+Step 10900/55000 | stage_2 | Loss: 2.8677 | LR: 2.77e-04 | Tok/s: 9,336 | ETA: 43.3h
+Step 11000/55000 | stage_2 | Loss: 2.8613 | LR: 2.76e-04 | Tok/s: 9,336 | ETA: 43.2h
+Step 11100/55000 | stage_2 | Loss: 2.8072 | LR: 2.76e-04 | Tok/s: 9,336 | ETA: 43.1h
+Step 11200/55000 | stage_2 | Loss: 2.7227 | LR: 2.75e-04 | Tok/s: 9,337 | ETA: 43.0h
+Step 11300/55000 | stage_2 | Loss: 2.9832 | LR: 2.75e-04 | Tok/s: 9,337 | ETA: 42.9h
+Step 11400/55000 | stage_2 | Loss: 3.0125 | LR: 2.74e-04 | Tok/s: 9,337 | ETA: 42.8h
+Step 11500/55000 | stage_2 | Loss: 2.7733 | LR: 2.74e-04 | Tok/s: 9,337 | ETA: 42.7h
+Step 11600/55000 | stage_2 | Loss: 2.9872 | LR: 2.73e-04 | Tok/s: 9,337 | ETA: 42.6h
+Step 11700/55000 | stage_2 | Loss: 2.7493 | LR: 2.73e-04 | Tok/s: 9,337 | ETA: 42.5h
+Step 11800/55000 | stage_2 | Loss: 3.0723 | LR: 2.72e-04 | Tok/s: 9,337 | ETA: 42.4h
+Step 11900/55000 | stage_2 | Loss: 2.7933 | LR: 2.72e-04 | Tok/s: 9,337 | ETA: 42.3h
+Step 12000/55000 | stage_2 | Loss: 2.8801 | LR: 2.71e-04 | Tok/s: 9,338 | ETA: 42.2h
+
+  >>> Val loss: 3.9132 (new best!)
+Step 12100/55000 | stage_2 | Loss: 2.9891 | LR: 2.71e-04 | Tok/s: 8,508 | ETA: 42.1h
+Step 12200/55000 | stage_2 | Loss: 2.7984 | LR: 2.70e-04 | Tok/s: 9,338 | ETA: 42.0h
+Step 12300/55000 | stage_2 | Loss: 2.8974 | LR: 2.70e-04 | Tok/s: 9,338 | ETA: 41.9h
+Step 12400/55000 | stage_2 | Loss: 2.7988 | LR: 2.69e-04 | Tok/s: 9,338 | ETA: 41.8h
+Step 12500/55000 | stage_2 | Loss: 2.8253 | LR: 2.69e-04 | Tok/s: 9,338 | ETA: 41.7h
+Step 12600/55000 | stage_2 | Loss: 2.7332 | LR: 2.68e-04 | Tok/s: 9,338 | ETA: 41.6h
+Step 12700/55000 | stage_2 | Loss: 2.7318 | LR: 2.68e-04 | Tok/s: 9,338 | ETA: 41.5h
+Step 12800/55000 | stage_2 | Loss: 3.0507 | LR: 2.67e-04 | Tok/s: 9,338 | ETA: 41.4h
+Step 12900/55000 | stage_2 | Loss: 2.9282 | LR: 2.67e-04 | Tok/s: 9,339 | ETA: 41.3h
+Step 13000/55000 | stage_2 | Loss: 2.6893 | LR: 2.66e-04 | Tok/s: 9,338 | ETA: 41.2h
+Step 13100/55000 | stage_2 | Loss: 2.8793 | LR: 2.66e-04 | Tok/s: 9,338 | ETA: 41.1h
+Step 13200/55000 | stage_2 | Loss: 2.8633 | LR: 2.65e-04 | Tok/s: 9,338 | ETA: 41.0h
+Step 13300/55000 | stage_2 | Loss: 2.8853 | LR: 2.64e-04 | Tok/s: 9,338 | ETA: 40.9h
+Step 13400/55000 | stage_2 | Loss: 2.9478 | LR: 2.64e-04 | Tok/s: 9,338 | ETA: 40.8h
+Step 13500/55000 | stage_2 | Loss: 2.8789 | LR: 2.63e-04 | Tok/s: 9,338 | ETA: 40.7h
+Step 13600/55000 | stage_2 | Loss: 2.7100 | LR: 2.63e-04 | Tok/s: 9,338 | ETA: 40.6h
+Step 13700/55000 | stage_2 | Loss: 2.8299 | LR: 2.62e-04 | Tok/s: 9,338 | ETA: 40.5h
+Step 13800/55000 | stage_2 | Loss: 2.8328 | LR: 2.62e-04 | Tok/s: 9,339 | ETA: 40.4h
+Step 13900/55000 | stage_2 | Loss: 2.8921 | LR: 2.61e-04 | Tok/s: 9,339 | ETA: 40.3h
+Step 14000/55000 | stage_2 | Loss: 2.9621 | LR: 2.60e-04 | Tok/s: 9,339 | ETA: 40.2h
+
+  >>> Val loss: 3.8552 (new best!)
+Step 14100/55000 | stage_2 | Loss: 2.7551 | LR: 2.60e-04 | Tok/s: 8,473 | ETA: 40.2h
+Step 14200/55000 | stage_2 | Loss: 2.8428 | LR: 2.59e-04 | Tok/s: 9,339 | ETA: 40.1h
+Step 14300/55000 | stage_2 | Loss: 2.9345 | LR: 2.59e-04 | Tok/s: 9,338 | ETA: 40.0h
+Step 14400/55000 | stage_2 | Loss: 2.9943 | LR: 2.58e-04 | Tok/s: 9,339 | ETA: 39.9h
+Step 14500/55000 | stage_2 | Loss: 2.9829 | LR: 2.58e-04 | Tok/s: 9,339 | ETA: 39.8h
+Step 14600/55000 | stage_2 | Loss: 2.8184 | LR: 2.57e-04 | Tok/s: 9,339 | ETA: 39.7h
+Step 14700/55000 | stage_2 | Loss: 2.6671 | LR: 2.56e-04 | Tok/s: 9,339 | ETA: 39.6h
+Step 14800/55000 | stage_2 | Loss: 2.8811 | LR: 2.56e-04 | Tok/s: 9,339 | ETA: 39.5h
+Step 14900/55000 | stage_2 | Loss: 2.7710 | LR: 2.55e-04 | Tok/s: 9,339 | ETA: 39.4h
+Step 15000/55000 | stage_2 | Loss: 2.6922 | LR: 2.55e-04 | Tok/s: 9,338 | ETA: 39.3h
+
+  --- Samples at step 15000 ---
+  'The most important thing about...'
+    The most important thing about these early civilizations was their ability to adapt quickly and efficiently. Let's dive into their fascinating world!
+
+**A Peek into the Past:**
+
+Before diving into the
+
+  'Gravity is a fundamental force that...'
+    Gravity is a fundamental force that arises when particles move outward in the air. The force exerted by a particle is called the gravitational force, and it can be described as follows:
+
+1. **Enceladu
+
+  '<|user|> What causes earthquakes? <|assi...'
+    |All of this?|||Earthquake|>
+|All the things that are happening at the site.|||Earthquake|>
+|All the things that sparkle in the rock.|||Earthquake|>
+|All other things that create the blast.|||Earthqua
+
+  '<|user|> Explain how the internet works....'
+    |Get the URL from the internet.|
+|You can see the URL from the Internet.|
+|You can see the URL from the Internet.|
+
+  '<|user|> What is photosynthesis? <|assis...'
+    |1.1.1.2.1.3.1.4.1.4.1.4.3.4.4.5.4.4.4.4.2.4.4.3.4.6.4.2.5.1.2.4.3.4.1.2.2.4.4.2.1.1.3.2.4.2.4.2.1.2
+
+  >>> Checkpoint saved at step 15000
+Step 15100/55000 | stage_2 | Loss: 2.6901 | LR: 2.54e-04 | Tok/s: 8,618 | ETA: 39.2h
+Step 15200/55000 | stage_2 | Loss: 2.8120 | LR: 2.53e-04 | Tok/s: 9,339 | ETA: 39.1h
+Step 15300/55000 | stage_2 | Loss: 2.8998 | LR: 2.53e-04 | Tok/s: 9,339 | ETA: 39.0h
+Step 15400/55000 | stage_2 | Loss: 2.7168 | LR: 2.52e-04 | Tok/s: 9,338 | ETA: 38.9h
+Step 15500/55000 | stage_2 | Loss: 2.7279 | LR: 2.51e-04 | Tok/s: 9,340 | ETA: 38.8h
+Step 15600/55000 | stage_2 | Loss: 2.6028 | LR: 2.51e-04 | Tok/s: 9,339 | ETA: 38.7h
+Step 15700/55000 | stage_2 | Loss: 2.7765 | LR: 2.50e-04 | Tok/s: 9,339 | ETA: 38.6h
+Step 15800/55000 | stage_2 | Loss: 2.7190 | LR: 2.49e-04 | Tok/s: 9,339 | ETA: 38.5h
+Step 15900/55000 | stage_2 | Loss: 2.7179 | LR: 2.49e-04 | Tok/s: 9,339 | ETA: 38.4h
+Step 16000/55000 | stage_2 | Loss: 2.9569 | LR: 2.48e-04 | Tok/s: 9,339 | ETA: 38.3h
+
+  >>> Val loss: 3.8060 (new best!)
+Step 16100/55000 | stage_2 | Loss: 2.6126 | LR: 2.48e-04 | Tok/s: 8,501 | ETA: 38.2h
+Step 16200/55000 | stage_2 | Loss: 2.8316 | LR: 2.47e-04 | Tok/s: 9,339 | ETA: 38.1h
+Step 16300/55000 | stage_2 | Loss: 2.8368 | LR: 2.46e-04 | Tok/s: 9,339 | ETA: 38.0h
+Step 16400/55000 | stage_2 | Loss: 2.9847 | LR: 2.46e-04 | Tok/s: 9,339 | ETA: 37.9h
+Step 16500/55000 | stage_2 | Loss: 2.7440 | LR: 2.45e-04 | Tok/s: 9,339 | ETA: 37.8h
+Step 16600/55000 | stage_2 | Loss: 2.8312 | LR: 2.44e-04 | Tok/s: 9,339 | ETA: 37.7h
+Step 16700/55000 | stage_2 | Loss: 2.8569 | LR: 2.44e-04 | Tok/s: 9,339 | ETA: 37.6h
+Step 16800/55000 | stage_2 | Loss: 2.8349 | LR: 2.43e-04 | Tok/s: 9,339 | ETA: 37.5h
+Step 16900/55000 | stage_2 | Loss: 2.7642 | LR: 2.42e-04 | Tok/s: 9,339 | ETA: 37.4h
+Step 17000/55000 | stage_2 | Loss: 2.7641 | LR: 2.42e-04 | Tok/s: 9,339 | ETA: 37.3h
+Step 17100/55000 | stage_2 | Loss: 2.8193 | LR: 2.41e-04 | Tok/s: 9,339 | ETA: 37.2h
+Step 17200/55000 | stage_2 | Loss: 2.6408 | LR: 2.40e-04 | Tok/s: 9,339 | ETA: 37.1h
+Step 17300/55000 | stage_2 | Loss: 2.8175 | LR: 2.40e-04 | Tok/s: 9,339 | ETA: 37.0h
+Step 17400/55000 | stage_2 | Loss: 2.7557 | LR: 2.39e-04 | Tok/s: 9,338 | ETA: 36.9h
+Step 17500/55000 | stage_2 | Loss: 2.7278 | LR: 2.38e-04 | Tok/s: 9,338 | ETA: 36.8h
+Step 17600/55000 | stage_2 | Loss: 2.8697 | LR: 2.37e-04 | Tok/s: 9,338 | ETA: 36.7h
+Step 17700/55000 | stage_2 | Loss: 2.7920 | LR: 2.37e-04 | Tok/s: 9,338 | ETA: 36.6h
+Step 17800/55000 | stage_2 | Loss: 2.7184 | LR: 2.36e-04 | Tok/s: 9,338 | ETA: 36.5h
+Step 17900/55000 | stage_2 | Loss: 2.8242 | LR: 2.35e-04 | Tok/s: 9,338 | ETA: 36.4h
+Step 18000/55000 | stage_2 | Loss: 2.8464 | LR: 2.35e-04 | Tok/s: 9,338 | ETA: 36.3h
+
+  >>> Val loss: 3.7227 (new best!)
+Step 18100/55000 | stage_2 | Loss: 2.7873 | LR: 2.34e-04 | Tok/s: 8,482 | ETA: 36.2h
+Step 18200/55000 | stage_2 | Loss: 2.7376 | LR: 2.33e-04 | Tok/s: 9,339 | ETA: 36.1h
+Step 18300/55000 | stage_2 | Loss: 2.7066 | LR: 2.33e-04 | Tok/s: 9,338 | ETA: 36.0h
+Step 18400/55000 | stage_2 | Loss: 2.7436 | LR: 2.32e-04 | Tok/s: 9,338 | ETA: 35.9h
+Step 18500/55000 | stage_2 | Loss: 2.8782 | LR: 2.31e-04 | Tok/s: 9,338 | ETA: 35.8h
+Step 18600/55000 | stage_2 | Loss: 2.8272 | LR: 2.30e-04 | Tok/s: 9,338 | ETA: 35.7h
+Step 18700/55000 | stage_2 | Loss: 2.7665 | LR: 2.30e-04 | Tok/s: 9,339 | ETA: 35.6h
+Step 18800/55000 | stage_2 | Loss: 2.6977 | LR: 2.29e-04 | Tok/s: 9,339 | ETA: 35.5h
+Step 18900/55000 | stage_2 | Loss: 2.8345 | LR: 2.28e-04 | Tok/s: 9,339 | ETA: 35.4h
+Step 19000/55000 | stage_2 | Loss: 2.7693 | LR: 2.27e-04 | Tok/s: 9,338 | ETA: 35.3h
+Step 19100/55000 | stage_2 | Loss: 2.8072 | LR: 2.27e-04 | Tok/s: 9,338 | ETA: 35.2h
+Step 19200/55000 | stage_2 | Loss: 2.7010 | LR: 2.26e-04 | Tok/s: 9,339 | ETA: 35.1h
+Step 19300/55000 | stage_2 | Loss: 2.8172 | LR: 2.25e-04 | Tok/s: 9,338 | ETA: 35.0h
+Step 19400/55000 | stage_2 | Loss: 2.7347 | LR: 2.25e-04 | Tok/s: 9,339 | ETA: 34.9h
+Step 19500/55000 | stage_2 | Loss: 2.6480 | LR: 2.24e-04 | Tok/s: 9,338 | ETA: 34.8h
+Step 19600/55000 | stage_2 | Loss: 2.7186 | LR: 2.23e-04 | Tok/s: 9,339 | ETA: 34.7h
+Step 19700/55000 | stage_2 | Loss: 2.6406 | LR: 2.22e-04 | Tok/s: 9,339 | ETA: 34.6h
+Step 19800/55000 | stage_2 | Loss: 2.6276 | LR: 2.22e-04 | Tok/s: 9,339 | ETA: 34.5h
+Step 19900/55000 | stage_2 | Loss: 2.6784 | LR: 2.21e-04 | Tok/s: 9,339 | ETA: 34.4h
+Step 20000/55000 | stage_2 | Loss: 2.6501 | LR: 2.20e-04 | Tok/s: 9,339 | ETA: 34.3h
+
+  >>> Val loss: 3.7131 (new best!)
+
+  --- Samples at step 20000 ---
+  'The most important thing about...'
+    The most important thing about the world is that they are very close to the policy community. If we are to use the research and policy process to make a difference, we need to be honest and honest abo
+
+  'Gravity is a fundamental force that...'
+    Gravity is a fundamental force that plays a significant role in various aspects of our lives. In this unit, we will explore gravity and its impact on our daily lives. We will also delve into how this 
+
+  '<|user|> What causes earthquakes? <|assi...'
+    - The behavior of the Earth
+- The amount of radiation that we are exposed to
+- The position at which the Earth rotates
+- The temperature of the Earth
+- The number of elastic atoms
+- The number of phas
+
+  '<|user|> Explain how the internet works....'
+    Associable URL: http://www.fna.com/Diagram/Dictionary/Dictionary/
+Provide a description of the steps that followed.
+Next, create a new search engine.
+An online search engine is a tool that looks for i
+
+  '<|user|> What is photosynthesis? <|assis...'
+    what is the key element in photosynthesis?
+Here is one of the organs that are found in plants that produce light.
+The first part of the leaf is opened and let the light enter. The first part of the le
+
+  >>> Checkpoint saved at step 20000
+Step 20100/55000 | stage_2 | Loss: 2.8655 | LR: 2.19e-04 | Tok/s: 7,447 | ETA: 34.3h
+Step 20200/55000 | stage_2 | Loss: 2.9517 | LR: 2.19e-04 | Tok/s: 9,339 | ETA: 34.2h
+Step 20300/55000 | stage_2 | Loss: 2.6767 | LR: 2.18e-04 | Tok/s: 9,339 | ETA: 34.1h
+Step 20400/55000 | stage_2 | Loss: 2.8205 | LR: 2.17e-04 | Tok/s: 9,339 | ETA: 34.0h
+Step 20500/55000 | stage_2 | Loss: 2.7848 | LR: 2.16e-04 | Tok/s: 9,339 | ETA: 33.9h
+Step 20600/55000 | stage_2 | Loss: 2.5294 | LR: 2.16e-04 | Tok/s: 9,338 | ETA: 33.8h
+Step 20700/55000 | stage_2 | Loss: 2.9044 | LR: 2.15e-04 | Tok/s: 9,338 | ETA: 33.7h
+Step 20800/55000 | stage_2 | Loss: 2.6118 | LR: 2.14e-04 | Tok/s: 9,339 | ETA: 33.6h
+Step 20900/55000 | stage_2 | Loss: 2.5787 | LR: 2.13e-04 | Tok/s: 9,339 | ETA: 33.5h
+Step 21000/55000 | stage_2 | Loss: 2.8061 | LR: 2.12e-04 | Tok/s: 9,339 | ETA: 33.4h
+Step 21100/55000 | stage_2 | Loss: 2.7279 | LR: 2.12e-04 | Tok/s: 9,339 | ETA: 33.3h
+Step 21200/55000 | stage_2 | Loss: 2.7024 | LR: 2.11e-04 | Tok/s: 9,339 | ETA: 33.2h
+Step 21300/55000 | stage_2 | Loss: 2.7714 | LR: 2.10e-04 | Tok/s: 9,339 | ETA: 33.1h
+Step 21400/55000 | stage_2 | Loss: 2.6654 | LR: 2.09e-04 | Tok/s: 9,339 | ETA: 33.0h
+Step 21500/55000 | stage_2 | Loss: 2.6895 | LR: 2.09e-04 | Tok/s: 9,339 | ETA: 32.9h
+Step 21600/55000 | stage_2 | Loss: 2.7869 | LR: 2.08e-04 | Tok/s: 9,339 | ETA: 32.8h
+Step 21700/55000 | stage_2 | Loss: 2.6212 | LR: 2.07e-04 | Tok/s: 9,339 | ETA: 32.7h
+Step 21800/55000 | stage_2 | Loss: 2.7358 | LR: 2.06e-04 | Tok/s: 9,339 | ETA: 32.6h
+Step 21900/55000 | stage_2 | Loss: 2.4918 | LR: 2.05e-04 | Tok/s: 9,339 | ETA: 32.5h
+Step 22000/55000 | stage_2 | Loss: 2.7392 | LR: 2.05e-04 | Tok/s: 9,339 | ETA: 32.4h
+
+  >>> Val loss: 3.7068 (new best!)
+Step 22100/55000 | stage_2 | Loss: 2.7820 | LR: 2.04e-04 | Tok/s: 8,505 | ETA: 32.3h
+Step 22200/55000 | stage_2 | Loss: 2.6950 | LR: 2.03e-04 | Tok/s: 9,339 | ETA: 32.2h
+Step 22300/55000 | stage_2 | Loss: 2.8315 | LR: 2.02e-04 | Tok/s: 9,339 | ETA: 32.1h
+Step 22400/55000 | stage_2 | Loss: 2.7292 | LR: 2.01e-04 | Tok/s: 9,339 | ETA: 32.0h
+Step 22500/55000 | stage_2 | Loss: 2.6305 | LR: 2.01e-04 | Tok/s: 9,339 | ETA: 31.9h
+Step 22600/55000 | stage_2 | Loss: 2.6274 | LR: 2.00e-04 | Tok/s: 9,339 | ETA: 31.8h
+Step 22700/55000 | stage_2 | Loss: 2.6546 | LR: 1.99e-04 | Tok/s: 9,339 | ETA: 31.7h
+Step 22800/55000 | stage_2 | Loss: 2.6287 | LR: 1.98e-04 | Tok/s: 9,339 | ETA: 31.6h
+Step 22900/55000 | stage_2 | Loss: 2.6699 | LR: 1.97e-04 | Tok/s: 9,339 | ETA: 31.5h
+Step 23000/55000 | stage_2 | Loss: 2.6625 | LR: 1.97e-04 | Tok/s: 9,339 | ETA: 31.4h
+Step 23100/55000 | stage_2 | Loss: 2.7052 | LR: 1.96e-04 | Tok/s: 9,339 | ETA: 31.3h
+Step 23200/55000 | stage_2 | Loss: 2.5382 | LR: 1.95e-04 | Tok/s: 9,339 | ETA: 31.2h
+Step 23300/55000 | stage_2 | Loss: 2.7103 | LR: 1.94e-04 | Tok/s: 9,339 | ETA: 31.1h
+Step 23400/55000 | stage_2 | Loss: 2.7118 | LR: 1.93e-04 | Tok/s: 9,339 | ETA: 31.0h
+Step 23500/55000 | stage_2 | Loss: 2.6675 | LR: 1.93e-04 | Tok/s: 9,339 | ETA: 30.9h
+Step 23600/55000 | stage_2 | Loss: 2.5455 | LR: 1.92e-04 | Tok/s: 9,339 | ETA: 30.8h
+Step 23700/55000 | stage_2 | Loss: 2.5476 | LR: 1.91e-04 | Tok/s: 9,339 | ETA: 30.7h
+Step 23800/55000 | stage_2 | Loss: 2.6958 | LR: 1.90e-04 | Tok/s: 9,339 | ETA: 30.6h
+Step 23900/55000 | stage_2 | Loss: 2.6965 | LR: 1.89e-04 | Tok/s: 9,340 | ETA: 30.5h
+Step 24000/55000 | stage_2 | Loss: 2.4668 | LR: 1.88e-04 | Tok/s: 9,339 | ETA: 30.4h
+
+  >>> Val loss: 3.7092 
+Step 24100/55000 | stage_2 | Loss: 2.6842 | LR: 1.88e-04 | Tok/s: 9,268 | ETA: 30.3h
+Step 24200/55000 | stage_2 | Loss: 2.6360 | LR: 1.87e-04 | Tok/s: 9,339 | ETA: 30.2h
+Step 24300/55000 | stage_2 | Loss: 2.5051 | LR: 1.86e-04 | Tok/s: 9,339 | ETA: 30.1h
+Step 24400/55000 | stage_2 | Loss: 2.7580 | LR: 1.85e-04 | Tok/s: 9,339 | ETA: 30.0h
+Step 24500/55000 | stage_2 | Loss: 2.6455 | LR: 1.84e-04 | Tok/s: 9,339 | ETA: 29.9h
+Step 24600/55000 | stage_2 | Loss: 2.5824 | LR: 1.83e-04 | Tok/s: 9,339 | ETA: 29.8h
+Step 24700/55000 | stage_2 | Loss: 2.7509 | LR: 1.83e-04 | Tok/s: 9,339 | ETA: 29.7h
+Step 24800/55000 | stage_2 | Loss: 2.5803 | LR: 1.82e-04 | Tok/s: 9,339 | ETA: 29.6h
+Step 24900/55000 | stage_2 | Loss: 2.7374 | LR: 1.81e-04 | Tok/s: 9,339 | ETA: 29.5h
+Step 25000/55000 | stage_2 | Loss: 2.6475 | LR: 1.80e-04 | Tok/s: 9,339 | ETA: 29.4h
+
+  --- Samples at step 25000 ---
+  'The most important thing about...'
+    The most important thing about this is that we shouldn't judge a book by its cover, making it less valuable to our readers.
+
+I hope you enjoyed discovering the fascinating world of books and the impor
+
+  'Gravity is a fundamental force that...'
+    Gravity is a fundamental force that underlies gravity and other forces. It is a force that pulls objects towards each other and with mass. For example, when you lift a book, it raises the object towar
+
+  '<|user|> What causes earthquakes? <|assi...'
+    |Observations:||p-A|
+<a> |        |
+
+  '<|user|> Explain how the internet works....'
+    If there is no user, then then the Internet will be accessible.
+If there is no user, then then the Internet will be accessible.
+If there is no user, then then you are accessing the Internet
+before you
+
+  '<|user|> What is photosynthesis? <|assis...'
+    In the 13th century, astronomer John Boyle first discovered the idea of photosynthesis. After studying theellophoretic principle, John Watson had discovered that sunlight and water are made up of four
+
+  >>> Checkpoint saved at step 25000
+Step 25100/55000 | stage_2 | Loss: 2.7015 | LR: 1.79e-04 | Tok/s: 8,613 | ETA: 29.3h
+Step 25200/55000 | stage_2 | Loss: 2.8015 | LR: 1.79e-04 | Tok/s: 9,339 | ETA: 29.3h
+Step 25300/55000 | stage_2 | Loss: 2.7306 | LR: 1.78e-04 | Tok/s: 9,339 | ETA: 29.2h
+Step 25400/55000 | stage_2 | Loss: 2.6956 | LR: 1.77e-04 | Tok/s: 9,339 | ETA: 29.1h
+Step 25500/55000 | stage_2 | Loss: 2.5779 | LR: 1.76e-04 | Tok/s: 9,339 | ETA: 29.0h
+Step 25600/55000 | stage_2 | Loss: 2.7513 | LR: 1.75e-04 | Tok/s: 9,339 | ETA: 28.9h
+Step 25700/55000 | stage_2 | Loss: 2.4596 | LR: 1.74e-04 | Tok/s: 9,339 | ETA: 28.8h
+Step 25800/55000 | stage_2 | Loss: 2.6439 | LR: 1.74e-04 | Tok/s: 9,339 | ETA: 28.7h
+Step 25900/55000 | stage_2 | Loss: 2.8363 | LR: 1.73e-04 | Tok/s: 9,339 | ETA: 28.6h
+Step 26000/55000 | stage_2 | Loss: 2.5609 | LR: 1.72e-04 | Tok/s: 9,339 | ETA: 28.5h
+
+  >>> Val loss: 3.6189 (new best!)
+Step 26100/55000 | stage_2 | Loss: 2.7016 | LR: 1.71e-04 | Tok/s: 8,492 | ETA: 28.4h
+Step 26200/55000 | stage_2 | Loss: 2.5514 | LR: 1.70e-04 | Tok/s: 9,339 | ETA: 28.3h
+Step 26300/55000 | stage_2 | Loss: 2.4749 | LR: 1.69e-04 | Tok/s: 9,339 | ETA: 28.2h
+Step 26400/55000 | stage_2 | Loss: 2.8310 | LR: 1.68e-04 | Tok/s: 9,339 | ETA: 28.1h
+Step 26500/55000 | stage_2 | Loss: 2.6634 | LR: 1.68e-04 | Tok/s: 9,339 | ETA: 28.0h
+Step 26600/55000 | stage_2 | Loss: 2.6194 | LR: 1.67e-04 | Tok/s: 9,340 | ETA: 27.9h
+Step 26700/55000 | stage_2 | Loss: 2.7593 | LR: 1.66e-04 | Tok/s: 9,339 | ETA: 27.8h
+Step 26800/55000 | stage_2 | Loss: 2.5571 | LR: 1.65e-04 | Tok/s: 9,339 | ETA: 27.7h
+Step 26900/55000 | stage_2 | Loss: 2.5971 | LR: 1.64e-04 | Tok/s: 9,339 | ETA: 27.6h
+Step 27000/55000 | stage_2 | Loss: 2.6245 | LR: 1.63e-04 | Tok/s: 9,339 | ETA: 27.5h
+Step 27100/55000 | stage_2 | Loss: 2.6878 | LR: 1.63e-04 | Tok/s: 9,339 | ETA: 27.4h
+Step 27200/55000 | stage_2 | Loss: 2.4340 | LR: 1.62e-04 | Tok/s: 9,339 | ETA: 27.3h
+Step 27300/55000 | stage_2 | Loss: 2.6401 | LR: 1.61e-04 | Tok/s: 9,339 | ETA: 27.2h
+Step 27400/55000 | stage_2 | Loss: 2.5691 | LR: 1.60e-04 | Tok/s: 9,339 | ETA: 27.1h
+Step 27500/55000 | stage_2 | Loss: 2.8211 | LR: 1.59e-04 | Tok/s: 9,339 | ETA: 27.0h
+Step 27600/55000 | stage_2 | Loss: 2.8288 | LR: 1.58e-04 | Tok/s: 9,339 | ETA: 26.9h
+Step 27700/55000 | stage_2 | Loss: 2.7437 | LR: 1.58e-04 | Tok/s: 9,339 | ETA: 26.8h
+Step 27800/55000 | stage_2 | Loss: 2.6190 | LR: 1.57e-04 | Tok/s: 9,339 | ETA: 26.7h
+Step 27900/55000 | stage_2 | Loss: 2.6530 | LR: 1.56e-04 | Tok/s: 9,339 | ETA: 26.6h
+Step 28000/55000 | stage_2 | Loss: 2.7597 | LR: 1.55e-04 | Tok/s: 9,339 | ETA: 26.5h
+
+  >>> Val loss: 3.5967 (new best!)
+Step 28100/55000 | stage_2 | Loss: 2.6008 | LR: 1.54e-04 | Tok/s: 8,503 | ETA: 26.4h
+Step 28200/55000 | stage_2 | Loss: 2.4058 | LR: 1.53e-04 | Tok/s: 9,339 | ETA: 26.3h
+Step 28300/55000 | stage_2 | Loss: 2.6180 | LR: 1.52e-04 | Tok/s: 9,339 | ETA: 26.2h
+Step 28400/55000 | stage_2 | Loss: 2.5776 | LR: 1.52e-04 | Tok/s: 9,339 | ETA: 26.1h
+Step 28500/55000 | stage_2 | Loss: 2.6396 | LR: 1.51e-04 | Tok/s: 9,339 | ETA: 26.0h
+Step 28600/55000 | stage_2 | Loss: 2.5959 | LR: 1.50e-04 | Tok/s: 9,339 | ETA: 25.9h
+Step 28700/55000 | stage_2 | Loss: 2.4895 | LR: 1.49e-04 | Tok/s: 9,339 | ETA: 25.8h
+Step 28800/55000 | stage_2 | Loss: 2.5662 | LR: 1.48e-04 | Tok/s: 9,339 | ETA: 25.7h
+Step 28900/55000 | stage_2 | Loss: 2.6926 | LR: 1.47e-04 | Tok/s: 9,339 | ETA: 25.6h
+Step 29000/55000 | stage_2 | Loss: 2.4000 | LR: 1.47e-04 | Tok/s: 9,339 | ETA: 25.5h
+Step 29100/55000 | stage_2 | Loss: 2.5861 | LR: 1.46e-04 | Tok/s: 9,340 | ETA: 25.4h
+Step 29200/55000 | stage_2 | Loss: 2.5062 | LR: 1.45e-04 | Tok/s: 9,339 | ETA: 25.3h
+Step 29300/55000 | stage_2 | Loss: 2.6333 | LR: 1.44e-04 | Tok/s: 9,339 | ETA: 25.2h
+Step 29400/55000 | stage_2 | Loss: 2.6399 | LR: 1.43e-04 | Tok/s: 9,339 | ETA: 25.1h
+Step 29500/55000 | stage_2 | Loss: 2.6013 | LR: 1.42e-04 | Tok/s: 9,339 | ETA: 25.0h
+Step 29600/55000 | stage_2 | Loss: 2.8579 | LR: 1.42e-04 | Tok/s: 9,339 | ETA: 24.9h
+Step 29700/55000 | stage_2 | Loss: 2.4573 | LR: 1.41e-04 | Tok/s: 9,339 | ETA: 24.8h
+Step 29800/55000 | stage_2 | Loss: 2.5448 | LR: 1.40e-04 | Tok/s: 9,339 | ETA: 24.7h
+Step 29900/55000 | stage_2 | Loss: 2.5081 | LR: 1.39e-04 | Tok/s: 9,339 | ETA: 24.6h
+Step 30000/55000 | stage_2 | Loss: 2.5518 | LR: 1.38e-04 | Tok/s: 9,339 | ETA: 24.5h
+
+  >>> Val loss: 3.5795 (new best!)
+
+  --- Samples at step 30000 ---
+  'The most important thing about...'
+    The most important thing about these cells is that they don't produce any hormones. They are not moving around like the other cells.
+- They do not have the ability to produce endorphins, which are che
+
+  'Gravity is a fundamental force that...'
+    Gravity is a fundamental force that has shaped the Earth's history. The gravitational pull of gravitational attraction, which determines the direction of gravity, is the law of universal gravitation:
+
+
+  '<|user|> What causes earthquakes? <|assi...'
+    >Preliminary findings of earthquake intensity data suggest they occurred in the early 2000s.
+>The magnitude of the quake in 1998 was been consistent across the whole of the country.
+>The magnitude of 
+
+  '<|user|> Explain how the internet works....'
+    Using a parameters definition, you could express this as follows:
+<A: "I'm trying to get the best out of the internet",
+<1: "But I'm not sure if you're going there too, let me know!"
+Remember, stateme
+
+  '<|user|> What is photosynthesis? <|assis...'
+    What is photosynthesis?
+<|the zone in which the plant grows, the zone in which it develops, the zone by which it grows?
+<|the zone in which the plant grows, the zone in which it grows, the zone in whi
+
+  >>> Checkpoint saved at step 30000
+Step 30100/55000 | stage_2 | Loss: 2.5813 | LR: 1.37e-04 | Tok/s: 7,460 | ETA: 24.4h
+Step 30200/55000 | stage_2 | Loss: 2.6902 | LR: 1.36e-04 | Tok/s: 9,339 | ETA: 24.4h
+Step 30300/55000 | stage_2 | Loss: 2.6668 | LR: 1.36e-04 | Tok/s: 9,339 | ETA: 24.3h
+Step 30400/55000 | stage_2 | Loss: 2.7136 | LR: 1.35e-04 | Tok/s: 9,339 | ETA: 24.2h
+Step 30500/55000 | stage_2 | Loss: 2.5869 | LR: 1.34e-04 | Tok/s: 9,339 | ETA: 24.1h
+Step 30600/55000 | stage_2 | Loss: 2.4597 | LR: 1.33e-04 | Tok/s: 9,339 | ETA: 24.0h
+Step 30700/55000 | stage_2 | Loss: 2.4627 | LR: 1.32e-04 | Tok/s: 9,339 | ETA: 23.9h
+Step 30800/55000 | stage_2 | Loss: 2.5858 | LR: 1.31e-04 | Tok/s: 9,339 | ETA: 23.8h
+Step 30900/55000 | stage_2 | Loss: 2.5821 | LR: 1.31e-04 | Tok/s: 9,339 | ETA: 23.7h
+Step 31000/55000 | stage_2 | Loss: 2.3575 | LR: 1.30e-04 | Tok/s: 9,339 | ETA: 23.6h
+Step 31100/55000 | stage_2 | Loss: 2.6271 | LR: 1.29e-04 | Tok/s: 9,339 | ETA: 23.5h
+Step 31200/55000 | stage_2 | Loss: 2.6497 | LR: 1.28e-04 | Tok/s: 9,339 | ETA: 23.4h
+Step 31300/55000 | stage_2 | Loss: 2.8372 | LR: 1.27e-04 | Tok/s: 9,340 | ETA: 23.3h
+Step 31400/55000 | stage_2 | Loss: 2.4590 | LR: 1.27e-04 | Tok/s: 9,339 | ETA: 23.2h
+Step 31500/55000 | stage_2 | Loss: 2.6089 | LR: 1.26e-04 | Tok/s: 9,339 | ETA: 23.1h
+Step 31600/55000 | stage_2 | Loss: 2.5372 | LR: 1.25e-04 | Tok/s: 9,339 | ETA: 23.0h
+Step 31700/55000 | stage_2 | Loss: 2.4414 | LR: 1.24e-04 | Tok/s: 9,339 | ETA: 22.9h
+Step 31800/55000 | stage_2 | Loss: 2.3751 | LR: 1.23e-04 | Tok/s: 9,339 | ETA: 22.8h
+Step 31900/55000 | stage_2 | Loss: 2.5679 | LR: 1.22e-04 | Tok/s: 9,339 | ETA: 22.7h
+Step 32000/55000 | stage_2 | Loss: 2.5767 | LR: 1.22e-04 | Tok/s: 9,339 | ETA: 22.6h
+
+  >>> Val loss: 3.5690 (new best!)
+Step 32100/55000 | stage_2 | Loss: 2.6426 | LR: 1.21e-04 | Tok/s: 8,474 | ETA: 22.5h
+Step 32200/55000 | stage_2 | Loss: 2.6199 | LR: 1.20e-04 | Tok/s: 9,339 | ETA: 22.4h
+Step 32300/55000 | stage_2 | Loss: 2.4871 | LR: 1.19e-04 | Tok/s: 9,339 | ETA: 22.3h
+Step 32400/55000 | stage_2 | Loss: 2.5711 | LR: 1.18e-04 | Tok/s: 9,339 | ETA: 22.2h
+Step 32500/55000 | stage_2 | Loss: 2.6392 | LR: 1.17e-04 | Tok/s: 9,338 | ETA: 22.1h
+Step 32600/55000 | stage_2 | Loss: 2.4842 | LR: 1.17e-04 | Tok/s: 9,339 | ETA: 22.0h
+Step 32700/55000 | stage_2 | Loss: 2.5703 | LR: 1.16e-04 | Tok/s: 9,339 | ETA: 21.9h
+Step 32800/55000 | stage_2 | Loss: 2.6523 | LR: 1.15e-04 | Tok/s: 9,339 | ETA: 21.8h
+Step 32900/55000 | stage_2 | Loss: 2.5432 | LR: 1.14e-04 | Tok/s: 9,339 | ETA: 21.7h
+Step 33000/55000 | stage_2 | Loss: 2.5452 | LR: 1.13e-04 | Tok/s: 9,339 | ETA: 21.6h
+Step 33100/55000 | stage_2 | Loss: 2.4429 | LR: 1.13e-04 | Tok/s: 9,338 | ETA: 21.5h
+Step 33200/55000 | stage_2 | Loss: 2.5840 | LR: 1.12e-04 | Tok/s: 9,338 | ETA: 21.4h
+Step 33300/55000 | stage_2 | Loss: 2.7435 | LR: 1.11e-04 | Tok/s: 9,338 | ETA: 21.3h
+Step 33400/55000 | stage_2 | Loss: 2.5960 | LR: 1.10e-04 | Tok/s: 9,338 | ETA: 21.2h
+Step 33500/55000 | stage_2 | Loss: 2.6352 | LR: 1.09e-04 | Tok/s: 9,339 | ETA: 21.1h
+Step 33600/55000 | stage_2 | Loss: 2.5000 | LR: 1.09e-04 | Tok/s: 9,339 | ETA: 21.0h
+Step 33700/55000 | stage_2 | Loss: 2.7195 | LR: 1.08e-04 | Tok/s: 9,338 | ETA: 20.9h
+Step 33800/55000 | stage_2 | Loss: 2.5443 | LR: 1.07e-04 | Tok/s: 9,339 | ETA: 20.8h
+Step 33900/55000 | stage_2 | Loss: 2.4926 | LR: 1.06e-04 | Tok/s: 9,338 | ETA: 20.7h
+Step 34000/55000 | stage_2 | Loss: 2.5362 | LR: 1.05e-04 | Tok/s: 9,339 | ETA: 20.6h
+
+  >>> Val loss: 3.5131 (new best!)
+Step 34100/55000 | stage_2 | Loss: 2.6555 | LR: 1.05e-04 | Tok/s: 8,501 | ETA: 20.5h
+Step 34200/55000 | stage_2 | Loss: 2.4455 | LR: 1.04e-04 | Tok/s: 9,339 | ETA: 20.4h
+Step 34300/55000 | stage_2 | Loss: 2.6670 | LR: 1.03e-04 | Tok/s: 9,338 | ETA: 20.3h
+Step 34400/55000 | stage_2 | Loss: 2.5293 | LR: 1.02e-04 | Tok/s: 9,339 | ETA: 20.2h
+Step 34500/55000 | stage_2 | Loss: 2.4502 | LR: 1.01e-04 | Tok/s: 9,339 | ETA: 20.1h
+Step 34600/55000 | stage_2 | Loss: 2.6433 | LR: 1.01e-04 | Tok/s: 9,338 | ETA: 20.0h
+Step 34700/55000 | stage_2 | Loss: 2.5206 | LR: 9.99e-05 | Tok/s: 9,338 | ETA: 19.9h
+Step 34800/55000 | stage_2 | Loss: 2.5301 | LR: 9.91e-05 | Tok/s: 9,338 | ETA: 19.8h
+Step 34900/55000 | stage_2 | Loss: 2.4313 | LR: 9.83e-05 | Tok/s: 9,339 | ETA: 19.7h
+Step 35000/55000 | stage_2 | Loss: 2.5285 | LR: 9.76e-05 | Tok/s: 9,339 | ETA: 19.6h
+
+  --- Samples at step 35000 ---
+  'The most important thing about...'
+    The most important thing about the Gardening Club is that they often have a lot of other helpful tools like gardening books, an electrical grid with a garden plot, a small garden head, and a handy too
+
+  'Gravity is a fundamental force that...'
+    Gravity is a fundamental force that pulls objects toward the center of the object, while gravity allows objects to move around without resistance.
+
+The Newtonian force is defined as the ratio of the m
+
+  '<|user|> What causes earthquakes? <|assi...'
+    What causes earthquakes?
+<|current electric current in the earth|>
+How does the earth move?
+<|geomagnetic field (G/m^2)
+The earth's magnetic field acts as a magnetic field against the earth's surface.
+
+  '<|user|> Explain how the internet works....'
+    Find a translation or translation of this sentence.
+The page is being reviewed.
+The above is a excerpt from the Oxford English Dictionary.
+Read the translation or translation before you go.
+
+  '<|user|> What is photosynthesis? <|assis...'
+    How does photosynthesis work?
+<|aint="one of the many ways in which plants convert sunlight into energy,"
+|samples||||I did the research on photosynthesis, and I will use it in my next project. I will
+
+  >>> Checkpoint saved at step 35000
+Step 35100/55000 | stage_2 | Loss: 2.3923 | LR: 9.68e-05 | Tok/s: 8,612 | ETA: 19.5h
+Step 35200/55000 | stage_2 | Loss: 2.5924 | LR: 9.60e-05 | Tok/s: 9,339 | ETA: 19.4h
+Step 35300/55000 | stage_2 | Loss: 2.5997 | LR: 9.53e-05 | Tok/s: 9,339 | ETA: 19.3h
+Step 35400/55000 | stage_2 | Loss: 2.5245 | LR: 9.45e-05 | Tok/s: 9,339 | ETA: 19.2h
+Step 35500/55000 | stage_2 | Loss: 2.5816 | LR: 9.37e-05 | Tok/s: 9,339 | ETA: 19.1h
+Step 35600/55000 | stage_2 | Loss: 2.4469 | LR: 9.30e-05 | Tok/s: 9,339 | ETA: 19.0h
+Step 35700/55000 | stage_2 | Loss: 2.3880 | LR: 9.22e-05 | Tok/s: 9,339 | ETA: 18.9h
+Step 35800/55000 | stage_2 | Loss: 2.6726 | LR: 9.14e-05 | Tok/s: 9,339 | ETA: 18.8h
+Step 35900/55000 | stage_2 | Loss: 2.4849 | LR: 9.07e-05 | Tok/s: 9,339 | ETA: 18.7h
+Step 36000/55000 | stage_2 | Loss: 2.5746 | LR: 8.99e-05 | Tok/s: 9,339 | ETA: 18.6h
+
+  >>> Val loss: 3.4765 (new best!)
+Step 36100/55000 | stage_2 | Loss: 2.5219 | LR: 8.92e-05 | Tok/s: 8,504 | ETA: 18.6h
+Step 36200/55000 | stage_2 | Loss: 2.5664 | LR: 8.84e-05 | Tok/s: 9,339 | ETA: 18.5h
+Step 36300/55000 | stage_2 | Loss: 2.5056 | LR: 8.77e-05 | Tok/s: 9,339 | ETA: 18.4h
+Step 36400/55000 | stage_2 | Loss: 2.5220 | LR: 8.69e-05 | Tok/s: 9,339 | ETA: 18.3h
+Step 36500/55000 | stage_2 | Loss: 2.6510 | LR: 8.62e-05 | Tok/s: 9,339 | ETA: 18.2h
+Step 36600/55000 | stage_2 | Loss: 2.6239 | LR: 8.54e-05 | Tok/s: 9,339 | ETA: 18.1h
+Step 36700/55000 | stage_2 | Loss: 2.6309 | LR: 8.47e-05 | Tok/s: 9,339 | ETA: 18.0h
+Step 36800/55000 | stage_2 | Loss: 2.6148 | LR: 8.40e-05 | Tok/s: 9,338 | ETA: 17.9h
+Step 36900/55000 | stage_2 | Loss: 2.4916 | LR: 8.32e-05 | Tok/s: 9,337 | ETA: 17.8h
+Step 37000/55000 | stage_2 | Loss: 2.5318 | LR: 8.25e-05 | Tok/s: 9,340 | ETA: 17.7h
+Step 37100/55000 | stage_2 | Loss: 2.5726 | LR: 8.18e-05 | Tok/s: 9,338 | ETA: 17.6h
+Step 37200/55000 | stage_2 | Loss: 2.5821 | LR: 8.10e-05 | Tok/s: 9,338 | ETA: 17.5h
+Step 37300/55000 | stage_2 | Loss: 2.4212 | LR: 8.03e-05 | Tok/s: 9,339 | ETA: 17.4h
+Step 37400/55000 | stage_2 | Loss: 2.5126 | LR: 7.96e-05 | Tok/s: 9,339 | ETA: 17.3h
+Step 37500/55000 | stage_2 | Loss: 2.4441 | LR: 7.89e-05 | Tok/s: 9,339 | ETA: 17.2h
+Step 37600/55000 | stage_2 | Loss: 2.4997 | LR: 7.82e-05 | Tok/s: 9,340 | ETA: 17.1h
+Step 37700/55000 | stage_2 | Loss: 2.5868 | LR: 7.74e-05 | Tok/s: 9,339 | ETA: 17.0h
+Step 37800/55000 | stage_2 | Loss: 2.5792 | LR: 7.67e-05 | Tok/s: 9,338 | ETA: 16.9h
+Step 37900/55000 | stage_2 | Loss: 2.5454 | LR: 7.60e-05 | Tok/s: 9,339 | ETA: 16.8h
+Step 38000/55000 | stage_3 | Loss: 3.6999 | LR: 7.53e-05 | Tok/s: 9,337 | ETA: 16.7h
+
+  >>> Val loss: 3.5002 
+Step 38100/55000 | stage_3 | Loss: 3.6079 | LR: 7.46e-05 | Tok/s: 9,139 | ETA: 16.6h
+Step 38200/55000 | stage_3 | Loss: 3.5861 | LR: 7.39e-05 | Tok/s: 9,252 | ETA: 16.5h
+Step 38300/55000 | stage_3 | Loss: 3.4320 | LR: 7.32e-05 | Tok/s: 9,278 | ETA: 16.4h
+Step 38400/55000 | stage_3 | Loss: 3.5669 | LR: 7.25e-05 | Tok/s: 9,295 | ETA: 16.3h
+Step 38500/55000 | stage_3 | Loss: 3.6008 | LR: 7.18e-05 | Tok/s: 9,305 | ETA: 16.2h
+Step 38600/55000 | stage_3 | Loss: 3.5969 | LR: 7.11e-05 | Tok/s: 9,314 | ETA: 16.1h
+Step 38700/55000 | stage_3 | Loss: 3.5970 | LR: 7.05e-05 | Tok/s: 9,319 | ETA: 16.0h
+Step 38800/55000 | stage_3 | Loss: 3.5510 | LR: 6.98e-05 | Tok/s: 9,325 | ETA: 15.9h
+Step 38900/55000 | stage_3 | Loss: 3.5411 | LR: 6.91e-05 | Tok/s: 9,327 | ETA: 15.8h
+Step 39000/55000 | stage_3 | Loss: 3.4938 | LR: 6.84e-05 | Tok/s: 9,330 | ETA: 15.7h
+Step 39100/55000 | stage_3 | Loss: 3.5321 | LR: 6.77e-05 | Tok/s: 9,331 | ETA: 15.6h
+Step 39200/55000 | stage_3 | Loss: 3.5462 | LR: 6.71e-05 | Tok/s: 9,333 | ETA: 15.5h
+Step 39300/55000 | stage_3 | Loss: 3.4948 | LR: 6.64e-05 | Tok/s: 9,334 | ETA: 15.4h
+Step 39400/55000 | stage_3 | Loss: 3.5446 | LR: 6.57e-05 | Tok/s: 9,334 | ETA: 15.3h
+Step 39500/55000 | stage_3 | Loss: 3.5656 | LR: 6.51e-05 | Tok/s: 9,335 | ETA: 15.2h
+Step 39600/55000 | stage_3 | Loss: 3.5405 | LR: 6.44e-05 | Tok/s: 9,336 | ETA: 15.1h
+Step 39700/55000 | stage_3 | Loss: 3.5381 | LR: 6.37e-05 | Tok/s: 9,336 | ETA: 15.0h
+Step 39800/55000 | stage_3 | Loss: 3.5964 | LR: 6.31e-05 | Tok/s: 9,336 | ETA: 14.9h
+Step 39900/55000 | stage_3 | Loss: 3.5908 | LR: 6.24e-05 | Tok/s: 9,337 | ETA: 14.8h
+Step 40000/55000 | stage_3 | Loss: 3.5457 | LR: 6.18e-05 | Tok/s: 9,337 | ETA: 14.7h
+
+  >>> Val loss: 3.4008 (new best!)
+
+  --- Samples at step 40000 ---
+  'The most important thing about...'
+    The most important thing about the history of the United States is that it was a great country.
+The people who lived here have also been affected by the Spanish conquest.
+In the beginning there were m
+
+  'Gravity is a fundamental force that...'
+    Gravity is a fundamental force that affects our lives in many ways. First, it is a powerful force that has the ability to change the way we think, act, and feel. Second, it can help us overcome our in
+
+  '<|user|> What causes earthquakes? <|assi...'
+    <|user|>
+<|lock|>
+<|user|>
+<|host/server|>
+<|user|>
+<|user|>
+<|host/server|>
+<|user|>
+<|host/server|>
+<|user|>
+<|host/server|>
+<|host/server|>
+<|host/server|>
+<|host/server|>
+<|
+
+  '<|user|> Explain how the internet works....'
+    - The URL is the link in the address bar.
+- The browser buttons make the link appear on the screen.
+- The browser is usually displayed at the top of the page.
+- The browser is displayed at the bottom 
+
+  '<|user|> What is photosynthesis? <|assis...'
+    - The main part of photosynthesis is the production of green light that we can see in visible light in the form of a red light.
+- It is the primary process by which light energy is transferred to the 
+
+  >>> Checkpoint saved at step 40000
+Step 40100/55000 | stage_3 | Loss: 3.3839 | LR: 6.12e-05 | Tok/s: 7,449 | ETA: 14.6h
+Step 40200/55000 | stage_3 | Loss: 3.4295 | LR: 6.05e-05 | Tok/s: 9,338 | ETA: 14.5h
+Step 40300/55000 | stage_3 | Loss: 3.5052 | LR: 5.99e-05 | Tok/s: 9,338 | ETA: 14.4h
+Step 40400/55000 | stage_3 | Loss: 3.5256 | LR: 5.92e-05 | Tok/s: 9,338 | ETA: 14.3h
+Step 40500/55000 | stage_3 | Loss: 3.3612 | LR: 5.86e-05 | Tok/s: 9,338 | ETA: 14.2h
+Step 40600/55000 | stage_3 | Loss: 3.4496 | LR: 5.80e-05 | Tok/s: 9,338 | ETA: 14.1h
+Step 40700/55000 | stage_3 | Loss: 3.4024 | LR: 5.74e-05 | Tok/s: 9,338 | ETA: 14.0h
+Step 40800/55000 | stage_3 | Loss: 3.3114 | LR: 5.67e-05 | Tok/s: 9,338 | ETA: 13.9h
+Step 40900/55000 | stage_3 | Loss: 3.4865 | LR: 5.61e-05 | Tok/s: 9,338 | ETA: 13.8h
+Step 41000/55000 | stage_3 | Loss: 3.5490 | LR: 5.55e-05 | Tok/s: 9,339 | ETA: 13.7h
+Step 41100/55000 | stage_3 | Loss: 3.3948 | LR: 5.49e-05 | Tok/s: 9,339 | ETA: 13.6h
+Step 41200/55000 | stage_3 | Loss: 3.4184 | LR: 5.43e-05 | Tok/s: 9,338 | ETA: 13.5h
+Step 41300/55000 | stage_3 | Loss: 3.4835 | LR: 5.37e-05 | Tok/s: 9,339 | ETA: 13.4h
+Step 41400/55000 | stage_3 | Loss: 3.5091 | LR: 5.31e-05 | Tok/s: 9,339 | ETA: 13.3h
+Step 41500/55000 | stage_3 | Loss: 3.3902 | LR: 5.25e-05 | Tok/s: 9,338 | ETA: 13.3h
+Step 41600/55000 | stage_3 | Loss: 3.5039 | LR: 5.19e-05 | Tok/s: 9,338 | ETA: 13.2h
+Step 41700/55000 | stage_3 | Loss: 3.5027 | LR: 5.13e-05 | Tok/s: 9,338 | ETA: 13.1h
+Step 41800/55000 | stage_3 | Loss: 3.3470 | LR: 5.07e-05 | Tok/s: 9,338 | ETA: 13.0h
+Step 41900/55000 | stage_3 | Loss: 3.4647 | LR: 5.01e-05 | Tok/s: 9,339 | ETA: 12.9h
+Step 42000/55000 | stage_3 | Loss: 3.3935 | LR: 4.95e-05 | Tok/s: 9,338 | ETA: 12.8h
+
+  >>> Val loss: 3.3766 (new best!)
+Step 42100/55000 | stage_3 | Loss: 3.4028 | LR: 4.90e-05 | Tok/s: 8,503 | ETA: 12.7h
+Step 42200/55000 | stage_3 | Loss: 3.3975 | LR: 4.84e-05 | Tok/s: 9,338 | ETA: 12.6h
+Step 42300/55000 | stage_3 | Loss: 3.4238 | LR: 4.78e-05 | Tok/s: 9,339 | ETA: 12.5h
+Step 42400/55000 | stage_3 | Loss: 3.4542 | LR: 4.72e-05 | Tok/s: 9,339 | ETA: 12.4h
+Step 42500/55000 | stage_3 | Loss: 3.4256 | LR: 4.67e-05 | Tok/s: 9,339 | ETA: 12.3h
+Step 42600/55000 | stage_3 | Loss: 3.4944 | LR: 4.61e-05 | Tok/s: 9,339 | ETA: 12.2h
+Step 42700/55000 | stage_3 | Loss: 3.4621 | LR: 4.56e-05 | Tok/s: 9,339 | ETA: 12.1h
+Step 42800/55000 | stage_3 | Loss: 3.4551 | LR: 4.50e-05 | Tok/s: 9,339 | ETA: 12.0h
+Step 42900/55000 | stage_3 | Loss: 3.4421 | LR: 4.45e-05 | Tok/s: 9,339 | ETA: 11.9h
+Step 43000/55000 | stage_3 | Loss: 3.4066 | LR: 4.39e-05 | Tok/s: 9,339 | ETA: 11.8h
+Step 43100/55000 | stage_3 | Loss: 3.4526 | LR: 4.34e-05 | Tok/s: 9,339 | ETA: 11.7h
+Step 43200/55000 | stage_3 | Loss: 3.3060 | LR: 4.28e-05 | Tok/s: 9,339 | ETA: 11.6h
+Step 43300/55000 | stage_3 | Loss: 3.3439 | LR: 4.23e-05 | Tok/s: 9,339 | ETA: 11.5h
+Step 43400/55000 | stage_3 | Loss: 3.4716 | LR: 4.18e-05 | Tok/s: 9,339 | ETA: 11.4h
+Step 43500/55000 | stage_3 | Loss: 3.3893 | LR: 4.13e-05 | Tok/s: 9,339 | ETA: 11.3h
+Step 43600/55000 | stage_3 | Loss: 3.3931 | LR: 4.07e-05 | Tok/s: 9,339 | ETA: 11.2h
+Step 43700/55000 | stage_3 | Loss: 3.4740 | LR: 4.02e-05 | Tok/s: 9,339 | ETA: 11.1h
+Step 43800/55000 | stage_3 | Loss: 3.4431 | LR: 3.97e-05 | Tok/s: 9,339 | ETA: 11.0h
+Step 43900/55000 | stage_3 | Loss: 3.4731 | LR: 3.92e-05 | Tok/s: 9,339 | ETA: 10.9h
+Step 44000/55000 | stage_3 | Loss: 3.4984 | LR: 3.87e-05 | Tok/s: 9,339 | ETA: 10.8h
+
+  >>> Val loss: 3.3497 (new best!)
+Step 44100/55000 | stage_3 | Loss: 3.3590 | LR: 3.82e-05 | Tok/s: 8,490 | ETA: 10.7h
+Step 44200/55000 | stage_3 | Loss: 3.3324 | LR: 3.77e-05 | Tok/s: 9,339 | ETA: 10.6h
+Step 44300/55000 | stage_3 | Loss: 3.4564 | LR: 3.72e-05 | Tok/s: 9,339 | ETA: 10.5h
+Step 44400/55000 | stage_3 | Loss: 3.3866 | LR: 3.67e-05 | Tok/s: 9,339 | ETA: 10.4h
+Step 44500/55000 | stage_3 | Loss: 3.4716 | LR: 3.62e-05 | Tok/s: 9,339 | ETA: 10.3h
+Step 44600/55000 | stage_3 | Loss: 3.4119 | LR: 3.57e-05 | Tok/s: 9,339 | ETA: 10.2h
+Step 44700/55000 | stage_3 | Loss: 3.4605 | LR: 3.53e-05 | Tok/s: 9,339 | ETA: 10.1h
+Step 44800/55000 | stage_3 | Loss: 3.3694 | LR: 3.48e-05 | Tok/s: 9,339 | ETA: 10.0h
+Step 44900/55000 | stage_3 | Loss: 3.3908 | LR: 3.43e-05 | Tok/s: 9,339 | ETA: 9.9h
+Step 45000/55000 | stage_3 | Loss: 3.5096 | LR: 3.39e-05 | Tok/s: 9,339 | ETA: 9.8h
+
+  --- Samples at step 45000 ---
+  'The most important thing about...'
+    The most important thing about the “tid management” is that it doesn’t require any extra gear. You must be very careful when you go to the vet for a TEC. The vet will clean your dog’s ears, mouth, nos
+
+  'Gravity is a fundamental force that...'
+    Gravity is a fundamental force that affects the motion of objects, and is the force that moves objects in a direction.
+The motion of planets is the force which is exerted on them. The force between th
+
+  '<|user|> What causes earthquakes? <|assi...'
+    Yes, earthquakes are caused by the movement of rock and water under the Earth’s surface. They are caused by the movement of fluids, rock and water that move under the Earth’s surface. The movement of 
+
+  '<|user|> Explain how the internet works....'
+    The first thing you need to do is to select a web page from the list of web pages you are looking for. In order to get a page you must select the page which you wish to visit.
+<Tagged_content>
+This is
+
+  '<|user|> What is photosynthesis? <|assis...'
+    What is chlorophyll?
+<|content-specific|>
+What is the name of the plant?
+<|content-specific|>
+What is photosynthesis?
+<|content-specific|>
+What is photosynthesis?
+<|content-specific|>
+What is photosyn
+
+  >>> Checkpoint saved at step 45000
+Step 45100/55000 | stage_3 | Loss: 3.4072 | LR: 3.34e-05 | Tok/s: 8,592 | ETA: 9.7h
+Step 45200/55000 | stage_3 | Loss: 3.3969 | LR: 3.29e-05 | Tok/s: 9,339 | ETA: 9.6h
+Step 45300/55000 | stage_3 | Loss: 3.3742 | LR: 3.25e-05 | Tok/s: 9,339 | ETA: 9.5h
+Step 45400/55000 | stage_3 | Loss: 3.3035 | LR: 3.20e-05 | Tok/s: 9,339 | ETA: 9.4h
+Step 45500/55000 | stage_3 | Loss: 3.3678 | LR: 3.16e-05 | Tok/s: 9,339 | ETA: 9.3h
+Step 45600/55000 | stage_3 | Loss: 3.4851 | LR: 3.11e-05 | Tok/s: 9,339 | ETA: 9.2h
+Step 45700/55000 | stage_3 | Loss: 3.4871 | LR: 3.07e-05 | Tok/s: 9,339 | ETA: 9.1h
+Step 45800/55000 | stage_3 | Loss: 3.4373 | LR: 3.03e-05 | Tok/s: 9,339 | ETA: 9.0h
+Step 45900/55000 | stage_3 | Loss: 3.3731 | LR: 2.99e-05 | Tok/s: 9,339 | ETA: 8.9h
+Step 46000/55000 | stage_3 | Loss: 3.4775 | LR: 2.94e-05 | Tok/s: 9,339 | ETA: 8.8h
+
+  >>> Val loss: 3.3974 
+Step 46100/55000 | stage_3 | Loss: 3.3631 | LR: 2.90e-05 | Tok/s: 9,267 | ETA: 8.7h
+Step 46200/55000 | stage_3 | Loss: 3.4402 | LR: 2.86e-05 | Tok/s: 9,339 | ETA: 8.6h
+Step 46300/55000 | stage_3 | Loss: 3.4632 | LR: 2.82e-05 | Tok/s: 9,339 | ETA: 8.5h
+Step 46400/55000 | stage_3 | Loss: 3.4166 | LR: 2.78e-05 | Tok/s: 9,339 | ETA: 8.4h
+Step 46500/55000 | stage_3 | Loss: 3.4088 | LR: 2.74e-05 | Tok/s: 9,339 | ETA: 8.3h
+Step 46600/55000 | stage_3 | Loss: 3.2626 | LR: 2.70e-05 | Tok/s: 9,339 | ETA: 8.2h
+Step 46700/55000 | stage_3 | Loss: 3.3132 | LR: 2.66e-05 | Tok/s: 9,340 | ETA: 8.1h
+Step 46800/55000 | stage_3 | Loss: 3.4279 | LR: 2.62e-05 | Tok/s: 9,339 | ETA: 8.0h
+Step 46900/55000 | stage_3 | Loss: 3.3169 | LR: 2.58e-05 | Tok/s: 9,339 | ETA: 7.9h
+Step 47000/55000 | stage_3 | Loss: 3.4337 | LR: 2.54e-05 | Tok/s: 9,339 | ETA: 7.9h
+Step 47100/55000 | stage_3 | Loss: 3.4307 | LR: 2.50e-05 | Tok/s: 9,339 | ETA: 7.8h
+Step 47200/55000 | stage_3 | Loss: 3.3922 | LR: 2.47e-05 | Tok/s: 9,339 | ETA: 7.7h
+Step 47300/55000 | stage_3 | Loss: 3.3442 | LR: 2.43e-05 | Tok/s: 9,339 | ETA: 7.6h
+Step 47400/55000 | stage_3 | Loss: 3.4013 | LR: 2.39e-05 | Tok/s: 9,339 | ETA: 7.5h
+Step 47500/55000 | stage_3 | Loss: 3.3934 | LR: 2.36e-05 | Tok/s: 9,339 | ETA: 7.4h
+Step 47600/55000 | stage_3 | Loss: 3.3704 | LR: 2.32e-05 | Tok/s: 9,339 | ETA: 7.3h
+Step 47700/55000 | stage_3 | Loss: 3.3309 | LR: 2.29e-05 | Tok/s: 9,339 | ETA: 7.2h
+Step 47800/55000 | stage_3 | Loss: 3.3866 | LR: 2.25e-05 | Tok/s: 9,339 | ETA: 7.1h
+Step 47900/55000 | stage_3 | Loss: 3.3797 | LR: 2.22e-05 | Tok/s: 9,339 | ETA: 7.0h
+Step 48000/55000 | stage_3 | Loss: 3.4095 | LR: 2.19e-05 | Tok/s: 9,339 | ETA: 6.9h
+
+  >>> Val loss: 3.3031 (new best!)
+Step 48100/55000 | stage_3 | Loss: 3.3348 | LR: 2.15e-05 | Tok/s: 8,509 | ETA: 6.8h
+Step 48200/55000 | stage_3 | Loss: 3.3706 | LR: 2.12e-05 | Tok/s: 9,340 | ETA: 6.7h
+Step 48300/55000 | stage_3 | Loss: 3.2993 | LR: 2.09e-05 | Tok/s: 9,339 | ETA: 6.6h
+Step 48400/55000 | stage_3 | Loss: 3.3686 | LR: 2.06e-05 | Tok/s: 9,339 | ETA: 6.5h
+Step 48500/55000 | stage_3 | Loss: 3.3471 | LR: 2.02e-05 | Tok/s: 9,339 | ETA: 6.4h
+Step 48600/55000 | stage_3 | Loss: 3.2930 | LR: 1.99e-05 | Tok/s: 9,339 | ETA: 6.3h
+Step 48700/55000 | stage_3 | Loss: 3.3239 | LR: 1.96e-05 | Tok/s: 9,339 | ETA: 6.2h
+Step 48800/55000 | stage_3 | Loss: 3.3777 | LR: 1.93e-05 | Tok/s: 9,339 | ETA: 6.1h
+Step 48900/55000 | stage_3 | Loss: 3.4094 | LR: 1.90e-05 | Tok/s: 9,339 | ETA: 6.0h
+Step 49000/55000 | stage_3 | Loss: 3.4114 | LR: 1.87e-05 | Tok/s: 9,339 | ETA: 5.9h
+Step 49100/55000 | stage_3 | Loss: 3.4255 | LR: 1.85e-05 | Tok/s: 9,339 | ETA: 5.8h
+Step 49200/55000 | stage_3 | Loss: 3.3898 | LR: 1.82e-05 | Tok/s: 9,339 | ETA: 5.7h
+Step 49300/55000 | stage_3 | Loss: 3.3213 | LR: 1.79e-05 | Tok/s: 9,340 | ETA: 5.6h
+Step 49400/55000 | stage_3 | Loss: 3.3439 | LR: 1.76e-05 | Tok/s: 9,339 | ETA: 5.5h
+Step 49500/55000 | stage_3 | Loss: 3.3271 | LR: 1.74e-05 | Tok/s: 9,339 | ETA: 5.4h
+Step 49600/55000 | stage_3 | Loss: 3.2632 | LR: 1.71e-05 | Tok/s: 9,340 | ETA: 5.3h
+Step 49700/55000 | stage_3 | Loss: 3.3616 | LR: 1.68e-05 | Tok/s: 9,339 | ETA: 5.2h
+Step 49800/55000 | stage_3 | Loss: 3.3809 | LR: 1.66e-05 | Tok/s: 9,339 | ETA: 5.1h
+Step 49900/55000 | stage_3 | Loss: 3.3257 | LR: 1.63e-05 | Tok/s: 9,339 | ETA: 5.0h
+Step 50000/55000 | stage_3 | Loss: 3.4143 | LR: 1.61e-05 | Tok/s: 9,339 | ETA: 4.9h
+
+  >>> Val loss: 3.3362 
+
+  --- Samples at step 50000 ---
+  'The most important thing about...'
+    The most important thing about the Fort of Nantes is that it was an important part of the colonial project. The fort was built for the purpose of protecting the French from attacks. The fort was desig
+
+  'Gravity is a fundamental force that...'
+    Gravity is a fundamental force that underlies the entire universe, instead of being a single entity. The force is moving in a constant direction. The gravitational force is so strong that it can creat
+
+  '<|user|> What causes earthquakes? <|assi...'
+    Why should we watch for earthquakes?
+<|user|>
+What is the estimated time for a tsunami?
+The time it takes for a tsunami to travel from one location to another is called the tsunami period. A tsunami i
+
+  '<|user|> Explain how the internet works....'
+    Find out how the internet works.
+- What is the Internet?
+- How does it work?
+- How does it work?
+- What is the Internet service?
+- How does it work?
+- What is the difference between a computer and a p
+
+  '<|user|> What is photosynthesis? <|assis...'
+    What is photosynthesis?
+<|attributor|>
+What is photosynthesis?
+<|attributor|>
+What is photosynthesis?
+<|attributor|>
+What is photosynthesis?
+<|attributor|>
+Which of the following is not photosynthetic
+
+  >>> Checkpoint saved at step 50000
+Step 50100/55000 | stage_3 | Loss: 3.3265 | LR: 1.59e-05 | Tok/s: 8,525 | ETA: 4.8h
+Step 50200/55000 | stage_3 | Loss: 3.3220 | LR: 1.56e-05 | Tok/s: 9,339 | ETA: 4.7h
+Step 50300/55000 | stage_3 | Loss: 3.3963 | LR: 1.54e-05 | Tok/s: 9,339 | ETA: 4.6h
+Step 50400/55000 | stage_3 | Loss: 3.3752 | LR: 1.52e-05 | Tok/s: 9,339 | ETA: 4.5h
+Step 50500/55000 | stage_3 | Loss: 3.3376 | LR: 1.49e-05 | Tok/s: 9,339 | ETA: 4.4h
+Step 50600/55000 | stage_3 | Loss: 3.3827 | LR: 1.47e-05 | Tok/s: 9,339 | ETA: 4.3h
+Step 50700/55000 | stage_3 | Loss: 3.3253 | LR: 1.45e-05 | Tok/s: 9,339 | ETA: 4.2h
+Step 50800/55000 | stage_3 | Loss: 3.3969 | LR: 1.43e-05 | Tok/s: 9,339 | ETA: 4.1h
+Step 50900/55000 | stage_3 | Loss: 3.3192 | LR: 1.41e-05 | Tok/s: 9,340 | ETA: 4.0h
+Step 51000/55000 | stage_3 | Loss: 3.2795 | LR: 1.39e-05 | Tok/s: 9,340 | ETA: 3.9h
+Step 51100/55000 | stage_3 | Loss: 3.3191 | LR: 1.37e-05 | Tok/s: 9,340 | ETA: 3.8h
+Step 51200/55000 | stage_3 | Loss: 3.4043 | LR: 1.35e-05 | Tok/s: 9,340 | ETA: 3.7h
+Step 51300/55000 | stage_3 | Loss: 3.2698 | LR: 1.33e-05 | Tok/s: 9,340 | ETA: 3.6h
+Step 51400/55000 | stage_3 | Loss: 3.3716 | LR: 1.32e-05 | Tok/s: 9,339 | ETA: 3.5h
+Step 51500/55000 | stage_3 | Loss: 3.3880 | LR: 1.30e-05 | Tok/s: 9,340 | ETA: 3.4h
+Step 51600/55000 | stage_3 | Loss: 3.3209 | LR: 1.28e-05 | Tok/s: 9,340 | ETA: 3.3h
+Step 51700/55000 | stage_3 | Loss: 3.3106 | LR: 1.27e-05 | Tok/s: 9,339 | ETA: 3.2h
+Step 51800/55000 | stage_3 | Loss: 3.3259 | LR: 1.25e-05 | Tok/s: 9,340 | ETA: 3.1h
+Step 51900/55000 | stage_3 | Loss: 3.2629 | LR: 1.24e-05 | Tok/s: 9,340 | ETA: 3.0h
+Step 52000/55000 | stage_3 | Loss: 3.3560 | LR: 1.22e-05 | Tok/s: 9,340 | ETA: 2.9h
+
+  >>> Val loss: 3.3162 
+Step 52100/55000 | stage_3 | Loss: 3.2475 | LR: 1.21e-05 | Tok/s: 9,268 | ETA: 2.8h
+Step 52200/55000 | stage_3 | Loss: 3.2296 | LR: 1.19e-05 | Tok/s: 9,339 | ETA: 2.7h
+Step 52300/55000 | stage_3 | Loss: 3.3643 | LR: 1.18e-05 | Tok/s: 9,339 | ETA: 2.6h
+Step 52400/55000 | stage_3 | Loss: 3.3539 | LR: 1.17e-05 | Tok/s: 9,340 | ETA: 2.6h
+Step 52500/55000 | stage_3 | Loss: 3.3418 | LR: 1.15e-05 | Tok/s: 9,339 | ETA: 2.5h
+Step 52600/55000 | stage_3 | Loss: 3.3562 | LR: 1.14e-05 | Tok/s: 9,339 | ETA: 2.4h
+Step 52700/55000 | stage_3 | Loss: 3.4057 | LR: 1.13e-05 | Tok/s: 9,339 | ETA: 2.3h
+Step 52800/55000 | stage_3 | Loss: 3.3918 | LR: 1.12e-05 | Tok/s: 9,339 | ETA: 2.2h
+Step 52900/55000 | stage_3 | Loss: 3.3664 | LR: 1.11e-05 | Tok/s: 9,340 | ETA: 2.1h
+Step 53000/55000 | stage_3 | Loss: 3.3142 | LR: 1.10e-05 | Tok/s: 9,339 | ETA: 2.0h
+Step 53100/55000 | stage_3 | Loss: 3.4658 | LR: 1.09e-05 | Tok/s: 9,339 | ETA: 1.9h
+Step 53200/55000 | stage_3 | Loss: 3.3272 | LR: 1.08e-05 | Tok/s: 9,340 | ETA: 1.8h
+Step 53300/55000 | stage_3 | Loss: 3.3650 | LR: 1.07e-05 | Tok/s: 9,339 | ETA: 1.7h
+Step 53400/55000 | stage_3 | Loss: 3.4418 | LR: 1.06e-05 | Tok/s: 9,340 | ETA: 1.6h
+Step 53500/55000 | stage_3 | Loss: 3.3629 | LR: 1.06e-05 | Tok/s: 9,339 | ETA: 1.5h
+Step 53600/55000 | stage_3 | Loss: 3.3676 | LR: 1.05e-05 | Tok/s: 9,339 | ETA: 1.4h
+Step 53700/55000 | stage_3 | Loss: 3.3780 | LR: 1.04e-05 | Tok/s: 9,340 | ETA: 1.3h
+Step 53800/55000 | stage_3 | Loss: 3.3340 | LR: 1.04e-05 | Tok/s: 9,340 | ETA: 1.2h
+Step 53900/55000 | stage_3 | Loss: 3.4055 | LR: 1.03e-05 | Tok/s: 9,340 | ETA: 1.1h
+Step 54000/55000 | stage_3 | Loss: 3.4137 | LR: 1.02e-05 | Tok/s: 9,339 | ETA: 1.0h
+
+  >>> Val loss: 3.3298 
+Step 54100/55000 | stage_3 | Loss: 3.3258 | LR: 1.02e-05 | Tok/s: 9,268 | ETA: 0.9h
+Step 54200/55000 | stage_3 | Loss: 3.3540 | LR: 1.02e-05 | Tok/s: 9,340 | ETA: 0.8h
+Step 54300/55000 | stage_3 | Loss: 3.3229 | LR: 1.01e-05 | Tok/s: 9,339 | ETA: 0.7h
+Step 54400/55000 | stage_3 | Loss: 3.3743 | LR: 1.01e-05 | Tok/s: 9,340 | ETA: 0.6h
+Step 54500/55000 | stage_3 | Loss: 3.4472 | LR: 1.01e-05 | Tok/s: 9,339 | ETA: 0.5h
+Step 54600/55000 | stage_3 | Loss: 3.3168 | LR: 1.00e-05 | Tok/s: 9,340 | ETA: 0.4h
+Step 54700/55000 | stage_3 | Loss: 3.3363 | LR: 1.00e-05 | Tok/s: 9,340 | ETA: 0.3h
+Step 54800/55000 | stage_3 | Loss: 3.3180 | LR: 1.00e-05 | Tok/s: 9,339 | ETA: 0.2h
+Step 54900/55000 | stage_3 | Loss: 3.3830 | LR: 1.00e-05 | Tok/s: 9,339 | ETA: 0.1h
+
+============================================================
+TRAINING COMPLETE
+  Best val loss: 3.3031
+  Total time: 53.9 hours
+  Experiment: experiments/20260926_220527
+============================================================
+
+=== Final Generations ===
+
+Prompt: 'The most important thing about'
+Output: The most important thing about this example is that it is a type of parallel computing that can be trained on a lot of data, and it is very fast.
+More about the case study here.
+
+Prompt: 'Gravity is a fundamental force that'
+Output: Gravity is a fundamental force that moves around objects and is essential to our survival. It’s not only the force at the top of the Earth that keeps our planet from falling over. It’s the force created by gravity that keeps our planet from falling over.
+So, what is the main difference between gravi
+
+Prompt: '<|user|>
+What causes earthquakes?
+<|assistant|>'
+Output: What do we do to stay safe?
+<|$user|>
+What are the possible effects of earthquakes?
+<|user|>
+How do we avoid a tsunami?
+<|user|>
+What are the possible effects of earthquakes?
+<|user|>
+What are the possible effects of earthquakes?
+<|user|>
+What are the possible effects of earthquakes?
+<|user|>
+What d
+
+Prompt: '<|user|>
+Explain how the internet works.
+<|assistant|>'
+Output: <|user|>
+<|user|>
+<|user|>
+<|user|>
+<|user|>
+<|user|>
+In order to set up a network, we need to set up the assumption that you are connecting to the internet.
+To set up a network, you need to make sure you have a number of devices on your network.
+The address of the device is the number that tells yo
+
+Prompt: '<|user|>
+What is photosynthesis?
+<|assistant|>'
+Output: 1. The process of photosynthesis is a natural process in which organisms use sunlight and other materials (such as carbon dioxide) to grow and multiply.
+2. The process is based on a key difference in the chemical reactions between the two molecules.
+3. The process is largely controlled by the abilit
+

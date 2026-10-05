@@ -1,0 +1,78 @@
+PROMPT: <|user|>
+What causes earthquakes?
+<|assistant|>
+
+OUTPUT: <|user|>
+What causes earthquakes?
+<|assistant|>
+masses
+
+Earthquakes are caused by the movement of energy. The energy is caused by moving objects.
+------------------------------------------------------------
+PROMPT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+
+OUTPUT: <|user|>
+A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+<|assistant|>
+To calculate the total cost of the apples, we need to multiply the cost of the apples by the price per kg:
+
+Total cost = Cost per kg * Price per kg
+                  = $3 * $3
+                  = $90
+
+So, I would pay $90 for the apples.
+------------------------------------------------------------
+PROMPT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+
+OUTPUT: <|user|>
+Explain how the internet works in simple terms.
+<|assistant|>
+The internet is a network of computers and devices that connect people and information to each other. It's a global network that allows people to communicate with each other over the internet.
+
+The first thing you need to know about the internet is that it's not just a place to go to a store. It's also a global network that connects computers across countries and continents.
+
+The internet is very important for the world economy. It helps people connect and share things like data, messages, and goods. It also helps in making decisions about our major events, such as budgeting and planning, which affect our world.
+
+The internet also helps in many other things. It helps us learn new things, find out about a certain topic,
+------------------------------------------------------------
+PROMPT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+
+OUTPUT: <|user|>
+Write a Python function to check if a number is prime.
+<|assistant|>
+def is_prime(n):
+    if n == 0:
+        return True
+    else:
+        return False
+------------------------------------------------------------
+PROMPT: <|user|>
+What is photosynthesis?
+<|assistant|>
+
+OUTPUT: <|user|>
+What is photosynthesis?
+<|assistant|>
+photosynthesis
+
+Photosynthesis is the process in which water and carbon dioxide are released into the atmosphere. This energy is used by living organisms, plants, and other organisms. Photosynthesis makes food, and it also breaks down food molecules so they can be used up.
+------------------------------------------------------------
+PROMPT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+
+OUTPUT: <|user|>
+Why do seasons change throughout the year?
+<|assistant|>
+The weather can vary greatly depending on the season. Generally, months are cold and rain are maximum. In the fall or spring, temperatures range from 32°F (0°C) to 37°F (1°C). This gives you a chance to see the weather in your area during the spring and summer months, as it's a period of 24 hours.
+
+In the summer months, temperatures range from 32°F to 37°F (0°C). So, during this season, the temperature in the summer months is likely warmer than the summer months because warm air from the summer air rises. This is the most common factor in the summer months.
+
+In the winter months, temperatures range from 32°F (0
+------------------------------------------------------------

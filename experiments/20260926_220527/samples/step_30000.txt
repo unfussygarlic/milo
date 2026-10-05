@@ -1,0 +1,57 @@
+PROMPT: The most important thing about
+OUTPUT: The most important thing about these cells is that they don't produce any hormones. They are not moving around like the other cells.
+- They do not have the ability to produce endorphins, which are chemicals that stimulate the production of seizure-like feelings.
+- They don't have the ability to produce endorphins, or to produce endorphins – or those chemicals that stimulate the production of endorphins.
+- They are not toxic and have no effect on the brain.
+- They are not
+------------------------------------------------------------
+PROMPT: Gravity is a fundamental force that
+OUTPUT: Gravity is a fundamental force that has shaped the Earth's history. The gravitational pull of gravitational attraction, which determines the direction of gravity, is the law of universal gravitation:
+
+$$g = \frac{\partial^2 u}{\partial x^2} $$
+
+where $u$ is the gravitational pull, $U$ and $x$ are masses, $\partial x$ is the speed of light, and $\partial x$ is the acceleration of light.
+
+### The Gravitational Force
+
+
+------------------------------------------------------------
+PROMPT: <|user|>
+What causes earthquakes?
+<|assistant|>
+
+OUTPUT: <|user|>
+What causes earthquakes?
+<|assistant|>
+>Preliminary findings of earthquake intensity data suggest they occurred in the early 2000s.
+>The magnitude of the quake in 1998 was been consistent across the whole of the country.
+>The magnitude of the earthquake in 1999 was well known.
+>The magnitude of the earthquake in 1999 was well known.
+>The magnitude of the earthquake in 2002 was very similar, with a magnitude of 7.5.
+>The magnitude of the earthquake in 2001 was well known.
+>End
+------------------------------------------------------------
+PROMPT: <|user|>
+Explain how the internet works.
+<|assistant|>
+
+OUTPUT: <|user|>
+Explain how the internet works.
+<|assistant|>
+Using a parameters definition, you could express this as follows:
+<A: "I'm trying to get the best out of the internet",
+<1: "But I'm not sure if you're going there too, let me know!"
+Remember, statements like this are extremely important! It's the only way that a user can be used to get information in a global, and because of its potential, the Internet doesn't have to be the same as a whole world.
+Your
+------------------------------------------------------------
+PROMPT: <|user|>
+What is photosynthesis?
+<|assistant|>
+
+OUTPUT: <|user|>
+What is photosynthesis?
+<|assistant|>
+What is photosynthesis?
+<|the zone in which the plant grows, the zone in which it develops, the zone by which it grows?
+<|the zone in which the plant grows, the zone in which it grows, the zone in which it develops, the zone in which it grows, and the zone in which it develops, the zone in which it develops, the zone in which it develops, the zone in which it develops, the zone in which it develops, the zone
+------------------------------------------------------------

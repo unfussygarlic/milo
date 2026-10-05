@@ -1,0 +1,853 @@
+Experiment: experiments/sft_20260929_075754
+
+Model: 201,976,320 params (202.0M)
+  d=1280, layers=16, q_heads=20, kv_heads=4, shared=True
+
+Loading pretrained checkpoint: experiments/20260926_220527/checkpoints/best.pt
+  Loaded (pretrained val loss: 3.3031153798103334)
+
+Loading SFT data:
+  Loading data/sft/train.jsonl...
+  90,000 examples loaded (0 skipped)
+  Loading data/sft/val.jsonl...
+  10,000 examples loaded (0 skipped)
+
+SFT Training Plan:
+  Train examples : 90,000
+  Val examples   : 10,000
+  Epochs         : 3
+  Steps/epoch    : 2,812
+  Total steps    : 8,436
+  Effective batch: 32
+  Tokens/step    : 16,384
+  Total tokens   : 138,215,424
+  LR             : 2e-05 -> 2e-06
+
+Initial evaluation...
+  Initial val loss: 2.4786
+
+============================================================
+SFT TRAINING START
+============================================================
+
+Step     0/8436 | Epoch 1/3 | Loss: 3.6378 | LR: 1.00e-07 | Tok/s: 0 | ETA: 0.0h
+Step    50/8436 | Epoch 1/3 | Loss: 2.7658 | LR: 5.10e-06 | Tok/s: 9,247 | ETA: 4.2h
+Step   100/8436 | Epoch 1/3 | Loss: 2.3772 | LR: 1.01e-05 | Tok/s: 9,249 | ETA: 4.2h
+Step   150/8436 | Epoch 1/3 | Loss: 2.2339 | LR: 1.51e-05 | Tok/s: 9,249 | ETA: 4.1h
+Step   200/8436 | Epoch 1/3 | Loss: 1.7948 | LR: 2.00e-05 | Tok/s: 9,249 | ETA: 4.1h
+Step   250/8436 | Epoch 1/3 | Loss: 1.9541 | LR: 2.00e-05 | Tok/s: 9,249 | ETA: 4.0h
+Step   300/8436 | Epoch 1/3 | Loss: 1.5513 | LR: 2.00e-05 | Tok/s: 9,249 | ETA: 4.0h
+Step   350/8436 | Epoch 1/3 | Loss: 1.8505 | LR: 2.00e-05 | Tok/s: 9,250 | ETA: 4.0h
+Step   400/8436 | Epoch 1/3 | Loss: 1.8419 | LR: 2.00e-05 | Tok/s: 9,249 | ETA: 4.0h
+Step   450/8436 | Epoch 1/3 | Loss: 2.2777 | LR: 2.00e-05 | Tok/s: 9,249 | ETA: 3.9h
+Step   500/8436 | Epoch 1/3 | Loss: 2.1857 | LR: 1.99e-05 | Tok/s: 9,250 | ETA: 3.9h
+
+  >>> Val loss: 1.7534 (new best!)
+
+  --- Samples at step 500 ---
+  Q: What causes earthquakes?
+  A: earthquakes
+
+Earthquakes are the primary cause of earthquakes. They are the most common types of earthquakes.
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: First, let's calculate the number of apples in the store:
+
+Number of apples = Total apples * Number of apples
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is a network of computers, servers, and devices that lets people communicate and share information.
+
+The internet is a big network that connects computers, servers, and devices together. 
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(num):
+    if num == 1:
+        return True
+    else:
+        return False
+    else:
+        return False
+    return False
+
+  Q: What is photosynthesis?
+  A: photosynthesis is a process that occurs in plants. It is a process that allows plants to use energy from the sun and convert this energy into chemical energy.
+
+  Q: Why do seasons change throughout the year?
+  A: downturns
+
+Solving the problem of seasons, I will now solve the problem of seasons.
+
+First, let's determine if the seasons are changing. 
+
+The seasons are changing each year, so if seasons are changin
+
+Step   550/8436 | Epoch 1/3 | Loss: 2.4688 | LR: 1.99e-05 | Tok/s: 6,145 | ETA: 4.1h
+Step   600/8436 | Epoch 1/3 | Loss: 1.5053 | LR: 1.99e-05 | Tok/s: 9,249 | ETA: 4.0h
+Step   650/8436 | Epoch 1/3 | Loss: 1.4472 | LR: 1.99e-05 | Tok/s: 9,249 | ETA: 4.0h
+Step   700/8436 | Epoch 1/3 | Loss: 1.2721 | LR: 1.98e-05 | Tok/s: 9,249 | ETA: 4.0h
+Step   750/8436 | Epoch 1/3 | Loss: 1.6901 | LR: 1.98e-05 | Tok/s: 9,250 | ETA: 3.9h
+Step   800/8436 | Epoch 1/3 | Loss: 1.4816 | LR: 1.98e-05 | Tok/s: 9,249 | ETA: 3.9h
+Step   850/8436 | Epoch 1/3 | Loss: 1.3549 | LR: 1.97e-05 | Tok/s: 9,249 | ETA: 3.9h
+Step   900/8436 | Epoch 1/3 | Loss: 2.2424 | LR: 1.97e-05 | Tok/s: 9,249 | ETA: 3.8h
+Step   950/8436 | Epoch 1/3 | Loss: 1.5639 | LR: 1.96e-05 | Tok/s: 9,249 | ETA: 3.8h
+Step  1000/8436 | Epoch 1/3 | Loss: 1.5697 | LR: 1.96e-05 | Tok/s: 9,250 | ETA: 3.8h
+
+  >>> Val loss: 1.6810 (new best!)
+
+  --- Samples at step 1000 ---
+  Q: What causes earthquakes?
+  A: the Earth's magnetic field
+
+Earth's magnetic field is made up of three categories: the electric and magnetic field. The electric field is created when electrically charged particles orbit the Earth an
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: To calculate the cost of the apples, we first need to determine their price per kg (for 4.5 kg).
+
+Price per kg = Price per kg / Number of kg
+                           = 4.5 kg / (4.5 kg * 4.5 kg)
+   
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet helps you access the internet on your computer or mobile device. It's like a giant virtual library where you can search for things from anywhere in the world. When you visit a website, th
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(n):
+  return int(n)
+
+# output:
+def is_prime(n):
+  return int(n)
+
+  Q: What is photosynthesis?
+  A: photosynthesis is the process by which a living organism converts sunlight into chemical energy. This energy is used by the organisms to make food, grow, or reproduce. It's an essential part of photos
+
+  Q: Why do seasons change throughout the year?
+  A: Marine cycles affect ocean temperatures and marine life. The ocean's temperature is increasing, which means the sun's warmth increases. This is because Earth's surface is warmer, which means the ocean
+
+  >>> Checkpoint saved at step 1000
+Step  1050/8436 | Epoch 1/3 | Loss: 1.9437 | LR: 1.95e-05 | Tok/s: 4,468 | ETA: 3.9h
+Step  1100/8436 | Epoch 1/3 | Loss: 1.3039 | LR: 1.95e-05 | Tok/s: 9,250 | ETA: 3.9h
+Step  1150/8436 | Epoch 1/3 | Loss: 1.4876 | LR: 1.94e-05 | Tok/s: 9,249 | ETA: 3.8h
+Step  1200/8436 | Epoch 1/3 | Loss: 1.2409 | LR: 1.94e-05 | Tok/s: 9,249 | ETA: 3.8h
+Step  1250/8436 | Epoch 1/3 | Loss: 1.5440 | LR: 1.93e-05 | Tok/s: 9,249 | ETA: 3.8h
+Step  1300/8436 | Epoch 1/3 | Loss: 1.8529 | LR: 1.92e-05 | Tok/s: 9,249 | ETA: 3.7h
+Step  1350/8436 | Epoch 1/3 | Loss: 1.1137 | LR: 1.91e-05 | Tok/s: 9,249 | ETA: 3.7h
+Step  1400/8436 | Epoch 1/3 | Loss: 2.1479 | LR: 1.91e-05 | Tok/s: 9,249 | ETA: 3.7h
+Step  1450/8436 | Epoch 1/3 | Loss: 1.6776 | LR: 1.90e-05 | Tok/s: 9,250 | ETA: 3.6h
+Step  1500/8436 | Epoch 1/3 | Loss: 1.5650 | LR: 1.89e-05 | Tok/s: 9,250 | ETA: 3.6h
+
+  >>> Val loss: 1.5618 (new best!)
+
+  --- Samples at step 1500 ---
+  Q: What causes earthquakes?
+  A: earthquake
+
+The Earthquakes are a result of the movement of the Earth’s magnetic field. The action of the Earth’s magnetic field causes earthquakes.
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: To calculate the cost of the apple, we first need to find out the cost per kg of apples. We can use the formula for cost of an object:
+
+Cost per kg = (Cost per kg * Number of kg) / Number of kg
+
+Cost 
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is a global network that allows people to communicate with each other over the internet. It is used to access information, communicate with each other, and even share images and videos. F
+
+  Q: Write a Python function to check if a number is prime.
+  A: def isPrime(n):
+    if n == 0:
+        return False
+    else:
+        return False
+
+if __name__ == '__main__':
+    print(isPrime(1,1))
+
+  Q: What is photosynthesis?
+  A: photosynthesis
+
+Photosynthesis is a process in which glucose molecules are broken down into its component molecules. During photosynthesis, oxygen and carbon dioxide are produced by the photosynthesis
+
+  Q: Why do seasons change throughout the year?
+  A: When seasons change, they usually stay the same and follow the same pattern. This is because seasons change when the weather is in the Northern Hemisphere, which means there are more days or more days
+
+Step  1550/8436 | Epoch 1/3 | Loss: 1.6934 | LR: 1.88e-05 | Tok/s: 6,015 | ETA: 3.6h
+Step  1600/8436 | Epoch 1/3 | Loss: 1.5005 | LR: 1.87e-05 | Tok/s: 9,250 | ETA: 3.6h
+Step  1650/8436 | Epoch 1/3 | Loss: 1.7036 | LR: 1.87e-05 | Tok/s: 9,249 | ETA: 3.6h
+Step  1700/8436 | Epoch 1/3 | Loss: 1.6604 | LR: 1.86e-05 | Tok/s: 9,249 | ETA: 3.5h
+Step  1750/8436 | Epoch 1/3 | Loss: 1.3106 | LR: 1.85e-05 | Tok/s: 9,249 | ETA: 3.5h
+Step  1800/8436 | Epoch 1/3 | Loss: 1.5996 | LR: 1.84e-05 | Tok/s: 9,249 | ETA: 3.5h
+Step  1850/8436 | Epoch 1/3 | Loss: 1.1133 | LR: 1.83e-05 | Tok/s: 9,249 | ETA: 3.4h
+Step  1900/8436 | Epoch 1/3 | Loss: 1.2219 | LR: 1.82e-05 | Tok/s: 9,249 | ETA: 3.4h
+Step  1950/8436 | Epoch 1/3 | Loss: 1.3780 | LR: 1.81e-05 | Tok/s: 9,249 | ETA: 3.4h
+Step  2000/8436 | Epoch 1/3 | Loss: 1.8766 | LR: 1.80e-05 | Tok/s: 9,249 | ETA: 3.3h
+
+  >>> Val loss: 1.5097 (new best!)
+
+  --- Samples at step 2000 ---
+  Q: What causes earthquakes?
+  A: Many earthquakes are caused by the movement of materials such as rocks or water. This movement causes the Earth's surface to move against the ground, resulting in aCraters and Shrines.
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: The store sells 4.5 kg of apples for $3 each, so I pay 4.5 x $3 = $800 for the apples.
+To find out how much I pay, we need to calculate the total cost of all the apples.
+First, let's find out how many
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is a complex machine that helps us access and share information. It consists of various devices like computers, smartphones, and tablets that work together to communicate with each other 
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(n):
+    if n == 0:
+        return False
+    else:
+        return False
+
+  Q: What is photosynthesis?
+  A: photosynthesis
+
+Photosynthesis is a process in which food is eaten. The process is called photosynthesis . It takes energy from sunlight to break down the food. In plants, photosynthesis is called pho
+
+  Q: Why do seasons change throughout the year?
+  A: Each season involves different changes in the Earth's atmosphere. For some months, the Sun is burning up and the Earth may be getting warmer. In other months, the Sun may be getting warmer. The Earth 
+
+  >>> Checkpoint saved at step 2000
+Step  2050/8436 | Epoch 1/3 | Loss: 1.6967 | LR: 1.79e-05 | Tok/s: 4,467 | ETA: 3.4h
+Step  2100/8436 | Epoch 1/3 | Loss: 1.1474 | LR: 1.77e-05 | Tok/s: 9,248 | ETA: 3.4h
+Step  2150/8436 | Epoch 1/3 | Loss: 1.3154 | LR: 1.76e-05 | Tok/s: 9,248 | ETA: 3.3h
+Step  2200/8436 | Epoch 1/3 | Loss: 1.6483 | LR: 1.75e-05 | Tok/s: 9,248 | ETA: 3.3h
+Step  2250/8436 | Epoch 1/3 | Loss: 1.6205 | LR: 1.74e-05 | Tok/s: 9,249 | ETA: 3.3h
+Step  2300/8436 | Epoch 1/3 | Loss: 1.3981 | LR: 1.73e-05 | Tok/s: 9,249 | ETA: 3.2h
+Step  2350/8436 | Epoch 1/3 | Loss: 1.6851 | LR: 1.71e-05 | Tok/s: 9,248 | ETA: 3.2h
+Step  2400/8436 | Epoch 1/3 | Loss: 2.5014 | LR: 1.70e-05 | Tok/s: 9,248 | ETA: 3.2h
+Step  2450/8436 | Epoch 1/3 | Loss: 1.6256 | LR: 1.69e-05 | Tok/s: 9,248 | ETA: 3.1h
+Step  2500/8436 | Epoch 1/3 | Loss: 1.6670 | LR: 1.68e-05 | Tok/s: 9,248 | ETA: 3.1h
+
+  >>> Val loss: 1.6883 
+
+  --- Samples at step 2500 ---
+  Q: What causes earthquakes?
+  A: magnitude
+
+Miles of the Earth are always moving. You can see this in Figure below . When the Earth is moving in the same direction, it looks like the Earth is moving around the sun. The Earth is movin
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: To calculate the total cost of buying apples, we first need to calculate the cost of each apple separately and then add them together.
+
+First, let's find the total cost of picking apples:
+
+Total cost 
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is a network of computers that allow us to communicate with each other and access information from different sources. It is a complex system with various components, including a network o
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(n):
+    if n == 0:
+        return False
+    else:
+        return False
+
+  Q: What is photosynthesis?
+  A: photosynthesis
+
+Photosynthesis is the process by which sunlight enters the plant cell. The energy of light is used to convert carbon dioxide from the air into oxygen. The energy from light is used by 
+
+  Q: Why do seasons change throughout the year?
+  A: They change
+
+The seasons change throughout the year due to the condensation of snow. The weather is also influenced by the winds and the magnetic field.
+
+Step  2550/8436 | Epoch 1/3 | Loss: 2.0050 | LR: 1.66e-05 | Tok/s: 7,843 | ETA: 3.1h
+Step  2600/8436 | Epoch 1/3 | Loss: 1.2936 | LR: 1.65e-05 | Tok/s: 9,249 | ETA: 3.1h
+Step  2650/8436 | Epoch 1/3 | Loss: 2.0947 | LR: 1.63e-05 | Tok/s: 9,248 | ETA: 3.0h
+Step  2700/8436 | Epoch 1/3 | Loss: 1.1508 | LR: 1.62e-05 | Tok/s: 9,248 | ETA: 3.0h
+Step  2750/8436 | Epoch 1/3 | Loss: 1.6419 | LR: 1.61e-05 | Tok/s: 9,249 | ETA: 3.0h
+Step  2800/8436 | Epoch 1/3 | Loss: 1.2027 | LR: 1.59e-05 | Tok/s: 9,249 | ETA: 2.9h
+
+  === Epoch 1 complete ===
+
+Step  2850/8436 | Epoch 2/3 | Loss: 0.7796 | LR: 1.58e-05 | Tok/s: 9,159 | ETA: 2.9h
+Step  2900/8436 | Epoch 2/3 | Loss: 2.0369 | LR: 1.56e-05 | Tok/s: 9,249 | ETA: 2.9h
+Step  2950/8436 | Epoch 2/3 | Loss: 0.9081 | LR: 1.55e-05 | Tok/s: 9,249 | ETA: 2.9h
+Step  3000/8436 | Epoch 2/3 | Loss: 2.4732 | LR: 1.53e-05 | Tok/s: 9,249 | ETA: 2.8h
+
+  >>> Val loss: 1.5438 
+
+  --- Samples at step 3000 ---
+  Q: What causes earthquakes?
+  A: quakes
+
+Quakes are a cause of earthquakes.
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: To calculate the cost of a heavy item for 4.5 kg, we first need to determine the cost per kg of the item.
+
+Cost per kg = Total mass / Units per kg
+                                      = 4.5 kg / 4.5 
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is like a big network that allows people to communicate and share information and data. It's a big place where you can send and receive messages, like telling a friend how much money you 
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(number):
+    if number == 0:
+        return True
+    elif number == 1:
+        return False
+    else:
+        return False
+
+  Q: What is photosynthesis?
+  A: photosynthesis
+
+We know that photosynthesis is a process that converts sunlight into glucose, which is then used for energy. It also involves the use of a few molecules to make glucose and other simpl
+
+  Q: Why do seasons change throughout the year?
+  A: There are several reasons why seasons change the year. The most important reason is that cycles of wind and water create a cycle of rotation on a day-to-day basis. In the spring, the air rises and the
+
+  >>> Checkpoint saved at step 3000
+Step  3050/8436 | Epoch 2/3 | Loss: 1.1167 | LR: 1.52e-05 | Tok/s: 6,307 | ETA: 2.8h
+Step  3100/8436 | Epoch 2/3 | Loss: 1.6001 | LR: 1.50e-05 | Tok/s: 9,248 | ETA: 2.8h
+Step  3150/8436 | Epoch 2/3 | Loss: 1.5579 | LR: 1.49e-05 | Tok/s: 9,248 | ETA: 2.8h
+Step  3200/8436 | Epoch 2/3 | Loss: 1.1712 | LR: 1.47e-05 | Tok/s: 9,249 | ETA: 2.7h
+Step  3250/8436 | Epoch 2/3 | Loss: 1.1800 | LR: 1.46e-05 | Tok/s: 9,248 | ETA: 2.7h
+Step  3300/8436 | Epoch 2/3 | Loss: 1.6993 | LR: 1.44e-05 | Tok/s: 9,248 | ETA: 2.7h
+Step  3350/8436 | Epoch 2/3 | Loss: 1.2779 | LR: 1.42e-05 | Tok/s: 9,248 | ETA: 2.6h
+Step  3400/8436 | Epoch 2/3 | Loss: 0.9994 | LR: 1.41e-05 | Tok/s: 9,249 | ETA: 2.6h
+Step  3450/8436 | Epoch 2/3 | Loss: 1.1063 | LR: 1.39e-05 | Tok/s: 9,248 | ETA: 2.6h
+Step  3500/8436 | Epoch 2/3 | Loss: 1.6473 | LR: 1.38e-05 | Tok/s: 9,248 | ETA: 2.6h
+
+  >>> Val loss: 1.5424 
+
+  --- Samples at step 3500 ---
+  Q: What causes earthquakes?
+  A: zones
+
+Earthquakes cause earthquakes.
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: First, let's calculate the total cost of buying apples and apples:
+
+Total cost = Number of apples * Cost per kg
+                      = 4.5 kg * $3
+                      = $3
+
+Now, let's calculate the
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is a powerful tool that connects computers and other devices across the world. It lets people share information, pictures, and ideas with each other, and it's a global communication netwo
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(num):
+    if num % 2 == 0:
+        return False
+    for i in range(1,num + 1):
+        if num % i == 0:
+            return False
+
+  Q: What is photosynthesis?
+  A: photosynthesis
+
+Photosynthesis is the process by which food is made.
+
+  Q: Why do seasons change throughout the year?
+  A: There are several reasons why the months of June, July, August, September, and November are different in the year. We will consider each one in detail.
+
+1. Summer: This season is known for its long, c
+
+Step  3550/8436 | Epoch 2/3 | Loss: 1.5392 | LR: 1.36e-05 | Tok/s: 7,820 | ETA: 2.5h
+Step  3600/8436 | Epoch 2/3 | Loss: 1.7474 | LR: 1.34e-05 | Tok/s: 9,248 | ETA: 2.5h
+Step  3650/8436 | Epoch 2/3 | Loss: 2.0861 | LR: 1.33e-05 | Tok/s: 9,248 | ETA: 2.5h
+Step  3700/8436 | Epoch 2/3 | Loss: 1.6435 | LR: 1.31e-05 | Tok/s: 9,249 | ETA: 2.5h
+Step  3750/8436 | Epoch 2/3 | Loss: 1.6466 | LR: 1.29e-05 | Tok/s: 9,248 | ETA: 2.4h
+Step  3800/8436 | Epoch 2/3 | Loss: 1.5177 | LR: 1.28e-05 | Tok/s: 9,248 | ETA: 2.4h
+Step  3850/8436 | Epoch 2/3 | Loss: 1.6131 | LR: 1.26e-05 | Tok/s: 9,248 | ETA: 2.4h
+Step  3900/8436 | Epoch 2/3 | Loss: 1.7215 | LR: 1.24e-05 | Tok/s: 9,248 | ETA: 2.3h
+Step  3950/8436 | Epoch 2/3 | Loss: 1.4965 | LR: 1.23e-05 | Tok/s: 9,248 | ETA: 2.3h
+Step  4000/8436 | Epoch 2/3 | Loss: 1.8133 | LR: 1.21e-05 | Tok/s: 9,248 | ETA: 2.3h
+
+  >>> Val loss: 1.6117 
+
+  --- Samples at step 4000 ---
+  Q: What causes earthquakes?
+  A: volcanic eruptions
+
+Earthquakes can be caused by volcanic eruptions. This is because the Earth’s crust is much like a giant magnet. The force of the attraction between the Earth and the magma creates 
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: First, let's calculate the cost of the apples. The cost of the apples is 4.5 kg, which is equal to $3 x 4.5 = $6.
+
+Now, let's add the cost of the apples to the cost of the apples: $3 + $6.5 = $12.
+
+Ne
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is a global network that connects computers and other devices worldwide. It uses various devices such as the internet service, server, and storage media to exchange information. The inter
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(n):
+    if n % 2 == 0:
+        return False
+    for i in range(2, n+1):
+        if i % 2 == 0:
+            return True
+    return False
+
+  Q: What is photosynthesis?
+  A: photosynthesis
+
+The photosynthesis process is a series of reactions. Like all chemical reactions, a photosynthesis reaction involves two steps. First, the energy of light is used to break the molecule
+
+  Q: Why do seasons change throughout the year?
+  A: Flowers are their own internal organs that change colors in the fall. This is because the seasons change their color from fall to winter as well. This causes the leaves to turn red and green. The leav
+
+  >>> Checkpoint saved at step 4000
+Step  4050/8436 | Epoch 2/3 | Loss: 0.8682 | LR: 1.19e-05 | Tok/s: 6,422 | ETA: 2.3h
+Step  4100/8436 | Epoch 2/3 | Loss: 1.5818 | LR: 1.17e-05 | Tok/s: 9,248 | ETA: 2.3h
+Step  4150/8436 | Epoch 2/3 | Loss: 1.1214 | LR: 1.16e-05 | Tok/s: 9,248 | ETA: 2.2h
+Step  4200/8436 | Epoch 2/3 | Loss: 1.9650 | LR: 1.14e-05 | Tok/s: 9,248 | ETA: 2.2h
+Step  4250/8436 | Epoch 2/3 | Loss: 2.2989 | LR: 1.12e-05 | Tok/s: 9,252 | ETA: 2.2h
+Step  4300/8436 | Epoch 2/3 | Loss: 1.3606 | LR: 1.11e-05 | Tok/s: 9,249 | ETA: 2.1h
+Step  4350/8436 | Epoch 2/3 | Loss: 1.1192 | LR: 1.09e-05 | Tok/s: 9,248 | ETA: 2.1h
+Step  4400/8436 | Epoch 2/3 | Loss: 1.4760 | LR: 1.07e-05 | Tok/s: 9,248 | ETA: 2.1h
+Step  4450/8436 | Epoch 2/3 | Loss: 1.1689 | LR: 1.05e-05 | Tok/s: 9,248 | ETA: 2.1h
+Step  4500/8436 | Epoch 2/3 | Loss: 1.4119 | LR: 1.04e-05 | Tok/s: 9,248 | ETA: 2.0h
+
+  >>> Val loss: 1.5503 
+
+  --- Samples at step 4500 ---
+  Q: What causes earthquakes?
+  A: the movement of Earth's crust
+
+Many earthquakes are caused by the movement of the Earth’s crust. This movement of Earth’s crust causes earthquakes.
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: To calculate the cost of buying 4.5 kg of apples, we first need to determine how many kg of apples are in one kg:
+
+Total kg = Number of kg of apples * Weight per kg
+                          = 4.5 kg 
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is a network of interconnected computers that receives and receives data from various sources. It uses complex algorithms and technology to process and analyze the data, allowing users to
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(n):
+    if n == 0:
+        return False
+    for i in range(2,n):
+        if i == 0:
+            return False
+    return True
+
+is_prime(2,10)
+
+  Q: What is photosynthesis?
+  A: carbon dioxide
+
+Carbon dioxide is a gas. It is made of carbon dioxide and water. The carbon dioxide in sunlight is used by plants.
+
+  Q: Why do seasons change throughout the year?
+  A: rainfall
+
+The seasons change seasonally. So if you want to find out when the soil was last year, you should look at the seasons in the previous year. The seasons are broken down into a number of seaso
+
+Step  4550/8436 | Epoch 2/3 | Loss: 1.4062 | LR: 1.02e-05 | Tok/s: 7,669 | ETA: 2.0h
+Step  4600/8436 | Epoch 2/3 | Loss: 1.6379 | LR: 1.00e-05 | Tok/s: 9,248 | ETA: 2.0h
+Step  4650/8436 | Epoch 2/3 | Loss: 1.7718 | LR: 9.86e-06 | Tok/s: 9,249 | ETA: 2.0h
+Step  4700/8436 | Epoch 2/3 | Loss: 1.3977 | LR: 9.69e-06 | Tok/s: 9,248 | ETA: 1.9h
+Step  4750/8436 | Epoch 2/3 | Loss: 1.5337 | LR: 9.52e-06 | Tok/s: 9,248 | ETA: 1.9h
+Step  4800/8436 | Epoch 2/3 | Loss: 1.3724 | LR: 9.35e-06 | Tok/s: 9,248 | ETA: 1.9h
+Step  4850/8436 | Epoch 2/3 | Loss: 1.9685 | LR: 9.19e-06 | Tok/s: 9,248 | ETA: 1.9h
+Step  4900/8436 | Epoch 2/3 | Loss: 0.9166 | LR: 9.02e-06 | Tok/s: 9,248 | ETA: 1.8h
+Step  4950/8436 | Epoch 2/3 | Loss: 1.2059 | LR: 8.85e-06 | Tok/s: 9,248 | ETA: 1.8h
+Step  5000/8436 | Epoch 2/3 | Loss: 2.3171 | LR: 8.69e-06 | Tok/s: 9,248 | ETA: 1.8h
+
+  >>> Val loss: 1.5874 
+
+  --- Samples at step 5000 ---
+  Q: What causes earthquakes?
+  A: acceleration
+
+ archaeology has found that earthquakes are caused by the acceleration of the earth’s crust. This is the biggest earthquake ever recorded.
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: To calculate the cost of buying 4.5 kg of apples, we first need to determine the cost of the apples:
+
+Cost of apples: 4.5 kg * Number of kg = $3.
+
+Cost of apples = 4.5 kg * 3 kg = $18.
+
+Now, let's fin
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is a global network that connects computers and people, allowing them to communicate and share information. It's like a big online library where everyone can view the things they want and
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(n):
+    if n % 2 == 0: 
+        return False 
+    for i in range(2,n): 
+        if i % 2 == 0: 
+            return False 
+    return True
+
+  Q: What is photosynthesis?
+  A: photosynthesis
+
+Photosynthesis is the process that breaks down glucose into oxygen and water.
+
+  Q: Why do seasons change throughout the year?
+  A: The months of May and June are both part of the month of June. Each month, the weather changes due to the weather. This is because the climate in the year changes from one day to the next. The months 
+
+  >>> Checkpoint saved at step 5000
+Step  5050/8436 | Epoch 2/3 | Loss: 2.1548 | LR: 8.52e-06 | Tok/s: 6,418 | ETA: 1.8h
+Step  5100/8436 | Epoch 2/3 | Loss: 1.7053 | LR: 8.36e-06 | Tok/s: 9,249 | ETA: 1.7h
+Step  5150/8436 | Epoch 2/3 | Loss: 1.8458 | LR: 8.19e-06 | Tok/s: 9,248 | ETA: 1.7h
+Step  5200/8436 | Epoch 2/3 | Loss: 1.8235 | LR: 8.03e-06 | Tok/s: 9,249 | ETA: 1.7h
+Step  5250/8436 | Epoch 2/3 | Loss: 1.0395 | LR: 7.87e-06 | Tok/s: 9,248 | ETA: 1.6h
+Step  5300/8436 | Epoch 2/3 | Loss: 1.0045 | LR: 7.71e-06 | Tok/s: 9,248 | ETA: 1.6h
+Step  5350/8436 | Epoch 2/3 | Loss: 1.1024 | LR: 7.55e-06 | Tok/s: 9,248 | ETA: 1.6h
+Step  5400/8436 | Epoch 2/3 | Loss: 1.1141 | LR: 7.39e-06 | Tok/s: 9,248 | ETA: 1.6h
+Step  5450/8436 | Epoch 2/3 | Loss: 1.6885 | LR: 7.23e-06 | Tok/s: 9,248 | ETA: 1.5h
+Step  5500/8436 | Epoch 2/3 | Loss: 1.2592 | LR: 7.08e-06 | Tok/s: 9,249 | ETA: 1.5h
+
+  >>> Val loss: 1.5128 
+
+  --- Samples at step 5500 ---
+  Q: What causes earthquakes?
+  A: potential energy
+
+The most common cause of earthquakes is movement of the ground. The ground moves, but not the energy. The energy is kinetic energy.
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: Let's reason through this problem:
+
+1. We know that the store sells apples for $3 per kg.
+2. They also sell 4.5 kg of apples.
+3. To find out how much they pay, we need to divide the total cost by the 
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is a global network of computers and information technology, with over 150,000 users around the world. It is responsible for providing us with the internet, connecting people and informat
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(n):
+    if n == 1:
+        return False
+    for i in range(2, n+1):
+        if n == 1:
+            return False
+    return True
+
+  Q: What is photosynthesis?
+  A: photosynthesis
+
+After the cells of an organism reproduce, the photosynthesis process takes place inside the cells of the organism. As the cells grow larger and larger, they release energy in the form 
+
+  Q: Why do seasons change throughout the year?
+  A: As the season changes, the seasons change. This can be because of changes in the climate, weather, food availability, and sun exposure. For example, some seasons might be more dry and wet than others,
+
+Step  5550/8436 | Epoch 2/3 | Loss: 1.7095 | LR: 6.92e-06 | Tok/s: 7,763 | ETA: 1.5h
+Step  5600/8436 | Epoch 2/3 | Loss: 1.1494 | LR: 6.77e-06 | Tok/s: 9,248 | ETA: 1.5h
+
+  === Epoch 2 complete ===
+
+Step  5650/8436 | Epoch 3/3 | Loss: 1.2675 | LR: 6.62e-06 | Tok/s: 9,158 | ETA: 1.4h
+Step  5700/8436 | Epoch 3/3 | Loss: 0.6688 | LR: 6.47e-06 | Tok/s: 9,248 | ETA: 1.4h
+Step  5750/8436 | Epoch 3/3 | Loss: 1.1811 | LR: 6.32e-06 | Tok/s: 9,248 | ETA: 1.4h
+Step  5800/8436 | Epoch 3/3 | Loss: 1.7090 | LR: 6.18e-06 | Tok/s: 9,248 | ETA: 1.4h
+Step  5850/8436 | Epoch 3/3 | Loss: 0.8269 | LR: 6.03e-06 | Tok/s: 9,248 | ETA: 1.3h
+Step  5900/8436 | Epoch 3/3 | Loss: 1.1282 | LR: 5.89e-06 | Tok/s: 9,248 | ETA: 1.3h
+Step  5950/8436 | Epoch 3/3 | Loss: 1.2266 | LR: 5.75e-06 | Tok/s: 9,248 | ETA: 1.3h
+Step  6000/8436 | Epoch 3/3 | Loss: 1.6237 | LR: 5.61e-06 | Tok/s: 9,248 | ETA: 1.3h
+
+  >>> Val loss: 1.5040 (new best!)
+
+  --- Samples at step 6000 ---
+  Q: What causes earthquakes?
+  A: masses
+
+Earthquakes are caused by the movement of energy. The energy is caused by moving objects.
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: To calculate the total cost of the apples, we need to multiply the cost of the apples by the price per kg:
+
+Total cost = Cost per kg * Price per kg
+                  = $3 * $3
+                  = $90
+
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is a network of computers and devices that connect people and information to each other. It's a global network that allows people to communicate with each other over the internet.
+
+The fi
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(n):
+    if n == 0:
+        return True
+    else:
+        return False
+
+  Q: What is photosynthesis?
+  A: photosynthesis
+
+Photosynthesis is the process in which water and carbon dioxide are released into the atmosphere. This energy is used by living organisms, plants, and other organisms. Photosynthesis m
+
+  Q: Why do seasons change throughout the year?
+  A: The weather can vary greatly depending on the season. Generally, months are cold and rain are maximum. In the fall or spring, temperatures range from 32°F (0°C) to 37°F (1°C). This gives you a chance 
+
+  >>> Checkpoint saved at step 6000
+Step  6050/8436 | Epoch 3/3 | Loss: 1.2265 | LR: 5.48e-06 | Tok/s: 4,478 | ETA: 1.2h
+Step  6100/8436 | Epoch 3/3 | Loss: 1.8306 | LR: 5.34e-06 | Tok/s: 9,249 | ETA: 1.2h
+Step  6150/8436 | Epoch 3/3 | Loss: 1.2197 | LR: 5.21e-06 | Tok/s: 9,249 | ETA: 1.2h
+Step  6200/8436 | Epoch 3/3 | Loss: 1.1823 | LR: 5.08e-06 | Tok/s: 9,248 | ETA: 1.2h
+Step  6250/8436 | Epoch 3/3 | Loss: 1.1310 | LR: 4.95e-06 | Tok/s: 9,248 | ETA: 1.1h
+Step  6300/8436 | Epoch 3/3 | Loss: 1.7474 | LR: 4.83e-06 | Tok/s: 9,248 | ETA: 1.1h
+Step  6350/8436 | Epoch 3/3 | Loss: 1.3546 | LR: 4.70e-06 | Tok/s: 9,248 | ETA: 1.1h
+Step  6400/8436 | Epoch 3/3 | Loss: 1.8422 | LR: 4.58e-06 | Tok/s: 9,252 | ETA: 1.1h
+Step  6450/8436 | Epoch 3/3 | Loss: 1.2005 | LR: 4.46e-06 | Tok/s: 9,248 | ETA: 1.0h
+Step  6500/8436 | Epoch 3/3 | Loss: 1.3853 | LR: 4.34e-06 | Tok/s: 9,248 | ETA: 1.0h
+
+  >>> Val loss: 1.4969 (new best!)
+
+  --- Samples at step 6500 ---
+  Q: What causes earthquakes?
+  A: the movement of Earth's magnetic field
+
+The movement of Earth's magnetic field causes earthquakes. The movement of Earth's magnetic field causes earthquakes.
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: To calculate the total cost of buying apples, we first need to consider the cost of the apples.
+
+Cost of apples = Price per kg * Number of kg
+                     = $3/kg * 4.5
+                     = 
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is like a big network that keeps us connected to others no matter where we are. It does this by allowing us to share information, images, and music with each other across the globe. It's 
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(n):
+    if n == 0:
+        return False
+    for i in range(1, n):
+        if n % i == 0:
+            return False
+    return True
+
+  Q: What is photosynthesis?
+  A: photosynthesis
+
+The process of photosynthesis, or photosynthesis, involves the use of light. This light energy is carried by the chloroplasts of the chloroplast (the green part) and is used to make gl
+
+  Q: Why do seasons change throughout the year?
+  A: When summer is not warm enough, some months will get the most yield, while others months may get the most. The season may be short and dry, or it may be in season to get more yield. The days may be lo
+
+Step  6550/8436 | Epoch 3/3 | Loss: 1.4506 | LR: 4.23e-06 | Tok/s: 5,916 | ETA: 1.0h
+Step  6600/8436 | Epoch 3/3 | Loss: 0.8865 | LR: 4.12e-06 | Tok/s: 9,248 | ETA: 1.0h
+Step  6650/8436 | Epoch 3/3 | Loss: 1.1579 | LR: 4.01e-06 | Tok/s: 9,248 | ETA: 0.9h
+Step  6700/8436 | Epoch 3/3 | Loss: 1.2181 | LR: 3.90e-06 | Tok/s: 9,249 | ETA: 0.9h
+Step  6750/8436 | Epoch 3/3 | Loss: 2.2049 | LR: 3.80e-06 | Tok/s: 9,249 | ETA: 0.9h
+Step  6800/8436 | Epoch 3/3 | Loss: 1.8642 | LR: 3.70e-06 | Tok/s: 9,249 | ETA: 0.8h
+Step  6850/8436 | Epoch 3/3 | Loss: 1.4658 | LR: 3.60e-06 | Tok/s: 9,248 | ETA: 0.8h
+Step  6900/8436 | Epoch 3/3 | Loss: 1.1460 | LR: 3.50e-06 | Tok/s: 9,248 | ETA: 0.8h
+Step  6950/8436 | Epoch 3/3 | Loss: 1.3378 | LR: 3.41e-06 | Tok/s: 9,249 | ETA: 0.8h
+Step  7000/8436 | Epoch 3/3 | Loss: 1.1567 | LR: 3.32e-06 | Tok/s: 9,249 | ETA: 0.7h
+
+  >>> Val loss: 1.5012 
+
+  --- Samples at step 7000 ---
+  Q: What causes earthquakes?
+  A: geologists use different types of data to understand the Earth's magnetic field. The first piece of information they need to understand is the Earth's magnetic field. The second piece of information i
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: To find out how much each item costs, we first need to determine the cost of each part of the apple.
+
+Cost of apples = Price per kg * Number of kg
+                     = $3/kg * 4.5
+                  
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is a network of interconnected computers that project and communicate information over long distances using the internet. It consists of various components such as copper, computer chips,
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(n):
+    if n % 2 == 0:
+        return True
+    else:
+        return False
+
+  Q: What is photosynthesis?
+  A: photosynthesis
+
+A photosynthesis process uses energy from the sun and carbon dioxide from the air to produce oxygen. This energy is used to make glucose and oxygen. During the photosynthesis process, 
+
+  Q: Why do seasons change throughout the year?
+  A: ixt the weather
+
+When the months are short and the days are long, the weather can change. A month is a months in the year. A month has 28 days. Each month has 28 hours. Each month has 28 days. So, the
+
+  >>> Checkpoint saved at step 7000
+Step  7050/8436 | Epoch 3/3 | Loss: 1.2047 | LR: 3.23e-06 | Tok/s: 6,377 | ETA: 0.7h
+Step  7100/8436 | Epoch 3/3 | Loss: 0.9104 | LR: 3.14e-06 | Tok/s: 9,249 | ETA: 0.7h
+Step  7150/8436 | Epoch 3/3 | Loss: 1.5385 | LR: 3.06e-06 | Tok/s: 9,249 | ETA: 0.7h
+Step  7200/8436 | Epoch 3/3 | Loss: 1.7126 | LR: 2.98e-06 | Tok/s: 9,249 | ETA: 0.6h
+Step  7250/8436 | Epoch 3/3 | Loss: 1.5951 | LR: 2.91e-06 | Tok/s: 9,249 | ETA: 0.6h
+Step  7300/8436 | Epoch 3/3 | Loss: 1.4951 | LR: 2.83e-06 | Tok/s: 9,248 | ETA: 0.6h
+Step  7350/8436 | Epoch 3/3 | Loss: 1.2761 | LR: 2.76e-06 | Tok/s: 9,249 | ETA: 0.6h
+Step  7400/8436 | Epoch 3/3 | Loss: 1.4232 | LR: 2.69e-06 | Tok/s: 9,249 | ETA: 0.5h
+Step  7450/8436 | Epoch 3/3 | Loss: 1.5246 | LR: 2.63e-06 | Tok/s: 9,248 | ETA: 0.5h
+Step  7500/8436 | Epoch 3/3 | Loss: 1.0917 | LR: 2.57e-06 | Tok/s: 9,248 | ETA: 0.5h
+
+  >>> Val loss: 1.5035 
+
+  --- Samples at step 7500 ---
+  Q: What causes earthquakes?
+  A: electromagnetic waves
+
+An earthquake is a type of natural disaster. It happens when an earthquake happens. The energy is transmitted from one place to another. The energy travels through the Earth's c
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: First, let's calculate the cost of the apples:
+
+Cost of apples = Price per kg / Number of kg
+                 = $3 / 4.5
+                 = $15
+
+Next, we need to find out how much money I need to pay.
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is a network of computers and other devices that allow people to connect with each other over the internet. It's a global network of computers and other devices that allow people to commu
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(n): 
+    if n % 2 == 0: 
+        return False
+    for i in range(2, n): 
+        if n % i == 0: 
+            return False
+    return True
+
+  Q: What is photosynthesis?
+  A: photosynthesis
+
+Photosynthesis is the process in which energy is converted from chemical energy into chemical energy. The energy stored in the chemical energy is used to create food and energy for liv
+
+  Q: Why do seasons change throughout the year?
+  A: The months of June, July, August, September, and November are known as 'icient months'. These months provide a stable climate, but are not considered as months for specific weather types. Each month h
+
+Step  7550/8436 | Epoch 3/3 | Loss: 1.3253 | LR: 2.51e-06 | Tok/s: 7,659 | ETA: 0.5h
+Step  7600/8436 | Epoch 3/3 | Loss: 1.1666 | LR: 2.45e-06 | Tok/s: 9,248 | ETA: 0.4h
+Step  7650/8436 | Epoch 3/3 | Loss: 1.6025 | LR: 2.40e-06 | Tok/s: 9,249 | ETA: 0.4h
+Step  7700/8436 | Epoch 3/3 | Loss: 1.8602 | LR: 2.35e-06 | Tok/s: 9,248 | ETA: 0.4h
+Step  7750/8436 | Epoch 3/3 | Loss: 1.2220 | LR: 2.31e-06 | Tok/s: 9,248 | ETA: 0.4h
+Step  7800/8436 | Epoch 3/3 | Loss: 1.2401 | LR: 2.26e-06 | Tok/s: 9,248 | ETA: 0.3h
+Step  7850/8436 | Epoch 3/3 | Loss: 1.9395 | LR: 2.22e-06 | Tok/s: 9,248 | ETA: 0.3h
+Step  7900/8436 | Epoch 3/3 | Loss: 1.0863 | LR: 2.19e-06 | Tok/s: 9,248 | ETA: 0.3h
+Step  7950/8436 | Epoch 3/3 | Loss: 1.8578 | LR: 2.15e-06 | Tok/s: 9,249 | ETA: 0.3h
+Step  8000/8436 | Epoch 3/3 | Loss: 1.7480 | LR: 2.12e-06 | Tok/s: 9,249 | ETA: 0.2h
+
+  >>> Val loss: 1.4956 (new best!)
+
+  --- Samples at step 8000 ---
+  Q: What causes earthquakes?
+  A: coronary artery arrhythmia
+
+When amelon is taken as a drink, it can cause the same kinds of events as an apple, and it can also cause a feeling of racism, classism, and classism. The two events are re
+
+  Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+  A: To find out how much you pay, we need to multiply the price by the number of kg.
+
+For apples:
+Price = Price * kg
+       = $3 * 4.5
+       = $15
+
+For apples:
+Price = Price * kg
+       = $15 * 4.5
+     
+
+  Q: Explain how the internet works in simple terms.
+  A: The internet is a network of interconnected computers and devices that uses the internet to send and receive information. The internet is an essential service that allows us to access, share, and acce
+
+  Q: Write a Python function to check if a number is prime.
+  A: def is_prime(n):
+    if n <= 1:
+        return False
+    for i in range(2, n):
+        if i % i == 0:
+            return False
+    return False
+
+  Q: What is photosynthesis?
+  A: photosynthesis
+
+As shown in Figure below , photosynthesis is the process in which energy is converted into chemical energy. The energy of photosynthesis is changed by the addition of oxygen and carbon
+
+  Q: Why do seasons change throughout the year?
+  A: aldiutin, a chemical in the carboxyl group of plants, changes the chemical character of leaves in the autumn. This change is essential for the growth and development of the tree, which is the source o
+
+  >>> Checkpoint saved at step 8000
+Step  8050/8436 | Epoch 3/3 | Loss: 1.1665 | LR: 2.10e-06 | Tok/s: 4,416 | ETA: 0.2h
+Step  8100/8436 | Epoch 3/3 | Loss: 2.0662 | LR: 2.07e-06 | Tok/s: 9,248 | ETA: 0.2h
+Step  8150/8436 | Epoch 3/3 | Loss: 1.3090 | LR: 2.05e-06 | Tok/s: 9,248 | ETA: 0.1h
+Step  8200/8436 | Epoch 3/3 | Loss: 2.0377 | LR: 2.04e-06 | Tok/s: 9,248 | ETA: 0.1h
+Step  8250/8436 | Epoch 3/3 | Loss: 1.5167 | LR: 2.02e-06 | Tok/s: 9,248 | ETA: 0.1h
+Step  8300/8436 | Epoch 3/3 | Loss: 1.8242 | LR: 2.01e-06 | Tok/s: 9,248 | ETA: 0.1h
+Step  8350/8436 | Epoch 3/3 | Loss: 1.3424 | LR: 2.00e-06 | Tok/s: 9,248 | ETA: 0.0h
+Step  8400/8436 | Epoch 3/3 | Loss: 1.2886 | LR: 2.00e-06 | Tok/s: 9,248 | ETA: 0.0h
+
+============================================================
+TRAINING COMPLETE
+  Best val loss: 1.4956
+  Total time: 4.4 hours
+  Experiment: experiments/sft_20260929_075754
+============================================================
+
+=== Final Generations ===
+
+Q: What causes earthquakes?
+A: stratities
+
+The most common cause of earthquakes is a volcano. A volcano is a natural or semi-natural tectonic plate that forms when the plates over time move. When the plate moves, it creates a movement and forms a volcano.
+
+Q: A store sells apples for $3 per kg. If I buy 4.5 kg, how much do I pay?
+A: To find out how much you pay, we need to calculate the cost per kg of apples and then add it to the total cost of the apples.
+
+Cost per kg of apples = Number of kg * Cost per kg
+                          = 4.5 kg * $3
+                          = $4.75
+
+Cost per kg of apples = Number of kg * Cost per
+
+Q: Explain how the internet works in simple terms.
+A: The internet, or the internet, is a network of interconnected computers that allows information to travel through the internet. It uses special connections called internet signals to carry information from one place to another.
+
+There are three major types of internet:
+
+1. World Internet
+2. World wi
+
+Q: Write a Python function to check if a number is prime.
+A: def is_prime(n):
+ if n % 2 == 0:
+ return False
+ for i in range(2,n+1):
+ if n % 2 == 0:
+ return False
+ return True
+
+Q: What is photosynthesis?
+A: all cells use energy
+
+The process of photosynthesis is a one-way street. It all takes carbon dioxide and water (from the sun) and turns it into glucose. glucose is used for energy, and the process of photosynthesis is called cellular respiration.
+
+Q: Why do seasons change throughout the year?
+A: fall and winter
+
+Spring and summer are not the same. The season changes with the weather. Why?.
+
