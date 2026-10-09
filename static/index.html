@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo Chat</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --surface: #1a1a1a;
+    --surface-2: #242424;
+    --border: #2e2e2e;
+    --text: #e4e4e4;
+    --text-dim: #888;
+    --accent: #7c6ff7;
+    --accent-dim: #5a4fd4;
+    --user-bg: #2a2548;
+    --bot-bg: #1e1e1e;
+    --input-bg: #1a1a1a;
+    --danger: #e05252;
+    --warn: #e0a852;
+    --green: #4ade80;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Header ── */
+  header {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+  }
+
+  .logo h1 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .logo span {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.15s;
+  }
+  .header-btn:hover { border-color: var(--text-dim); color: var(--text); }
+  .header-btn.new-chat { border-color: var(--accent); color: var(--accent); }
+  .header-btn.new-chat:hover { background: var(--accent); color: #fff; }
+
+  /* ── Context bar ── */
+  .context-bar {
+    padding: 8px 20px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .context-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    min-width: 60px;
+  }
+
+  .context-track {
+    flex: 1;
+    height: 6px;
+    background: var(--surface-2);
+    border-radius: 3px;
+    overflow: hidden;
+    max-width: 400px;
+  }
+
+  .context-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease, background 0.3s ease;
+    width: 0%;
+    background: var(--accent);
+  }
+
+  .context-fill.warn { background: var(--warn); }
+  .context-fill.danger { background: var(--danger); }
+
+  .context-stats {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .truncated-badge {
+    font-size: 11px;
+    color: var(--warn);
+    background: rgba(224, 168, 82, 0.12);
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: none;
+  }
+  .truncated-badge.show { display: inline-block; }
+
+  /* ── Settings panel ── */
+  .settings-panel {
+    display: none;
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .settings-panel.open { display: flex; flex-wrap: wrap; }
+
+  .setting-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .setting-group label {
+    font-size: 13px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .setting-group input[type="range"] {
+    width: 100px;
+    accent-color: var(--accent);
+  }
+
+  .setting-group input[type="number"] {
+    width: 64px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  .setting-val {
+    font-size: 13px;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    min-width: 28px;
+  }
+
+  /* ── Chat area ── */
+  #chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .welcome {
+    text-align: center;
+    margin: auto;
+    max-width: 400px;
+  }
+
+  .welcome .logo-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 22px;
+    margin: 0 auto 16px;
+    border-radius: 14px;
+  }
+
+  .welcome h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .welcome p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  /* ── Messages ── */
+  .msg {
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 15px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg.user {
+    background: var(--user-bg);
+    border-bottom-right-radius: 4px;
+  }
+
+  .msg.bot {
+    background: var(--bot-bg);
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 4px;
+  }
+
+  .msg .role {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .msg.user .role { color: var(--accent); }
+
+  .msg .content code {
+    background: var(--surface-2);
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  }
+
+  .msg .content pre {
+    background: var(--surface-2);
+    padding: 12px;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 8px 0;
+    font-size: 13px;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  }
+
+  .msg-meta {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Typing indicator ── */
+  .typing {
+    display: flex;
+    gap: 4px;
+    padding: 4px 0;
+  }
+
+  .typing span {
+    width: 6px;
+    height: 6px;
+    background: var(--text-dim);
+    border-radius: 50%;
+    animation: bounce 1.2s infinite;
+  }
+
+  .typing span:nth-child(2) { animation-delay: 0.15s; }
+  .typing span:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-6px); }
+  }
+
+  /* ── Turn count ── */
+  .turn-count {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-dim);
+    padding: 4px;
+  }
+
+  /* ── Input area ── */
+  .input-area {
+    padding: 12px 20px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .input-row {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    gap: 8px;
+  }
+
+  #input {
+    flex: 1;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: inherit;
+    resize: none;
+    outline: none;
+    min-height: 46px;
+    max-height: 160px;
+    transition: border-color 0.15s;
+  }
+
+  #input:focus { border-color: var(--accent); }
+  #input::placeholder { color: var(--text-dim); }
+
+  #send {
+    background: var(--accent);
+    border: none;
+    color: #fff;
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+
+  #send:hover { background: var(--accent-dim); }
+  #send:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  #send svg { width: 20px; height: 20px; }
+
+  .footer-info {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">M</div>
+    <div>
+      <h1>Milo</h1>
+      <span>202M parameter SLM</span>
+    </div>
+  </div>
+  <div class="header-controls">
+    <button class="header-btn" onclick="toggleSettings()">Settings</button>
+    <button class="header-btn new-chat" onclick="newChat()">New Chat</button>
+  </div>
+</header>
+
+<!-- Context window usage bar -->
+<div class="context-bar">
+  <span class="context-label">Context</span>
+  <div class="context-track">
+    <div class="context-fill" id="contextFill"></div>
+  </div>
+  <span class="context-stats" id="contextStats">0 / 512 tokens</span>
+  <span class="truncated-badge" id="truncBadge">History truncated</span>
+</div>
+
+<div class="settings-panel" id="settingsPanel">
+  <div class="setting-group">
+    <label>Temperature</label>
+    <input type="range" id="temperature" min="0" max="1.5" step="0.05" value="0.7"
+           oninput="document.getElementById('tempVal').textContent = this.value">
+    <span class="setting-val" id="tempVal">0.7</span>
+  </div>
+  <div class="setting-group">
+    <label>Max tokens</label>
+    <input type="number" id="maxTokens" min="32" max="512" value="256">
+  </div>
+  <div class="setting-group">
+    <label>
+      <input type="checkbox" id="streamToggle" checked> Stream
+    </label>
+  </div>
+</div>
+
+<div id="chat">
+  <div class="welcome">
+    <div class="logo-icon">M</div>
+    <h2>Chat with Milo</h2>
+    <p>A 202M parameter language model trained from scratch.
+       Context window: 512 tokens — about 2-3 conversation turns before old messages get dropped.</p>
+  </div>
+</div>
+
+<div class="input-area">
+  <div class="input-row">
+    <textarea id="input" rows="1" placeholder="Message Milo..."
+              onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+    <button id="send" onclick="sendMessage()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"></line>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+      </svg>
+    </button>
+  </div>
+  <div class="footer-info">Milo is a learning project — responses may be inaccurate</div>
+</div>
+
+<script>
+const SEQ_LEN = 512;
+const chatEl = document.getElementById('chat');
+const inputEl = document.getElementById('input');
+const sendBtn = document.getElementById('send');
+const contextFill = document.getElementById('contextFill');
+const contextStats = document.getElementById('contextStats');
+const truncBadge = document.getElementById('truncBadge');
+
+// ── Conversation memory ──
+let history = [];  // [{role: "user"|"assistant", content: "..."}]
+let isGenerating = false;
+let lastTokenCount = 0;
+
+function toggleSettings() {
+  document.getElementById('settingsPanel').classList.toggle('open');
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 160) + 'px';
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+function newChat() {
+  history = [];
+  lastTokenCount = 0;
+  updateContextBar(0, false);
+  chatEl.innerHTML = `
+    <div class="welcome">
+      <div class="logo-icon" style="width:56px;height:56px;font-size:22px;margin:0 auto 16px;border-radius:14px;">M</div>
+      <h2>Chat with Milo</h2>
+      <p>A 202M parameter language model trained from scratch.
+         Context window: 512 tokens — about 2-3 conversation turns before old messages get dropped.</p>
+    </div>
+  `;
+}
+
+function updateContextBar(totalTokens, wasTruncated) {
+  lastTokenCount = totalTokens;
+  const pct = Math.min((totalTokens / SEQ_LEN) * 100, 100);
+  contextFill.style.width = pct + '%';
+
+  // Color coding
+  contextFill.classList.remove('warn', 'danger');
+  if (pct > 85) contextFill.classList.add('danger');
+  else if (pct > 60) contextFill.classList.add('warn');
+
+  contextStats.textContent = `${totalTokens} / ${SEQ_LEN} tokens`;
+  truncBadge.classList.toggle('show', wasTruncated);
+}
+
+function addMessage(role, text) {
+  const welcome = chatEl.querySelector('.welcome');
+  if (welcome) welcome.remove();
+
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  div.innerHTML = `<div class="role">${role === 'user' ? 'You' : 'Milo'}</div><div class="content"></div>`;
+  div.querySelector('.content').textContent = text;
+  chatEl.appendChild(div);
+  chatEl.scrollTop = chatEl.scrollHeight;
+  return div;
+}
+
+function addBotMessage() {
+  const welcome = chatEl.querySelector('.welcome');
+  if (welcome) welcome.remove();
+
+  const div = document.createElement('div');
+  div.className = 'msg bot';
+  div.innerHTML = `
+    <div class="role">Milo</div>
+    <div class="content"><div class="typing"><span></span><span></span><span></span></div></div>
+  `;
+  chatEl.appendChild(div);
+  chatEl.scrollTop = chatEl.scrollHeight;
+  return div;
+}
+
+function addTurnCount() {
+  const existing = chatEl.querySelector('.turn-count');
+  if (existing) existing.remove();
+
+  const div = document.createElement('div');
+  div.className = 'turn-count';
+  const turns = Math.floor(history.length / 2);
+  div.textContent = `Turn ${turns} · ${lastTokenCount}/${SEQ_LEN} tokens used`;
+  chatEl.appendChild(div);
+}
+
+async function sendMessage() {
+  const text = inputEl.value.trim();
+  if (!text || isGenerating) return;
+
+  isGenerating = true;
+  sendBtn.disabled = true;
+
+  // Add to UI and history
+  addMessage('user', text);
+  history.push({ role: 'user', content: text });
+
+  inputEl.value = '';
+  inputEl.style.height = 'auto';
+
+  const temperature = parseFloat(document.getElementById('temperature').value);
+  const maxTokens = parseInt(document.getElementById('maxTokens').value);
+  const useStream = document.getElementById('streamToggle').checked;
+
+  const botDiv = addBotMessage();
+  const contentEl = botDiv.querySelector('.content');
+
+  let fullText = '';
+
+  try {
+    if (useStream) {
+      const res = await fetch('/chat/stream', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history, temperature, max_tokens: maxTokens })
+      });
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      contentEl.textContent = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const data = line.slice(6);
+            if (data === '[DONE]') continue;
+            try {
+              const parsed = JSON.parse(data);
+
+              if (parsed.type === 'meta') {
+                // Update context bar with prompt info
+                updateContextBar(parsed.prompt_tokens, parsed.was_truncated);
+              } else if (parsed.type === 'token') {
+                fullText += parsed.token;
+                contentEl.textContent = fullText;
+                chatEl.scrollTop = chatEl.scrollHeight;
+                // Live-update the bar as tokens generate
+                if (parsed.total_tokens) {
+                  updateContextBar(parsed.total_tokens, truncBadge.classList.contains('show'));
+                }
+              }
+            } catch (e) {}
+          }
+        }
+      }
+
+      if (!fullText) contentEl.textContent = '(empty response)';
+
+    } else {
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history, temperature, max_tokens: maxTokens })
+      });
+      const data = await res.json();
+      fullText = data.response || '(empty response)';
+      contentEl.textContent = fullText;
+
+      if (data.tokens && data.tokens.total) {
+        updateContextBar(data.tokens.total, data.tokens.was_truncated);
+      }
+    }
+  } catch (err) {
+    fullText = `Error: ${err.message}`;
+    contentEl.textContent = fullText;
+    contentEl.style.color = 'var(--danger)';
+  }
+
+  // Save assistant response to history
+  if (fullText && !fullText.startsWith('Error:')) {
+    history.push({ role: 'assistant', content: fullText });
+  }
+
+  addTurnCount();
+
+  isGenerating = false;
+  sendBtn.disabled = false;
+  inputEl.focus();
+  chatEl.scrollTop = chatEl.scrollHeight;
+}
+</script>
+
+</body>
+</html>
