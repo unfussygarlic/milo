@@ -22,14 +22,14 @@ def parse_tool_call(text: str) -> ToolCall | None:
     if i < 0:
         return None
     before = text[:i]
-    rest = text[i + len(TOOL_CALL_TAG):]
+    rest = text[i + len(TOOL_CALL_TAG) :]
     j = rest.find(TOOL_RESULT_TAG)
     if j >= 0:
         rest = rest[:j]
     m = _CALL_RE.match(rest)
     if not m:
         return None
-    body = rest[m.end():].rstrip()
+    body = rest[m.end() :].rstrip()
     k = body.rfind(")")
     if k < 0:
         return None

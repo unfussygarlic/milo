@@ -52,20 +52,41 @@ from milo.data.generator.web import (
 
 FAMILIES = {
     # tool (≈70%)
-    "mq_product": (fam_mq_product, 2200), "mq_faq": (fam_mq_faq, 1300), "mq_nomatch": (fam_mq_nomatch, 450),
-    "mq_calc_qty": (fam_mq_calc_qty, 750), "mq_calc_two": (fam_mq_calc_two, 300), "mq_calc_offer": (fam_mq_calc_offer, 250),
-    "mq_bulk": (fam_mq_bulk, 260), "mq_date": (fam_mq_date, 450), "route_contrast": (fam_route_contrast, 500),
-    "calc": (fam_calc, 1900), "date": (fam_date, 1100), "search": (fam_search, 650), "search_custom": (fam_search_custom, 200), "search_error": (fam_search_error, 60),
-    "weather": (fam_weather, 1100), "weather_error": (fam_weather_error, 40), "code": (fam_code, 500),
-    "code_disabled": (fam_code_disabled, 40), "tool_error": (fam_tool_error, 120),
+    "mq_product": (fam_mq_product, 2200),
+    "mq_faq": (fam_mq_faq, 1300),
+    "mq_nomatch": (fam_mq_nomatch, 450),
+    "mq_calc_qty": (fam_mq_calc_qty, 750),
+    "mq_calc_two": (fam_mq_calc_two, 300),
+    "mq_calc_offer": (fam_mq_calc_offer, 250),
+    "mq_bulk": (fam_mq_bulk, 260),
+    "mq_date": (fam_mq_date, 450),
+    "route_contrast": (fam_route_contrast, 500),
+    "calc": (fam_calc, 1900),
+    "date": (fam_date, 1100),
+    "search": (fam_search, 650),
+    "search_custom": (fam_search_custom, 200),
+    "search_error": (fam_search_error, 60),
+    "weather": (fam_weather, 1100),
+    "weather_error": (fam_weather_error, 40),
+    "code": (fam_code, 500),
+    "code_disabled": (fam_code_disabled, 40),
+    "tool_error": (fam_tool_error, 120),
     # no tool (≈30%)
-    "greeting": (fam_greeting, 450), "thanks": (fam_thanks_bye, 400), "about": (fam_about, 150),
-    "clarify": (fam_clarify, 700), "order_status": (fam_order_status, 450), "place_order": (fam_place_order, 450),
-    "complaint": (fam_complaint, 350), "human": (fam_human, 200), "payment_ack": (fam_payment_done, 250),
-    "decline": (fam_decline, 300), "concept": (fam_concept, 900),
-    "advice": (fam_advice, 350), "clarify_other": (fam_clarify_other, 120),
+    "greeting": (fam_greeting, 450),
+    "thanks": (fam_thanks_bye, 400),
+    "about": (fam_about, 150),
+    "clarify": (fam_clarify, 700),
+    "order_status": (fam_order_status, 450),
+    "place_order": (fam_place_order, 450),
+    "complaint": (fam_complaint, 350),
+    "human": (fam_human, 200),
+    "payment_ack": (fam_payment_done, 250),
+    "decline": (fam_decline, 300),
+    "concept": (fam_concept, 900),
+    "advice": (fam_advice, 350),
+    "clarify_other": (fam_clarify_other, 120),
 }
-MAX_DUP = 3   # max copies of an identical text
+MAX_DUP = 3  # max copies of an identical text
 
 
 def generate(seed: int, scale: float, quiet: bool = False) -> tuple[list[dict], object, object]:
@@ -86,10 +107,12 @@ def generate(seed: int, scale: float, quiet: bool = False) -> tuple[list[dict], 
                 skips[f"{name}: duplicate"] += 1
                 continue
             seen[ex["text"]] += 1
-            out.append(ex); counts[name] += 1
+            out.append(ex)
+            counts[name] += 1
         if counts[name] < target and not quiet:
             print(f"  ! {name}: only {counts[name]}/{target}")
-    T.set_now(None); T.set_merchant_kb(None)
+    T.set_now(None)
+    T.set_merchant_kb(None)
     R.shuffle(out)
     return out, counts, skips
 
@@ -126,11 +149,13 @@ def validate(examples: list[dict], code_sample: int = 60) -> object:
     for e in examples:
         t = e["text"]
         if not (t.startswith("<|user|>\n") and "\n<|assistant|>\n" in t and t.endswith("<|endoftext|>")):
-            problems["bad structure"] += 1; continue
-        user, body = t[len("<|user|>\n"):].split("\n<|assistant|>\n", 1)
+            problems["bad structure"] += 1
+            continue
+        user, body = t[len("<|user|>\n") :].split("\n<|assistant|>\n", 1)
         calls = _CALL_RE.findall(body)
         if len(calls) != body.count("<|tool_call|>"):
-            problems["unparseable tool call"] += 1; continue
+            problems["unparseable tool call"] += 1
+            continue
         results = []
         for name, args, res in calls:
             if name not in T.TOOL_NAMES:
@@ -149,7 +174,7 @@ def validate(examples: list[dict], code_sample: int = 60) -> object:
         if not answer.strip():
             problems["empty answer"] += 1
         if not calls:
-            continue   # no-tool examples were checked against their allow-lists at build time
+            continue  # no-tool examples were checked against their allow-lists at build time
         if grounded(answer, [user] + results, e.get("allow", ())):
             problems["ungrounded number"] += 1
     return problems

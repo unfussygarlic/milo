@@ -14,8 +14,9 @@ def C(cat: str, q: str, expect, need=(), kb=None, err_ok: bool = False, allow=()
     err_ok: a tool error is the correct outcome
     allow:  extra numbers the reply may contain
     """
-    return dict(cat=cat, q=q, expect=list(expect), need=list(need), kb=kb, err_ok=err_ok,
-                allow=list(allow), split="dev")
+    return dict(
+        cat=cat, q=q, expect=list(expect), need=list(need), kb=kb, err_ok=err_ok, allow=list(allow), split="dev"
+    )
 
 
 def Tc(*a: Any, **k: Any) -> dict[str, Any]:

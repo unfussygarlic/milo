@@ -25,24 +25,119 @@ import random
 # SHARED POOLS
 # ═══════════════════════════════════════════════════════════════
 SURNAMES = [
-    "Sharma", "Gupta", "Agarwal", "Verma", "Patel", "Shah", "Reddy", "Nair", "Iyer",
-    "Das", "Bose", "Singh", "Yadav", "Khan", "Qureshi", "Joshi", "Kulkarni", "Deshmukh",
-    "Pillai", "Menon", "Rao", "Jain", "Mehta", "Chauhan", "Mishra", "Tiwari", "Ansari",
-    "Fernandes", "Dsouza", "Banerjee", "Mukherjee", "Saxena", "Bansal", "Goyal", "Naidu",
+    "Sharma",
+    "Gupta",
+    "Agarwal",
+    "Verma",
+    "Patel",
+    "Shah",
+    "Reddy",
+    "Nair",
+    "Iyer",
+    "Das",
+    "Bose",
+    "Singh",
+    "Yadav",
+    "Khan",
+    "Qureshi",
+    "Joshi",
+    "Kulkarni",
+    "Deshmukh",
+    "Pillai",
+    "Menon",
+    "Rao",
+    "Jain",
+    "Mehta",
+    "Chauhan",
+    "Mishra",
+    "Tiwari",
+    "Ansari",
+    "Fernandes",
+    "Dsouza",
+    "Banerjee",
+    "Mukherjee",
+    "Saxena",
+    "Bansal",
+    "Goyal",
+    "Naidu",
 ]
-FIRST_NAMES = ["Ravi", "Sunita", "Anil", "Meena", "Suresh", "Kavita", "Imran", "Lakshmi",
-               "Rajesh", "Pooja", "Arjun", "Fatima", "Deepak", "Asha", "Vikram", "Neha"]
+FIRST_NAMES = [
+    "Ravi",
+    "Sunita",
+    "Anil",
+    "Meena",
+    "Suresh",
+    "Kavita",
+    "Imran",
+    "Lakshmi",
+    "Rajesh",
+    "Pooja",
+    "Arjun",
+    "Fatima",
+    "Deepak",
+    "Asha",
+    "Vikram",
+    "Neha",
+]
 AREAS = [
-    "Main Market", "Station Road", "Gandhi Nagar", "Sector 14", "MG Road", "Civil Lines",
-    "Shastri Nagar", "Nehru Chowk", "Old City", "Bus Stand Road", "Laxmi Nagar",
-    "Rajendra Nagar", "Market Yard", "Ring Road", "Subhash Chowk", "Tilak Nagar",
+    "Main Market",
+    "Station Road",
+    "Gandhi Nagar",
+    "Sector 14",
+    "MG Road",
+    "Civil Lines",
+    "Shastri Nagar",
+    "Nehru Chowk",
+    "Old City",
+    "Bus Stand Road",
+    "Laxmi Nagar",
+    "Rajendra Nagar",
+    "Market Yard",
+    "Ring Road",
+    "Subhash Chowk",
+    "Tilak Nagar",
 ]
 CITIES = [
-    "Indore", "Bhopal", "Jaipur", "Lucknow", "Kanpur", "Patna", "Ranchi", "Nagpur", "Pune",
-    "Nashik", "Surat", "Ahmedabad", "Vadodara", "Rajkot", "Kochi", "Coimbatore", "Madurai",
-    "Mysuru", "Hubballi", "Vizag", "Vijayawada", "Bhubaneswar", "Guwahati", "Dehradun",
-    "Chandigarh", "Ludhiana", "Amritsar", "Varanasi", "Agra", "Raipur", "Mumbai", "Delhi",
-    "Bengaluru", "Hyderabad", "Chennai", "Kolkata", "Noida", "Gurugram", "Thane", "Jodhpur",
+    "Indore",
+    "Bhopal",
+    "Jaipur",
+    "Lucknow",
+    "Kanpur",
+    "Patna",
+    "Ranchi",
+    "Nagpur",
+    "Pune",
+    "Nashik",
+    "Surat",
+    "Ahmedabad",
+    "Vadodara",
+    "Rajkot",
+    "Kochi",
+    "Coimbatore",
+    "Madurai",
+    "Mysuru",
+    "Hubballi",
+    "Vizag",
+    "Vijayawada",
+    "Bhubaneswar",
+    "Guwahati",
+    "Dehradun",
+    "Chandigarh",
+    "Ludhiana",
+    "Amritsar",
+    "Varanasi",
+    "Agra",
+    "Raipur",
+    "Mumbai",
+    "Delhi",
+    "Bengaluru",
+    "Hyderabad",
+    "Chennai",
+    "Kolkata",
+    "Noida",
+    "Gurugram",
+    "Thane",
+    "Jodhpur",
 ]
 HOURS = [
     "9 AM – 9 PM, Monday to Saturday. Closed on Sunday.",
@@ -65,9 +160,9 @@ FAQ_KW = {
 }
 
 STOCK_STYLES = {
-    "goods":   (["in stock"] * 15 + ["out of stock"] * 3, "only {n} left"),
+    "goods": (["in stock"] * 15 + ["out of stock"] * 3, "only {n} left"),
     "service": (["available"] * 18 + ["fully booked today"] * 2, None),
-    "course":  (["seats available"] * 15 + ["batch full"] * 3, "only {n} seats left"),
+    "course": (["seats available"] * 15 + ["batch full"] * 3, "only {n} seats left"),
 }
 
 # ═══════════════════════════════════════════════════════════════
@@ -77,8 +172,13 @@ STOCK_STYLES = {
 # ═══════════════════════════════════════════════════════════════
 MERCHANT_TYPES = {
     "kirana": dict(
-        names=["{s} Kirana Store", "{s} General Store", "Shree {s} Provision Store",
-               "{s} Super Mart", "New {s} Kirana"],
+        names=[
+            "{s} Kirana Store",
+            "{s} General Store",
+            "Shree {s} Provision Store",
+            "{s} Super Mart",
+            "New {s} Kirana",
+        ],
         stock="goods",
         items=[
             ("Basmati Rice", "1kg", 139, "basmati rice", "grocery"),
@@ -100,15 +200,17 @@ MERCHANT_TYPES = {
             ("Bath Soap", "pack of 4", 120, "soap bath", "household"),
             ("Detergent Powder", "1kg", 115, "detergent surf washing powder", "household"),
         ],
-        delivery=True, delivery_days=[0, 1], bulk=True,
-        returns=["Packed items can be exchanged within 2 days if unopened. Loose items are not returnable.",
-                 "Damaged or expired items replaced within 24 hours. No returns on opened packets."],
-        extra=[("Minimum order", "Home delivery needs a minimum order of ₹{min_order}.",
-                "minimum order min delivery")],
+        delivery=True,
+        delivery_days=[0, 1],
+        bulk=True,
+        returns=[
+            "Packed items can be exchanged within 2 days if unopened. Loose items are not returnable.",
+            "Damaged or expired items replaced within 24 hours. No returns on opened packets.",
+        ],
+        extra=[("Minimum order", "Home delivery needs a minimum order of ₹{min_order}.", "minimum order min delivery")],
     ),
     "mobile": dict(
-        names=["{s} Mobile Point", "{s} Mobile Accessories", "Smart {s} Mobiles",
-               "{s} Telecom", "Mobile Care {s}"],
+        names=["{s} Mobile Point", "{s} Mobile Accessories", "Smart {s} Mobiles", "{s} Telecom", "Mobile Care {s}"],
         stock="goods",
         items=[
             ("Fast Charger 33W", "", 799, "charger adapter fast type c", "accessories"),
@@ -120,23 +222,41 @@ MERCHANT_TYPES = {
             ("Power Bank", "20000mAh", 1699, "power bank powerbank", "accessories"),
             ("Tempered Glass", "", 149, "tempered glass screen guard protector", "accessories"),
             ("Back Cover", "", 249, "back cover case pouch", "accessories"),
-            ("Screen Replacement", "", 1499, "screen display replacement broken crack toot tooti tuti tuta lagwana lagwane", "repair", "from"),
+            (
+                "Screen Replacement",
+                "",
+                1499,
+                "screen display replacement broken crack toot tooti tuti tuta lagwana lagwane",
+                "repair",
+                "from",
+            ),
             ("Battery Replacement", "", 899, "battery replacement", "repair", "from"),
             ("Charging Port Repair", "", 499, "charging port jack repair", "repair", "from"),
             ("Memory Card", "64GB", 549, "memory card sd", "storage"),
             ("Pendrive", "64GB", 499, "pendrive pen drive usb", "storage"),
         ],
-        delivery=True, delivery_days=[1, 2, 3], bulk=False,
-        returns=["7-day replacement on accessories if defective, with bill. No returns on tempered glass once applied.",
-                 "Defective products replaced within 7 days with the box and bill."],
-        extra=[("Warranty", "Chargers and earbuds carry 6 months warranty. Repairs have 30 days warranty.",
-                "warranty guarantee"),
-               ("Repair time", "Most repairs are done the same day; screen replacement takes 1 day.",
-                "repair time kitna time how long ready")],
+        delivery=True,
+        delivery_days=[1, 2, 3],
+        bulk=False,
+        returns=[
+            "7-day replacement on accessories if defective, with bill. No returns on tempered glass once applied.",
+            "Defective products replaced within 7 days with the box and bill.",
+        ],
+        extra=[
+            (
+                "Warranty",
+                "Chargers and earbuds carry 6 months warranty. Repairs have 30 days warranty.",
+                "warranty guarantee",
+            ),
+            (
+                "Repair time",
+                "Most repairs are done the same day; screen replacement takes 1 day.",
+                "repair time kitna time how long ready",
+            ),
+        ],
     ),
     "ethnic_wear": dict(
-        names=["{s} Fashion", "{s} Collection", "{f}'s Boutique", "{s} Saree Centre",
-               "{s} Ethnic Wear"],
+        names=["{s} Fashion", "{s} Collection", "{f}'s Boutique", "{s} Saree Centre", "{s} Ethnic Wear"],
         stock="goods",
         items=[
             ("Cotton Kurti", "S to XXL", 599, "kurti cotton", "women"),
@@ -151,15 +271,23 @@ MERCHANT_TYPES = {
             ("Men's Kurta", "M to XXL", 799, "mens men kurta", "men"),
             ("Nehru Jacket", "M to XL", 1199, "nehru modi jacket", "men"),
         ],
-        delivery=True, delivery_days=[3, 4, 5, 7], bulk=False,
-        returns=["Size exchange within 7 days with tags intact. No refunds, store credit only.",
-                 "Exchange within 5 days if unused with tags. Sale items are not exchangeable."],
-        extra=[("Alteration", "Free basic alteration for fitting, ready in 2 days.",
-                "alteration fitting tight loose")],
+        delivery=True,
+        delivery_days=[3, 4, 5, 7],
+        bulk=False,
+        returns=[
+            "Size exchange within 7 days with tags intact. No refunds, store credit only.",
+            "Exchange within 5 days if unused with tags. Sale items are not exchangeable.",
+        ],
+        extra=[("Alteration", "Free basic alteration for fitting, ready in 2 days.", "alteration fitting tight loose")],
     ),
     "hardware": dict(
-        names=["{s} Hardware", "{s} Hardware & Sanitary", "{s} Paints & Hardware",
-               "{s} Building Materials", "New {s} Electricals"],
+        names=[
+            "{s} Hardware",
+            "{s} Hardware & Sanitary",
+            "{s} Paints & Hardware",
+            "{s} Building Materials",
+            "New {s} Electricals",
+        ],
         stock="goods",
         items=[
             ("PVC Pipe", "1 inch, 10ft", 320, "pvc pipe", "plumbing"),
@@ -176,15 +304,23 @@ MERCHANT_TYPES = {
             ("Water Tap", "", 349, "tap nal water bathroom", "plumbing"),
             ("Padlock", "", 199, "lock padlock tala", "hardware"),
         ],
-        delivery=True, delivery_days=[0, 1, 2], bulk=True,
-        returns=["Unused items returnable within 7 days with bill. Cut wires and mixed paint are not returnable.",
-                 "Exchange within 3 days with bill. Electrical items only exchanged if defective."],
-        extra=[("Cement delivery", "Cement and pipes delivered by tempo; ₹{tempo} tempo charge within city.",
-                "tempo truck heavy cement delivery")],
+        delivery=True,
+        delivery_days=[0, 1, 2],
+        bulk=True,
+        returns=[
+            "Unused items returnable within 7 days with bill. Cut wires and mixed paint are not returnable.",
+            "Exchange within 3 days with bill. Electrical items only exchanged if defective.",
+        ],
+        extra=[
+            (
+                "Cement delivery",
+                "Cement and pipes delivered by tempo; ₹{tempo} tempo charge within city.",
+                "tempo truck heavy cement delivery",
+            )
+        ],
     ),
     "bakery": dict(
-        names=["{s} Bakers", "{s} Cake Shop", "Sweet Bite {s} Bakery", "{s} Bakery & Cafe",
-               "Golden {s} Bakers"],
+        names=["{s} Bakers", "{s} Cake Shop", "Sweet Bite {s} Bakery", "{s} Bakery & Cafe", "Golden {s} Bakers"],
         stock="goods",
         items=[
             ("Black Forest Cake", "500g", 450, "black forest cake", "cakes"),
@@ -200,17 +336,24 @@ MERCHANT_TYPES = {
             ("Cookies", "250g", 180, "cookies biscuit", "snacks"),
             ("Plum Cake", "500g", 350, "plum cake christmas", "cakes"),
         ],
-        delivery=True, delivery_days=[0], bulk=True,
-        returns=["Food items cannot be returned. If a cake is damaged on delivery, we replace it the same day.",
-                 "No returns on food items. Complaints about quality accepted within 2 hours of delivery."],
-        extra=[("Custom cake", "Photo and theme cakes need {advance_days} day advance order with 50% advance payment.",
-                "custom photo theme design birthday advance order"),
-               ("Eggless", "All cakes are available eggless at ₹50 extra per kg.",
-                "eggless egg veg")],
+        delivery=True,
+        delivery_days=[0],
+        bulk=True,
+        returns=[
+            "Food items cannot be returned. If a cake is damaged on delivery, we replace it the same day.",
+            "No returns on food items. Complaints about quality accepted within 2 hours of delivery.",
+        ],
+        extra=[
+            (
+                "Custom cake",
+                "Photo and theme cakes need {advance_days} day advance order with 50% advance payment.",
+                "custom photo theme design birthday advance order",
+            ),
+            ("Eggless", "All cakes are available eggless at ₹50 extra per kg.", "eggless egg veg"),
+        ],
     ),
     "stationery": dict(
-        names=["{s} Stationers", "{s} Book Depot", "{s} Xerox & Stationery", "Vidya {s} Stores",
-               "{s} Book House"],
+        names=["{s} Stationers", "{s} Book Depot", "{s} Xerox & Stationery", "Vidya {s} Stores", "{s} Book House"],
         stock="goods",
         items=[
             ("Notebook", "172 pages", 60, "notebook register", "school"),
@@ -227,15 +370,22 @@ MERCHANT_TYPES = {
             ("Drawing Book", "", 50, "drawing book", "school"),
             ("Scientific Calculator", "", 650, "calculator scientific", "office"),
         ],
-        delivery=False, bulk=True,
-        returns=["Unused items exchangeable within 3 days with bill. Printouts are not refundable.",
-                 "Exchange only, within 5 days, for unused items."],
-        extra=[("Print from phone", "Send files on this WhatsApp; prints ready in 30 minutes.",
-                "print whatsapp file pdf phone send")],
+        delivery=False,
+        bulk=True,
+        returns=[
+            "Unused items exchangeable within 3 days with bill. Printouts are not refundable.",
+            "Exchange only, within 5 days, for unused items.",
+        ],
+        extra=[
+            (
+                "Print from phone",
+                "Send files on this WhatsApp; prints ready in 30 minutes.",
+                "print whatsapp file pdf phone send",
+            )
+        ],
     ),
     "sweets": dict(
-        names=["{s} Sweets", "{s} Mishthan Bhandar", "{s} Sweet House", "Shree {s} Sweets",
-               "{s} Mithaiwala"],
+        names=["{s} Sweets", "{s} Mishthan Bhandar", "{s} Sweet House", "Shree {s} Sweets", "{s} Mithaiwala"],
         stock="goods",
         items=[
             ("Rasgulla", "1kg", 360, "rasgulla rosogolla", "sweets"),
@@ -250,15 +400,26 @@ MERCHANT_TYPES = {
             ("Diwali Gift Box", "1kg", 950, "diwali gift box hamper festival", "gift"),
             ("Namkeen Mix", "400g", 140, "namkeen mixture", "snacks"),
         ],
-        delivery=True, delivery_days=[0, 1], bulk=True,
-        returns=["Sweets cannot be returned. Please check at delivery.",
-                 "No returns on food items."],
-        extra=[("Wedding orders", "Wedding and function orders need {advance_days} days advance booking.",
-                "wedding shaadi function party advance booking")],
+        delivery=True,
+        delivery_days=[0, 1],
+        bulk=True,
+        returns=["Sweets cannot be returned. Please check at delivery.", "No returns on food items."],
+        extra=[
+            (
+                "Wedding orders",
+                "Wedding and function orders need {advance_days} days advance booking.",
+                "wedding shaadi function party advance booking",
+            )
+        ],
     ),
     "repair": dict(
-        names=["{s} Electronics Repair", "{s} Service Centre", "{s} Cool Care (AC & Fridge)",
-               "{s} Home Appliance Repair", "Quick Fix {s}"],
+        names=[
+            "{s} Electronics Repair",
+            "{s} Service Centre",
+            "{s} Cool Care (AC & Fridge)",
+            "{s} Home Appliance Repair",
+            "Quick Fix {s}",
+        ],
         stock="service",
         items=[
             ("TV Repair", "", 499, "tv television led repair", "repair", "from"),
@@ -270,17 +431,33 @@ MERCHANT_TYPES = {
             ("Inverter Battery", "150Ah", 14500, "inverter battery", "products"),
             ("Home Visit Charge", "", 199, "visit charge home inspection", "service"),
         ],
-        delivery=False, bulk=False,
-        returns=["30 days warranty on repair work and 6 months on new parts.",
-                 "Repairs carry 60 days service warranty. Replaced parts follow company warranty."],
-        extra=[("Home visit", "Technician home visit within {city} the same day if booked before 2 PM.",
-                "home visit technician ghar aake booking book"),
-               ("Repair time", "Most repairs done in 1–2 days; parts may take 3 days.",
-                "repair time kitna time how long ready")],
+        delivery=False,
+        bulk=False,
+        returns=[
+            "30 days warranty on repair work and 6 months on new parts.",
+            "Repairs carry 60 days service warranty. Replaced parts follow company warranty.",
+        ],
+        extra=[
+            (
+                "Home visit",
+                "Technician home visit within {city} the same day if booked before 2 PM.",
+                "home visit technician ghar aake booking book",
+            ),
+            (
+                "Repair time",
+                "Most repairs done in 1–2 days; parts may take 3 days.",
+                "repair time kitna time how long ready",
+            ),
+        ],
     ),
     "tiffin": dict(
-        names=["{f}'s Kitchen", "{s} Tiffin Service", "Ghar Ka Khana by {f}", "{s} Bhojanalaya",
-               "Annapurna {s} Tiffins"],
+        names=[
+            "{f}'s Kitchen",
+            "{s} Tiffin Service",
+            "Ghar Ka Khana by {f}",
+            "{s} Bhojanalaya",
+            "Annapurna {s} Tiffins",
+        ],
         stock="goods",
         items=[
             ("Veg Thali", "", 120, "veg thali lunch dinner food", "meals"),
@@ -293,17 +470,30 @@ MERCHANT_TYPES = {
             ("Paneer Butter Masala", "", 160, "paneer butter masala", "add-on"),
             ("Dal Tadka", "", 110, "dal tadka daal", "add-on"),
         ],
-        delivery=True, delivery_days=[0], bulk=True,
-        returns=["Food cannot be returned. Missed or wrong meals are replaced next day.",
-                 "If a meal is late by more than 45 minutes, the next meal is free."],
-        extra=[("Order cutoff", "Lunch orders by 11 AM, dinner orders by 6 PM.",
-                "cutoff order last kab tak lunch dinner"),
-               ("Menu", "Menu changes daily; today's menu is shared every morning on WhatsApp.",
-                "menu today aaj kya bana")],
+        delivery=True,
+        delivery_days=[0],
+        bulk=True,
+        returns=[
+            "Food cannot be returned. Missed or wrong meals are replaced next day.",
+            "If a meal is late by more than 45 minutes, the next meal is free.",
+        ],
+        extra=[
+            ("Order cutoff", "Lunch orders by 11 AM, dinner orders by 6 PM.", "cutoff order last kab tak lunch dinner"),
+            (
+                "Menu",
+                "Menu changes daily; today's menu is shared every morning on WhatsApp.",
+                "menu today aaj kya bana",
+            ),
+        ],
     ),
     "fruits_veg": dict(
-        names=["{s} Fruits & Vegetables", "Fresh {s} Sabzi Mandi", "{s} Fresh Mart",
-               "Green {s} Veggies", "{s} Fruit Centre"],
+        names=[
+            "{s} Fruits & Vegetables",
+            "Fresh {s} Sabzi Mandi",
+            "{s} Fresh Mart",
+            "Green {s} Veggies",
+            "{s} Fruit Centre",
+        ],
         stock="goods",
         items=[
             ("Potato", "1kg", 32, "potato", "vegetables"),
@@ -319,15 +509,23 @@ MERCHANT_TYPES = {
             ("Green Chilli", "250g", 20, "chilli mirchi hari green", "vegetables"),
             ("Coconut", "1 piece", 35, "coconut nariyal", "fruits"),
         ],
-        delivery=True, delivery_days=[0], bulk=True,
-        returns=["Bad quality items replaced on the next delivery. Please share a photo.",
-                 "If anything is spoilt, send a photo within 2 hours for a refund."],
-        extra=[("Morning slot", "Morning delivery 7–10 AM, evening 5–8 PM.",
-                "slot morning evening time subah shaam")],
+        delivery=True,
+        delivery_days=[0],
+        bulk=True,
+        returns=[
+            "Bad quality items replaced on the next delivery. Please share a photo.",
+            "If anything is spoilt, send a photo within 2 hours for a refund.",
+        ],
+        extra=[("Morning slot", "Morning delivery 7–10 AM, evening 5–8 PM.", "slot morning evening time subah shaam")],
     ),
     "tailor": dict(
-        names=["{s} Tailors", "{f} Ladies Tailor", "{s} Stitching Centre", "Perfect Fit {s}",
-               "{s} Gents & Ladies Tailor"],
+        names=[
+            "{s} Tailors",
+            "{f} Ladies Tailor",
+            "{s} Stitching Centre",
+            "Perfect Fit {s}",
+            "{s} Gents & Ladies Tailor",
+        ],
         stock="service",
         items=[
             ("Blouse Stitching", "", 450, "blouse stitching", "stitching"),
@@ -339,15 +537,22 @@ MERCHANT_TYPES = {
             ("Alteration", "", 100, "alteration fitting", "alteration", "from"),
             ("Saree Fall Pico", "", 120, "fall pico saree", "alteration"),
         ],
-        delivery=False, bulk=False,
-        returns=["Free re-fitting within 7 days if the fit is not right.",
-                 "Fitting issues corrected free of cost within 10 days."],
-        extra=[("Stitching time", "Stitching takes {stitch_days} days; urgent in 2 days for ₹200 extra.",
-                "kitne din time ready kab days urgent")],
+        delivery=False,
+        bulk=False,
+        returns=[
+            "Free re-fitting within 7 days if the fit is not right.",
+            "Fitting issues corrected free of cost within 10 days.",
+        ],
+        extra=[
+            (
+                "Stitching time",
+                "Stitching takes {stitch_days} days; urgent in 2 days for ₹200 extra.",
+                "kitne din time ready kab days urgent",
+            )
+        ],
     ),
     "salon": dict(
-        names=["{s} Salon", "Glam {f} Beauty Parlour", "{s} Unisex Salon", "{f}'s Beauty Studio",
-               "Style Zone {s}"],
+        names=["{s} Salon", "Glam {f} Beauty Parlour", "{s} Unisex Salon", "{f}'s Beauty Studio", "Style Zone {s}"],
         stock="service",
         items=[
             ("Men's Haircut", "", 200, "haircut men mens cutting hair", "hair"),
@@ -361,15 +566,22 @@ MERCHANT_TYPES = {
             ("Manicure", "", 499, "manicure nails", "nails"),
             ("Pedicure", "", 599, "pedicure feet", "nails"),
         ],
-        delivery=False, bulk=False,
-        returns=["Not happy with a service? Tell us within 3 days for a free redo.",
-                 "Free touch-up within 7 days for haircuts and colour."],
-        extra=[("Appointment", "Walk-ins welcome; book on WhatsApp to skip waiting.",
-                "appointment booking book slot walk in")],
+        delivery=False,
+        bulk=False,
+        returns=[
+            "Not happy with a service? Tell us within 3 days for a free redo.",
+            "Free touch-up within 7 days for haircuts and colour.",
+        ],
+        extra=[
+            (
+                "Appointment",
+                "Walk-ins welcome; book on WhatsApp to skip waiting.",
+                "appointment booking book slot walk in",
+            )
+        ],
     ),
     "dairy": dict(
-        names=["{s} Dairy", "{s} Milk Centre", "Gokul {s} Dairy", "{s} Dairy Farm Fresh",
-               "Shree {s} Dugdhalaya"],
+        names=["{s} Dairy", "{s} Milk Centre", "Gokul {s} Dairy", "{s} Dairy Farm Fresh", "Shree {s} Dugdhalaya"],
         stock="goods",
         items=[
             ("Cow Milk", "1l", 62, "milk cow", "milk"),
@@ -383,15 +595,23 @@ MERCHANT_TYPES = {
             ("Buttermilk", "500ml", 25, "chaas chhach buttermilk", "drinks"),
             ("Khoya", "500g", 220, "khoya mawa", "milk products"),
         ],
-        delivery=True, delivery_days=[0], bulk=True,
-        returns=["Spoilt milk replaced next morning. Please inform the same day.",
-                 "Quality complaints accepted the same day for a replacement."],
-        extra=[("Milk subscription", "Daily morning delivery 6–8 AM with monthly billing.",
-                "subscription monthly daily roz morning subah")],
+        delivery=True,
+        delivery_days=[0],
+        bulk=True,
+        returns=[
+            "Spoilt milk replaced next morning. Please inform the same day.",
+            "Quality complaints accepted the same day for a replacement.",
+        ],
+        extra=[
+            (
+                "Milk subscription",
+                "Daily morning delivery 6–8 AM with monthly billing.",
+                "subscription monthly daily roz morning subah",
+            )
+        ],
     ),
     "pet_shop": dict(
-        names=["{s} Pet Shop", "Paws & Tails {s}", "{s} Pet Care", "Happy Pets {s}",
-               "{s} Aquarium & Pets"],
+        names=["{s} Pet Shop", "Paws & Tails {s}", "{s} Pet Care", "Happy Pets {s}", "{s} Aquarium & Pets"],
         stock="goods",
         items=[
             ("Adult Dog Food", "3kg", 1450, "dog food adult", "food"),
@@ -405,15 +625,17 @@ MERCHANT_TYPES = {
             ("Dog Grooming", "", 899, "grooming bath haircut", "service", "from"),
             ("Fish Food", "100g", 120, "fish food aquarium", "food"),
         ],
-        delivery=True, delivery_days=[1, 2], bulk=False,
-        returns=["Unopened food and accessories returnable within 7 days with bill.",
-                 "Exchange within 5 days on unused products."],
-        extra=[("Grooming slot", "Grooming by appointment, 11 AM – 6 PM.",
-                "grooming appointment slot booking")],
+        delivery=True,
+        delivery_days=[1, 2],
+        bulk=False,
+        returns=[
+            "Unopened food and accessories returnable within 7 days with bill.",
+            "Exchange within 5 days on unused products.",
+        ],
+        extra=[("Grooming slot", "Grooming by appointment, 11 AM – 6 PM.", "grooming appointment slot booking")],
     ),
     "cosmetics": dict(
-        names=["{s} Cosmetics", "{f} Beauty Store", "{s} Fancy Store", "Glow {s} Cosmetics",
-               "{s} Beauty Corner"],
+        names=["{s} Cosmetics", "{f} Beauty Store", "{s} Fancy Store", "Glow {s} Cosmetics", "{s} Beauty Corner"],
         stock="goods",
         items=[
             ("Face Wash", "100ml", 199, "face wash facewash", "skin"),
@@ -428,14 +650,23 @@ MERCHANT_TYPES = {
             ("Perfume", "100ml", 599, "perfume deo scent", "fragrance"),
             ("Bindi Pack", "", 40, "bindi", "accessories"),
         ],
-        delivery=True, delivery_days=[1, 2, 3], bulk=False,
-        returns=["Unopened products exchangeable within 7 days. No returns on opened cosmetics.",
-                 "Sealed products only, within 5 days with bill."],
+        delivery=True,
+        delivery_days=[1, 2, 3],
+        bulk=False,
+        returns=[
+            "Unopened products exchangeable within 7 days. No returns on opened cosmetics.",
+            "Sealed products only, within 5 days with bill.",
+        ],
         extra=[],
     ),
     "coaching": dict(
-        names=["{s} Classes", "{s} Coaching Centre", "Bright Future {s} Academy",
-               "{s} Tuition Classes", "Excel {s} Institute"],
+        names=[
+            "{s} Classes",
+            "{s} Coaching Centre",
+            "Bright Future {s} Academy",
+            "{s} Tuition Classes",
+            "Excel {s} Institute",
+        ],
         stock="course",
         items=[
             ("Class 10 Maths Tuition", "per month", 1500, "class 10 maths math tuition", "school"),
@@ -446,13 +677,24 @@ MERCHANT_TYPES = {
             ("Python Programming Course", "2 months", 6000, "python programming coding course", "skills"),
             ("Demo Class", "", 0, "demo trial free class", "trial"),
         ],
-        delivery=False, bulk=False,
-        returns=["Fees refundable within 7 days of joining, minus ₹500 admission charge.",
-                 "No refund after the first week; you may shift to another batch once."],
-        extra=[("Batch timings", "Morning batch 7–9 AM, evening batch 5–7 PM, weekend batch Sat–Sun 10 AM–1 PM.",
-                "batch timing time morning evening weekend schedule"),
-               ("Online classes", "Online classes on Google Meet for all courses at the same fee.",
-                "online meet zoom remote")],
+        delivery=False,
+        bulk=False,
+        returns=[
+            "Fees refundable within 7 days of joining, minus ₹500 admission charge.",
+            "No refund after the first week; you may shift to another batch once.",
+        ],
+        extra=[
+            (
+                "Batch timings",
+                "Morning batch 7–9 AM, evening batch 5–7 PM, weekend batch Sat–Sun 10 AM–1 PM.",
+                "batch timing time morning evening weekend schedule",
+            ),
+            (
+                "Online classes",
+                "Online classes on Google Meet for all courses at the same fee.",
+                "online meet zoom remote",
+            ),
+        ],
     ),
 }
 
@@ -495,7 +737,10 @@ def build_kb(type_key, rng=None, price_jitter=0.12, offer_rate=0.08, wide=0.0):
     city = rng.choice(CITIES)
     store = dict(
         name=rng.choice(spec["names"]).format(s=rng.choice(SURNAMES), f=rng.choice(FIRST_NAMES)),
-        type=type_key, city=city, area=rng.choice(AREAS), hours=rng.choice(HOURS),
+        type=type_key,
+        city=city,
+        area=rng.choice(AREAS),
+        hours=rng.choice(HOURS),
         payment=[m for m in PAYMENT_MODES if rng.random() < 0.8] or [PAYMENT_MODES[0]],
         min_order=rng.choice([99, 149, 199, 249]),
         advance_days=rng.choice([1, 2, 3]),
@@ -507,16 +752,24 @@ def build_kb(type_key, rng=None, price_jitter=0.12, offer_rate=0.08, wide=0.0):
     if not spec["delivery"] or rng.random() < 0.1:
         store.update(delivery_days=None, delivery_charge=None, free_above=None)
     else:
-        store.update(delivery_days=rng.choice(spec["delivery_days"]),
-                     delivery_charge=rng.choice([20, 30, 40, 50, 60]),
-                     free_above=rng.choice([299, 499, 799, 999]))
+        store.update(
+            delivery_days=rng.choice(spec["delivery_days"]),
+            delivery_charge=rng.choice([20, 30, 40, 50, 60]),
+            free_above=rng.choice([299, 499, 799, 999]),
+        )
 
     catalog = []
     for t in spec["items"]:
         name, variant, base, kws, cat = t[:5]
         flags = t[5:] if len(t) > 5 else ()
-        item = dict(name=name, variant=variant, price=_jitter_price(base, rng, price_jitter, wide),
-                    stock=_stock(spec["stock"], rng), keywords=kws.split(), category=cat)
+        item = dict(
+            name=name,
+            variant=variant,
+            price=_jitter_price(base, rng, price_jitter, wide),
+            stock=_stock(spec["stock"], rng),
+            keywords=kws.split(),
+            category=cat,
+        )
         if "from" in flags:
             item["price_from"] = True
         if spec["stock"] == "goods" and item["price"] and rng.random() < offer_rate:
@@ -537,19 +790,23 @@ def build_kb(type_key, rng=None, price_jitter=0.12, offer_rate=0.08, wide=0.0):
         if store["delivery_days"] is None:
             ans = "No home delivery. Pickup from the shop only."
         elif store["delivery_days"] == 0:
-            ans = (f"Same-day home delivery within {city}. ₹{store['delivery_charge']} charge, "
-                   f"free above ₹{store['free_above']}.")
+            ans = (
+                f"Same-day home delivery within {city}. ₹{store['delivery_charge']} charge, "
+                f"free above ₹{store['free_above']}."
+            )
         else:
             d = store["delivery_days"]
-            ans = (f"Home delivery within {city} in {d} day{'s' if d > 1 else ''}. "
-                   f"₹{store['delivery_charge']} charge, free above ₹{store['free_above']}.")
+            ans = (
+                f"Home delivery within {city} in {d} day{'s' if d > 1 else ''}. "
+                f"₹{store['delivery_charge']} charge, free above ₹{store['free_above']}."
+            )
         faqs.append(faq("Delivery", ans, FAQ_KW["delivery"]))
     if spec["bulk"]:
         store["bulk_min"] = rng.choice([2000, 3000, 5000])
         store["bulk_pct"] = rng.choice([5, 8, 10])
-        faqs.append(faq("Bulk orders",
-                        f"Orders above ₹{store['bulk_min']} get {store['bulk_pct']}% discount.",
-                        FAQ_KW["bulk"]))
+        faqs.append(
+            faq("Bulk orders", f"Orders above ₹{store['bulk_min']} get {store['bulk_pct']}% discount.", FAQ_KW["bulk"])
+        )
     for topic, answer, kw in spec["extra"]:
         faqs.append(faq(topic, answer.format(**store), kw))
 

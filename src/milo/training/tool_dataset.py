@@ -21,9 +21,10 @@ class ToolUseDataset:
         runtime stops generation when it sees <|tool_result|>
     Masks are computed once at load time from token character offsets.
     """
+
     def __init__(self, path, seq_len):
         self.seq_len = seq_len
-        self.examples = []   # list of (tokens, loss_mask)
+        self.examples = []  # list of (tokens, loss_mask)
         dropped_long = dropped_decode = 0
         trained = total = 0
 
@@ -50,7 +51,7 @@ class ToolUseDataset:
         if dropped_long or dropped_decode:
             print(f"  Dropped: {dropped_long} over {seq_len} tokens, {dropped_decode} decode mismatches")
         lengths = [len(t) for t, _ in self.examples]
-        print(f"  Token lengths: min={min(lengths)}, max={max(lengths)}, avg={sum(lengths)/len(lengths):.0f}")
+        print(f"  Token lengths: min={min(lengths)}, max={max(lengths)}, avg={sum(lengths) / len(lengths):.0f}")
         print(f"  Loss on {trained / max(total, 1) * 100:.1f}% of tokens")
 
     def __len__(self):

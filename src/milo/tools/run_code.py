@@ -14,7 +14,7 @@ import sys
 # on WhatsApp without a real sandbox (container/VM, no network).
 # Set MILO_DISABLE_RUN_CODE=1 to turn it off.
 # ═══════════════════════════════════════════════════════════════
-_RUNNER = r'''
+_RUNNER = r"""
 import ast, sys
 try:
     import resource
@@ -34,7 +34,7 @@ if last is not None:
     value = eval(compile(last, "<milo>", "eval"), ns)
     if value is not None:
         print(repr(value))
-'''
+"""
 
 
 def run_code(code: str, timeout: int = 10) -> str:
@@ -43,8 +43,12 @@ def run_code(code: str, timeout: int = 10) -> str:
     try:
         p = subprocess.run(
             [sys.executable, "-I", "-X", "utf8", "-c", _RUNNER],
-            input=code, capture_output=True, text=True, encoding="utf-8",
-            timeout=timeout)
+            input=code,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            timeout=timeout,
+        )
     except subprocess.TimeoutExpired:
         return f"Error: timed out ({timeout}s limit)"
     out = p.stdout.strip()

@@ -10,10 +10,14 @@ def load_model(checkpoint_path: str, device: str = "cuda") -> SLM:
     """Load Milo from a checkpoint, with the architecture from ``configs/model.yaml``."""
     cfg = model_config()
     model = SLM(
-        cfg["vocab_size"], cfg["d_model"],
-        cfg["n_q_heads"], cfg["n_kv_heads"],
-        cfg["n_layers"], cfg["seq_len"],
-        cfg["dropout"], cfg["share_blocks"],
+        cfg["vocab_size"],
+        cfg["d_model"],
+        cfg["n_q_heads"],
+        cfg["n_kv_heads"],
+        cfg["n_layers"],
+        cfg["seq_len"],
+        cfg["dropout"],
+        cfg["share_blocks"],
     )
 
     ckpt = torch.load(checkpoint_path, map_location="cpu", weights_only=False)

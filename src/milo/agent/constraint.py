@@ -29,13 +29,34 @@ from milo.tools.registry import TOOL_NAMES
 # ═══════════════════════════════════════════════════════════════
 COPY_TOOLS = ("MQ_SEARCH", "SEARCH", "WEATHER")
 NUMERIC_TOOLS = ("CALCULATE", "DATE")
-ALWAYS_OK_NUMBERS = {"100", "12", "1000", "60", "24", "365", "1024", "1048576", "100000", "10000000",
-                     "1.60934", "0.453592", "2.20462", "0.3048", "2.54", "0.0929", "32",
-                     "15", "2026", "2027"}   # last three: the trained "send it like 15 August 2027" reply
+ALWAYS_OK_NUMBERS = {
+    "100",
+    "12",
+    "1000",
+    "60",
+    "24",
+    "365",
+    "1024",
+    "1048576",
+    "100000",
+    "10000000",
+    "1.60934",
+    "0.453592",
+    "2.20462",
+    "0.3048",
+    "2.54",
+    "0.0929",
+    "32",
+    "15",
+    "2026",
+    "2027",
+}  # last three: the trained "send it like 15 August 2027" reply
 _RUN_RE = re.compile(r"\d[\d.,]*$")
 
 
-CITY_GAZETTEER = sorted(set("""
+CITY_GAZETTEER = sorted(
+    set(
+        """
 delhi new delhi mumbai bombay bangalore bengaluru chennai madras kolkata calcutta hyderabad pune jaipur lucknow
 indore bhopal patna ranchi nagpur surat ahmedabad vadodara baroda rajkot jamnagar bhavnagar kochi cochin goa shimla
 manali darjeeling ooty mysore mysuru noida gurgaon gurugram ghaziabad faridabad agra varanasi kanpur meerut amritsar
@@ -45,24 +66,83 @@ hubli hubballi belgaum nashik aurangabad thane navi mumbai kolhapur solapur jaba
 gorakhpur bareilly aligarh jammu srinagar leh siliguri dhanbad jamshedpur gaya muzaffarpur durgapur asansol
 pondicherry puducherry trivandrum thiruvananthapuram kozhikode calicut thrissur dubai london singapore new york tokyo
 paris sydney toronto seoul san francisco
-""".replace("navi mumbai", "navi_mumbai").replace("new delhi", "new_delhi").replace("new york", "new_york")
-   .replace("san francisco", "san_francisco").split()))
+""".replace("navi mumbai", "navi_mumbai")
+        .replace("new delhi", "new_delhi")
+        .replace("new york", "new_york")
+        .replace("san francisco", "san_francisco")
+        .split()
+    )
+)
 CITY_GAZETTEER = [c.replace("_", " ") for c in CITY_GAZETTEER]
 REPLY_EXTRA_NUMBERS = {"15", "2026", "2027"}
-WEATHER_WORDS = set("""mausam mosam weather barish baarish barsat rain raining umbrella chhata chata garmi garam
+WEATHER_WORDS = set(
+    """mausam mosam weather barish baarish barsat rain raining umbrella chhata chata garmi garam
 thand thandi sardi temperature temp humidity dhoop sunny hot cold jacket sweater forecast outdoor bahar
-""".split())
+""".split()
+)
 CALC_NAMES = sorted(set(FUNCS) | set(CONSTS))
-_MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september",
-           "october", "november", "december", "jan", "feb", "mar", "apr", "jun", "jul", "aug", "sep",
-           "sept", "oct", "nov", "dec"]
+_MONTHS = [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december",
+    "jan",
+    "feb",
+    "mar",
+    "apr",
+    "jun",
+    "jul",
+    "aug",
+    "sep",
+    "sept",
+    "oct",
+    "nov",
+    "dec",
+]
 _WEEKDAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-DATE_VOCAB = set(["today", "time", "now", "date", "current", "tomorrow", "yesterday", "aaj", "kal", "days", "day",
-                  "until", "till", "to", "between", "and", "working", "left", "for", "st", "nd", "rd", "th"]
-                 + _MONTHS + _WEEKDAYS
-                 + [w for k in list(FESTIVALS_LUNAR) + list(FESTIVALS_FIXED) + list(FESTIVAL_ALIASES)
-                    for w in re.findall(r"[a-z]+", k)])
-_CALC_CHARS = re.compile(r"[0-9a-z_ +\-*/().,<>=!%^]*\Z")   # \Z, not $: '$' also matches before a trailing "\n"
+DATE_VOCAB = set(
+    [
+        "today",
+        "time",
+        "now",
+        "date",
+        "current",
+        "tomorrow",
+        "yesterday",
+        "aaj",
+        "kal",
+        "days",
+        "day",
+        "until",
+        "till",
+        "to",
+        "between",
+        "and",
+        "working",
+        "left",
+        "for",
+        "st",
+        "nd",
+        "rd",
+        "th",
+    ]
+    + _MONTHS
+    + _WEEKDAYS
+    + [
+        w
+        for k in list(FESTIVALS_LUNAR) + list(FESTIVALS_FIXED) + list(FESTIVAL_ALIASES)
+        for w in re.findall(r"[a-z]+", k)
+    ]
+)
+_CALC_CHARS = re.compile(r"[0-9a-z_ +\-*/().,<>=!%^]*\Z")  # \Z, not $: '$' also matches before a trailing "\n"
 _DATE_CHARS = re.compile(r"[0-9a-z +\-/,.'’]*\Z")
 
 
@@ -76,7 +156,7 @@ def _split_call_args(s):
         elif ch == ")":
             depth -= 1
             if depth == 0:
-                return s[:i], s[i + 1:]
+                return s[:i], s[i + 1 :]
     return s, None
 
 
@@ -91,7 +171,7 @@ def _words_ok(text, vocab):
     if re.search(r"[a-z_]$", text):
         last = words[-1]
         return any(v.startswith(last) for v in vocab)
-    return True   # the trained "send it like 15 August 2027" reply
+    return True  # the trained "send it like 15 August 2027" reply
 
 
 def _boundary_find(hay, needle, need_end=False):
@@ -149,7 +229,7 @@ class CopyConstraint:
 
     def _prefix_ok(self, run):
         run = run.replace(",", "")
-        if run.endswith(".") and self._complete_ok(run):   # "₹709." — sentence full stop
+        if run.endswith(".") and self._complete_ok(run):  # "₹709." — sentence full stop
             return True
         return self._short(run) or any(a.startswith(run) for a in self.allowed)
 
@@ -157,12 +237,12 @@ class CopyConstraint:
         joined, start = text + tok, len(text)
         for m in re.finditer(pattern, joined):
             if m.end() < start:
-                continue                       # finished before this token — already checked
+                continue  # finished before this token — already checked
             run = m.group(0)
             if m.end() == len(joined):
-                if not self._prefix_ok(run):   # still being written → must be a prefix
+                if not self._prefix_ok(run):  # still being written → must be a prefix
                     return False
-            elif not self._complete_ok(run):   # closed → must be a complete known number
+            elif not self._complete_ok(run):  # closed → must be a complete known number
                 return False
         return True
 
@@ -170,8 +250,11 @@ class CopyConstraint:
     def _copy_ok(self, name, args, tok):
         if ")" in tok:
             head, tail = tok.split(")", 1)
-            return self._copy_ok(name, args, head) and self._arg_closable(name, args + head) \
+            return (
+                self._copy_ok(name, args, head)
+                and self._arg_closable(name, args + head)
                 and (TOOL_RESULT_TAG.startswith(tail) or tail.startswith(TOOL_RESULT_TAG))
+            )
         cand = (args + tok).lower().lstrip()
         if not cand:
             return True
@@ -207,22 +290,22 @@ class CopyConstraint:
         """text: this step's generated text so far; tok: candidate token string."""
         i = text.rfind(TOOL_CALL_TAG)
         if i >= 0 and TOOL_RESULT_TAG not in text[i:]:
-            seg = text[i + len(TOOL_CALL_TAG):]
+            seg = text[i + len(TOOL_CALL_TAG) :]
             m = re.match(r"\s*([A-Za-z_]+)\(", seg)
             if m:
-                name, args = m.group(1).upper(), seg[m.end():]
+                name, args = m.group(1).upper(), seg[m.end() :]
                 if name not in self.tool_names:
                     return False
                 if name in COPY_TOOLS:
-                    if ")" in args:            # args closed → only the result tag may follow
-                        after = args[args.index(")") + 1:] + tok
+                    if ")" in args:  # args closed → only the result tag may follow
+                        after = args[args.index(")") + 1 :] + tok
                         return TOOL_RESULT_TAG.startswith(after) or after.startswith(TOOL_RESULT_TAG)
                     return self._copy_ok(name, args, tok)
                 if name in NUMERIC_TOOLS:
                     head, tail = _split_call_args(args + tok)
                     if tail is not None and not (TOOL_RESULT_TAG.startswith(tail) or tail.startswith(TOOL_RESULT_TAG)):
-                        return False           # after the call's closing ')' only the result tag may follow
-                    head_l = head.lower() + (" " if tail is not None else "")   # closed → last word complete
+                        return False  # after the call's closing ')' only the result tag may follow
+                    head_l = head.lower() + (" " if tail is not None else "")  # closed → last word complete
                     if name == "CALCULATE":
                         if not _CALC_CHARS.match(head_l) or not _words_ok(head_l, CALC_NAMES):
                             return False
@@ -237,7 +320,7 @@ class CopyConstraint:
                 return head in self.tool_names
             return any(n.startswith(name_so_far.upper()) for n in self.tool_names) if name_so_far else True
         if not any(c.isdigit() for c in tok) and not _RUN_RE.search(text):
-            return True                        # no number being written or closed
+            return True  # no number being written or closed
         self.allowed = self.allowed_reply
         self.min_len = 1 if self.numbers_in_reply else 3
         return self._numbers_ok(text, tok)

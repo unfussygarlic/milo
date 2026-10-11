@@ -14,18 +14,37 @@ import re
 # CALCULATE — AST-based (no eval), bounded
 # ═══════════════════════════════════════════════════════════════
 _BINOPS = {
-    ast.Add: operator.add, ast.Sub: operator.sub, ast.Mult: operator.mul,
-    ast.Div: operator.truediv, ast.FloorDiv: operator.floordiv,
-    ast.Mod: operator.mod, ast.Pow: operator.pow,
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+    ast.FloorDiv: operator.floordiv,
+    ast.Mod: operator.mod,
+    ast.Pow: operator.pow,
 }
 _UNARY = {ast.UAdd: operator.pos, ast.USub: operator.neg}
-_CMPOPS = {ast.Gt: operator.gt, ast.GtE: operator.ge, ast.Lt: operator.lt, ast.LtE: operator.le,
-           ast.Eq: operator.eq, ast.NotEq: operator.ne}
-FUNCS = {
-    "sqrt": math.sqrt, "abs": abs, "round": round, "min": min, "max": max,
-    "ceil": math.ceil, "floor": math.floor, "log": math.log,
-    "log10": math.log10, "exp": math.exp,
+_CMPOPS = {
+    ast.Gt: operator.gt,
+    ast.GtE: operator.ge,
+    ast.Lt: operator.lt,
+    ast.LtE: operator.le,
+    ast.Eq: operator.eq,
+    ast.NotEq: operator.ne,
 }
+FUNCS = {
+    "sqrt": math.sqrt,
+    "abs": abs,
+    "round": round,
+    "min": min,
+    "max": max,
+    "ceil": math.ceil,
+    "floor": math.floor,
+    "log": math.log,
+    "log10": math.log10,
+    "exp": math.exp,
+}
+
+
 def _emi(principal, annual_rate_pct, months):
     """Monthly EMI for a loan (reducing balance)."""
     r = annual_rate_pct / 12 / 100
@@ -57,7 +76,7 @@ def _eval(node):
         return node.value
     if isinstance(node, ast.Name) and node.id in CONSTS:
         return CONSTS[node.id]
-    if (isinstance(node, ast.Compare) and len(node.ops) == 1 and type(node.ops[0]) in _CMPOPS):
+    if isinstance(node, ast.Compare) and len(node.ops) == 1 and type(node.ops[0]) in _CMPOPS:
         return bool(_CMPOPS[type(node.ops[0])](_eval(node.left), _eval(node.comparators[0])))
     if isinstance(node, ast.UnaryOp) and type(node.op) in _UNARY:
         return _UNARY[type(node.op)](_eval(node.operand))
@@ -71,8 +90,7 @@ def _eval(node):
         if abs(res) > MAX_MAGNITUDE:
             raise CalcError("result too large")
         return res
-    if (isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
-            and node.func.id in FUNCS and not node.keywords):
+    if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id in FUNCS and not node.keywords:
         return FUNCS[node.func.id](*[_eval(a) for a in node.args])
     raise CalcError("unsupported expression")
 

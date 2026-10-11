@@ -21,10 +21,17 @@ EOS_ID = enc.encode(EOS_TOKEN, allowed_special={EOS_TOKEN})[0]
 
 
 def encode(text: str) -> list[int]:
-    return enc.encode(text, allowed_special={
-        USER_TOKEN, ASST_TOKEN, EOS_TOKEN,
-        TOOL_CALL_TAG, TOOL_RESULT_TAG, END_TOOL_TAG,
-    })
+    return enc.encode(
+        text,
+        allowed_special={
+            USER_TOKEN,
+            ASST_TOKEN,
+            EOS_TOKEN,
+            TOOL_CALL_TAG,
+            TOOL_RESULT_TAG,
+            END_TOOL_TAG,
+        },
+    )
 
 
 def decode(tokens: list[int]) -> str:
@@ -43,7 +50,6 @@ def vocab_strings() -> list[str]:
 
 
 def strip_tags(text: str) -> str:
-    for tag in (EOS_TOKEN, TOOL_CALL_TAG, TOOL_RESULT_TAG, END_TOOL_TAG,
-                USER_TOKEN, ASST_TOKEN):
+    for tag in (EOS_TOKEN, TOOL_CALL_TAG, TOOL_RESULT_TAG, END_TOOL_TAG, USER_TOKEN, ASST_TOKEN):
         text = text.replace(tag, "")
     return text.strip()

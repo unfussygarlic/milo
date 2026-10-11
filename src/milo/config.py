@@ -46,8 +46,7 @@ def load(name: str) -> dict[str, Any]:
     path = config_dir() / f"{name}.yaml"
     if not path.exists():
         raise FileNotFoundError(
-            f"config {name!r} not found at {path}. Set MILO_CONFIG_DIR if your configs "
-            f"live elsewhere."
+            f"config {name!r} not found at {path}. Set MILO_CONFIG_DIR if your configs live elsewhere."
         )
     with path.open(encoding="utf-8") as f:
         return yaml.safe_load(f) or {}

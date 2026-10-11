@@ -25,6 +25,7 @@ from milo.training.tool_dataset import ToolUseDataset
 
 CONFIG = training_config("tools")
 
+
 class Logger:
     def __init__(self, log_path):
         self.terminal = sys.stdout
@@ -72,8 +73,7 @@ def evaluate(model, val_data, device, n_batches=50):
 # ═══════════════════════════════════════════════════════════════
 def main():
     parser = argparse.ArgumentParser(description="Milo — Tool-Use Fine-Tuning")
-    parser.add_argument("--checkpoint", type=str, required=True,
-                        help="Path to SFT checkpoint (best.pt)")
+    parser.add_argument("--checkpoint", type=str, required=True, help="Path to SFT checkpoint (best.pt)")
     parser.add_argument("--train_data", type=str, default=CONFIG["train_data"])
     parser.add_argument("--val_data", type=str, default=CONFIG["val_data"])
     parser.add_argument("--run_name", type=str, default=None)
@@ -92,11 +92,11 @@ def main():
     sys.stdout = logger
     sys.stderr = logger
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print("  Milo — Tool-Use Fine-Tuning")
     print(f"  Experiment: {exp_name}")
     print(f"  Base checkpoint: {args.checkpoint}")
-    print(f"{'='*60}\n")
+    print(f"{'=' * 60}\n")
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Device: {device}")
@@ -108,9 +108,14 @@ def main():
 
     # ── Build and load model ──
     model = SLM(
-        CONFIG["vocab_size"], CONFIG["d_model"], CONFIG["n_q_heads"],
-        CONFIG["n_kv_heads"], CONFIG["n_layers"], CONFIG["seq_len"],
-        CONFIG["dropout"], CONFIG["share_blocks"],
+        CONFIG["vocab_size"],
+        CONFIG["d_model"],
+        CONFIG["n_q_heads"],
+        CONFIG["n_kv_heads"],
+        CONFIG["n_layers"],
+        CONFIG["seq_len"],
+        CONFIG["dropout"],
+        CONFIG["share_blocks"],
     )
 
     print(f"\nLoading checkpoint: {args.checkpoint}")
@@ -132,22 +137,25 @@ def main():
     print(f"Total steps: {total_steps} ({CONFIG['epochs']} epochs)")
 
     optimizer = torch.optim.AdamW(
-        model.parameters(), lr=CONFIG["lr"],
-        betas=(0.9, 0.95), weight_decay=CONFIG["weight_decay"],
+        model.parameters(),
+        lr=CONFIG["lr"],
+        betas=(0.9, 0.95),
+        weight_decay=CONFIG["weight_decay"],
     )
     scaler = torch.amp.GradScaler("cuda")
 
     # Save config
     with open(os.path.join(exp_dir, "config.json"), "w") as f:
-        json.dump({**CONFIG, "checkpoint": args.checkpoint,
-                    "total_steps": total_steps}, f, indent=2)
+        json.dump({**CONFIG, "checkpoint": args.checkpoint, "total_steps": total_steps}, f, indent=2)
 
     # ── Training loop ──
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print("  Training starts")
     print(f"  LR: {CONFIG['lr']} → {CONFIG['min_lr']}")
-    print(f"  Batch: {CONFIG['batch_size']} × {CONFIG['grad_accum_steps']} = {CONFIG['batch_size'] * CONFIG['grad_accum_steps']}")
-    print(f"{'='*60}\n")
+    print(
+        f"  Batch: {CONFIG['batch_size']} × {CONFIG['grad_accum_steps']} = {CONFIG['batch_size'] * CONFIG['grad_accum_steps']}"
+    )
+    print(f"{'=' * 60}\n")
 
     best_val_loss = float("inf")
     step = 0
@@ -159,8 +167,7 @@ def main():
 
         for _ in range(steps_per_epoch):
             # Set LR
-            lr = get_lr(step, total_steps, CONFIG["warmup_steps"],
-                        CONFIG["lr"], CONFIG["min_lr"])
+            lr = get_lr(step, total_steps, CONFIG["warmup_steps"], CONFIG["lr"], CONFIG["min_lr"])
             for pg in optimizer.param_groups:
                 pg["lr"] = lr
 
@@ -189,9 +196,11 @@ def main():
                 elapsed = time.time() - t0
                 avg_loss = loss_accum / CONFIG["log_every"]
                 pct = step / total_steps * 100
-                print(f"  step {step:>5d}/{total_steps} ({pct:5.1f}%) | "
-                      f"loss {avg_loss:.4f} | lr {lr:.2e} | "
-                      f"{elapsed:.1f}s")
+                print(
+                    f"  step {step:>5d}/{total_steps} ({pct:5.1f}%) | "
+                    f"loss {avg_loss:.4f} | lr {lr:.2e} | "
+                    f"{elapsed:.1f}s"
+                )
                 t0 = time.time()
                 loss_accum = 0.0
 
@@ -199,32 +208,33 @@ def main():
             if step % CONFIG["eval_every"] == 0:
                 val_loss = evaluate(model, val_data, device)
                 improved = val_loss < best_val_loss
-                print(f"  ► val loss: {val_loss:.4f}"
-                      f"{' ★ new best!' if improved else f' (best: {best_val_loss:.4f})'}")
+                print(f"  ► val loss: {val_loss:.4f}{' ★ new best!' if improved else f' (best: {best_val_loss:.4f})'}")
 
                 if improved:
                     best_val_loss = val_loss
-                    torch.save(model.state_dict(),
-                               os.path.join(ckpt_dir, "best.pt"))
+                    torch.save(model.state_dict(), os.path.join(ckpt_dir, "best.pt"))
 
                 # Save latest (full state for resume)
-                torch.save({
-                    "model": model.state_dict(),
-                    "optimizer": optimizer.state_dict(),
-                    "scaler": scaler.state_dict(),
-                    "step": step,
-                    "epoch": epoch,
-                    "best_val_loss": best_val_loss,
-                    "config": CONFIG,
-                }, os.path.join(ckpt_dir, "latest.pt"))
+                torch.save(
+                    {
+                        "model": model.state_dict(),
+                        "optimizer": optimizer.state_dict(),
+                        "scaler": scaler.state_dict(),
+                        "step": step,
+                        "epoch": epoch,
+                        "best_val_loss": best_val_loss,
+                        "config": CONFIG,
+                    },
+                    os.path.join(ckpt_dir, "latest.pt"),
+                )
 
     # ── Final ──
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print("  Training complete!")
     print(f"  Total steps: {step}")
     print(f"  Best val loss: {best_val_loss:.4f}")
     print(f"  Checkpoints: {ckpt_dir}/")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
 
     # Final save
     torch.save(model.state_dict(), os.path.join(ckpt_dir, "best.pt"))

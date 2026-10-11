@@ -49,7 +49,9 @@ def main():
     if problems:
         print("  VALIDATION PROBLEMS: " + ", ".join(f"{k} ×{v}" for k, v in problems.items()))
     else:
-        print("  validation: all examples passed (structure, parser round-trip, CALCULATE + RUN_CODE re-run, grounding)")
+        print(
+            "  validation: all examples passed (structure, parser round-trip, CALCULATE + RUN_CODE re-run, grounding)"
+        )
 
     os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
     val_path = args.output.replace("train", "val") if "train" in args.output else args.output + ".val"
@@ -63,9 +65,18 @@ def main():
     multi = sum(1 for e in train if len(e["tools"]) > 1)
     by_tool = collections.Counter(t for e in train for t in e["tools"])
     lens = [tok(e["text"]) for e in train]
-    hi_share = sum(1 for e in train if re.search(r"\b(hai|kya|kitne|kitna|batao|chahiye)\b", e["text"].split("<|assistant|>")[0])) / n
+    hi_share = (
+        sum(
+            1
+            for e in train
+            if re.search(r"\b(hai|kya|kitne|kitna|batao|chahiye)\b", e["text"].split("<|assistant|>")[0])
+        )
+        / n
+    )
     print(f"\n  train {n}  |  val {len(val)}  (val de-duplicated against train)")
-    print(f"  tool {tool_n} ({tool_n / n:.0%})  no-tool {n - tool_n} ({(n - tool_n) / n:.0%})  multi-tool {multi} ({multi / n:.0%})")
+    print(
+        f"  tool {tool_n} ({tool_n / n:.0%})  no-tool {n - tool_n} ({(n - tool_n) / n:.0%})  multi-tool {multi} ({multi / n:.0%})"
+    )
     print(f"  unique texts {len({e['text'] for e in train}) / n:.1%}   Hinglish user msgs ≈{hi_share:.0%}")
     print(f"  tokens ({how}): avg {sum(lens) / n:.0f}, max {max(lens)}")
     print("  tool calls: " + ", ".join(f"{k} {v}" for k, v in by_tool.most_common()))

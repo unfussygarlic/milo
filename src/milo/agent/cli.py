@@ -18,8 +18,7 @@ from milo.tools import TOOLS
 
 def main():
     parser = argparse.ArgumentParser(description="Milo ReAct Agent")
-    parser.add_argument("--checkpoint", type=str, required=True,
-                        help="Path to tool-use checkpoint (best.pt)")
+    parser.add_argument("--checkpoint", type=str, required=True, help="Path to tool-use checkpoint (best.pt)")
     gen = generation_config()
     parser.add_argument("--device", type=str, default=gen["device"])
     parser.add_argument("--temperature", type=float, default=gen["temperature"])
@@ -29,11 +28,11 @@ def main():
     parser.add_argument("--no-constrain", action="store_true", help="disable constrained copy decoding")
     args = parser.parse_args()
 
-    print(f"\n{'='*50}")
+    print(f"\n{'=' * 50}")
     print("  Milo ReAct Agent")
     print(f"  Checkpoint: {args.checkpoint}")
     print(f"  Tools: {', '.join(TOOLS.keys())}")
-    print(f"{'='*50}")
+    print(f"{'=' * 50}")
     print("\nType your message (or 'quit' to exit, 'clear' to reset)\n")
 
     print("Loading model...", end=" ", flush=True)
@@ -62,7 +61,8 @@ def main():
 
         t0 = time.time()
         response, tool_calls = react_loop(
-            model, user_input,
+            model,
+            user_input,
             conversation_history=conversation,
             device=args.device,
             max_tool_calls=args.max_tool_calls,

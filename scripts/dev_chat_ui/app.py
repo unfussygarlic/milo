@@ -107,7 +107,7 @@ def generate(prompt_text, max_new_tokens=256, temperature=0.7, top_k=50):
 
     generated_ids = []
     for _ in range(max_new_tokens):
-        idx_cond = idx[:, -MODEL_CONFIG["seq_len"]:]
+        idx_cond = idx[:, -MODEL_CONFIG["seq_len"] :]
 
         logits, _ = model(idx_cond)
         logits = logits[:, -1, :]
@@ -162,7 +162,7 @@ def generate_stream(prompt_text, max_new_tokens=256, temperature=0.7, top_k=50):
     token_count = 0
 
     for _ in range(max_new_tokens):
-        idx_cond = idx[:, -MODEL_CONFIG["seq_len"]:]
+        idx_cond = idx[:, -MODEL_CONFIG["seq_len"] :]
 
         logits, _ = model(idx_cond)
         logits = logits[:, -1, :]
@@ -231,7 +231,7 @@ async def chat(request: Request):
                 "total": total_tokens,
                 "seq_len": MODEL_CONFIG["seq_len"],
                 "was_truncated": was_truncated,
-            }
+            },
         }
     except Exception as e:
         traceback.print_exc()
@@ -249,9 +249,11 @@ async def chat_stream(request: Request):
     max_tokens = body.get("max_tokens", 256)
 
     if not messages:
+
         async def empty():
             yield f"data: {json.dumps({'type': 'token', 'token': 'Please enter a message.'})}\n\n"
             yield "data: [DONE]\n\n"
+
         return StreamingResponse(empty(), media_type="text/event-stream")
 
     prompt = build_prompt(messages)

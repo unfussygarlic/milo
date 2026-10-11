@@ -10,19 +10,26 @@ import re
 
 from .clock import now
 
-WORKING_WEEKDAYS = {0, 1, 2, 3, 4, 5}   # Mon-Sat; change to {0..4} for Mon-Fri
+WORKING_WEEKDAYS = {0, 1, 2, 3, 4, 5}  # Mon-Sat; change to {0..4} for Mon-Fri
 
 # ═══════════════════════════════════════════════════════════════
 # DATE
 # ═══════════════════════════════════════════════════════════════
 _DATE_FORMATS = [
-    "%Y-%m-%d", "%d-%m-%Y", "%d/%m/%Y",
-    "%B %d, %Y", "%b %d, %Y", "%B %d %Y", "%b %d %Y",
-    "%d %B %Y", "%d %b %Y", "%d %B, %Y", "%d %b, %Y",
+    "%Y-%m-%d",
+    "%d-%m-%Y",
+    "%d/%m/%Y",
+    "%B %d, %Y",
+    "%b %d, %Y",
+    "%B %d %Y",
+    "%b %d %Y",
+    "%d %B %Y",
+    "%d %b %Y",
+    "%d %B, %Y",
+    "%d %b, %Y",
 ]
 _NO_YEAR_FORMATS = ["%B %d", "%b %d", "%d %B", "%d %b"]
-_WEEKDAY_PREFIX = re.compile(
-    r"^(monday|tuesday|wednesday|thursday|friday|saturday|sunday),?\s+", re.I)
+_WEEKDAY_PREFIX = re.compile(r"^(monday|tuesday|wednesday|thursday|friday|saturday|sunday),?\s+", re.I)
 
 
 def fmt_date(d: dt.date) -> str:
@@ -52,20 +59,46 @@ FESTIVALS_LUNAR = {
     "ganesh chaturthi": ["2027-09-04"],
 }
 FESTIVALS_FIXED = {
-    "christmas": (12, 25), "new year": (1, 1), "republic day": (1, 26),
-    "independence day": (8, 15), "gandhi jayanti": (10, 2), "valentine's day": (2, 14),
+    "christmas": (12, 25),
+    "new year": (1, 1),
+    "republic day": (1, 26),
+    "independence day": (8, 15),
+    "gandhi jayanti": (10, 2),
+    "valentine's day": (2, 14),
 }
 FESTIVAL_ALIASES = {
-    "deepavali": "diwali", "divali": "diwali", "diwali puja": "diwali", "lakshmi puja": "diwali",
-    "dasara": "dussehra", "dasehra": "dussehra", "dussera": "dussehra", "vijayadashami": "dussehra",
-    "navratri start": "navratri", "navaratri": "navratri", "rakhi": "raksha bandhan",
-    "rakshabandhan": "raksha bandhan", "janmasthami": "janmashtami", "krishna janmashtami": "janmashtami",
-    "ganpati": "ganesh chaturthi", "ganesh chaturthi": "ganesh chaturthi", "shivratri": "maha shivaratri",
-    "mahashivratri": "maha shivaratri", "maha shivratri": "maha shivaratri", "sankranti": "makar sankranti",
-    "bhai dooj": "bhai dooj", "bhaidooj": "bhai dooj", "xmas": "christmas", "new year's": "new year",
-    "new years": "new year", "new year's day": "new year", "26 january": "republic day",
-    "15 august": "independence day", "valentines day": "valentine's day", "valentine day": "valentine's day",
-    "karva chauth": "karwa chauth", "govardhan": "govardhan puja",
+    "deepavali": "diwali",
+    "divali": "diwali",
+    "diwali puja": "diwali",
+    "lakshmi puja": "diwali",
+    "dasara": "dussehra",
+    "dasehra": "dussehra",
+    "dussera": "dussehra",
+    "vijayadashami": "dussehra",
+    "navratri start": "navratri",
+    "navaratri": "navratri",
+    "rakhi": "raksha bandhan",
+    "rakshabandhan": "raksha bandhan",
+    "janmasthami": "janmashtami",
+    "krishna janmashtami": "janmashtami",
+    "ganpati": "ganesh chaturthi",
+    "ganesh chaturthi": "ganesh chaturthi",
+    "shivratri": "maha shivaratri",
+    "mahashivratri": "maha shivaratri",
+    "maha shivratri": "maha shivaratri",
+    "sankranti": "makar sankranti",
+    "bhai dooj": "bhai dooj",
+    "bhaidooj": "bhai dooj",
+    "xmas": "christmas",
+    "new year's": "new year",
+    "new years": "new year",
+    "new year's day": "new year",
+    "26 january": "republic day",
+    "15 august": "independence day",
+    "valentines day": "valentine's day",
+    "valentine day": "valentine's day",
+    "karva chauth": "karwa chauth",
+    "govardhan": "govardhan puja",
 }
 
 
@@ -122,7 +155,7 @@ def parse_date(text: str) -> dt.date | None:
             return dt.datetime.strptime(t, f).date()
         except ValueError:
             pass
-    for f in _NO_YEAR_FORMATS:   # no year → next occurrence
+    for f in _NO_YEAR_FORMATS:  # no year → next occurrence
         try:
             d = dt.datetime.strptime(t, f).date().replace(year=today.year)
         except ValueError:
@@ -159,8 +192,9 @@ def _date_tool(arg):
             return bad(m.group(1))
         if d <= today:
             return f"0 working days until {fmt_date(d)}"
-        n = sum(1 for i in range(1, (d - today).days + 1)
-                if (today + dt.timedelta(days=i)).weekday() in WORKING_WEEKDAYS)
+        n = sum(
+            1 for i in range(1, (d - today).days + 1) if (today + dt.timedelta(days=i)).weekday() in WORKING_WEEKDAYS
+        )
         return f"{n} working days (Mon–Sat) until {fmt_date(d)}"
 
     m = re.match(r"^days (?:until|till|to|left (?:for|until))\s+(.+)$", low)

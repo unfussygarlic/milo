@@ -22,8 +22,9 @@ def apply_constraint(logits: torch.Tensor, constraint: CopyConstraint, text_so_f
         else:
             order = order or torch.argsort(logits, descending=True).tolist()
             cand = order
-        ok = [t for t in cand if (constraint.eos_ok(text_so_far) if t == EOS_ID
-                                  else constraint.ok(text_so_far, vocab[t]))]
+        ok = [
+            t for t in cand if (constraint.eos_ok(text_so_far) if t == EOS_ID else constraint.ok(text_so_far, vocab[t]))
+        ]
         if ok:
             masked = torch.full_like(logits, float("-inf"))
             idx = torch.tensor(ok, device=logits.device)
@@ -34,10 +35,17 @@ def apply_constraint(logits: torch.Tensor, constraint: CopyConstraint, text_so_f
 
 
 @torch.no_grad()
-def generate(model: torch.nn.Module, token_ids: list[int], max_new_tokens: int = 256,
-             temperature: float = 0.7, top_k: int = 50, top_p: float = 0.9,
-             stop_strings: list[str] | None = None, device: str = "cuda",
-             constraint: CopyConstraint | None = None) -> list[int]:
+def generate(
+    model: torch.nn.Module,
+    token_ids: list[int],
+    max_new_tokens: int = 256,
+    temperature: float = 0.7,
+    top_k: int = 50,
+    top_p: float = 0.9,
+    stop_strings: list[str] | None = None,
+    device: str = "cuda",
+    constraint: CopyConstraint | None = None,
+) -> list[int]:
     """
     Generate tokens autoregressively. Stops on EOS, any stop_string,
     or when max_new_tokens is reached.
@@ -57,7 +65,7 @@ def generate(model: torch.nn.Module, token_ids: list[int], max_new_tokens: int =
         logits = logits[0, -1, :].float()
 
         if constraint is not None:
-            logits = apply_constraint(logits, constraint, decode(generated[len(token_ids):]))
+            logits = apply_constraint(logits, constraint, decode(generated[len(token_ids) :]))
 
         if temperature > 0:
             logits = logits / temperature
@@ -86,7 +94,7 @@ def generate(model: torch.nn.Module, token_ids: list[int], max_new_tokens: int =
             break
 
         if stop_strings:
-            text_so_far = decode(generated[len(token_ids):])
+            text_so_far = decode(generated[len(token_ids) :])
             if any(ss in text_so_far for ss in stop_strings):
                 break
 

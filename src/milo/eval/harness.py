@@ -54,7 +54,11 @@ def store(kind: str) -> dict:
     for seed in range(1000):
         kb = M.build_kb(kind, random.Random(seed), offer_rate=0)
         spec = M.MERCHANT_TYPES[kind]
-        if spec["delivery"] and kb["store"]["delivery_days"] in (None, 0) and kind not in ("bakery", "tiffin", "dairy", "fruits_veg"):
+        if (
+            spec["delivery"]
+            and kb["store"]["delivery_days"] in (None, 0)
+            and kind not in ("bakery", "tiffin", "dairy", "fruits_veg")
+        ):
             continue
         break
     for it in kb["catalog"]:
@@ -77,17 +81,44 @@ def store(kind: str) -> dict:
 # STUBS for external tools (deterministic)
 # ═══════════════════════════════════════════════════════════════
 SEARCH_STUB = {
-    "upi": ("Unified Payments Interface", "Unified Payments Interface (UPI) is an instant real-time payment system developed by the National Payments Corporation of India."),
-    "docker": ("Docker (software)", "Docker is a platform that packages applications and their dependencies into containers."),
-    "fssai": ("Food Safety and Standards Authority of India", "The Food Safety and Standards Authority of India (FSSAI) regulates food safety; food businesses need an FSSAI licence or registration."),
-    "mishti doi": ("Mishti doi", "Mishti doi is a fermented sweet yogurt popular in West Bengal, traditionally set in earthen pots."),
-    "kubernetes": ("Kubernetes", "Kubernetes is an open-source system for automating deployment, scaling and management of containerised applications."),
+    "upi": (
+        "Unified Payments Interface",
+        "Unified Payments Interface (UPI) is an instant real-time payment system developed by the National Payments Corporation of India.",
+    ),
+    "docker": (
+        "Docker (software)",
+        "Docker is a platform that packages applications and their dependencies into containers.",
+    ),
+    "fssai": (
+        "Food Safety and Standards Authority of India",
+        "The Food Safety and Standards Authority of India (FSSAI) regulates food safety; food businesses need an FSSAI licence or registration.",
+    ),
+    "mishti doi": (
+        "Mishti doi",
+        "Mishti doi is a fermented sweet yogurt popular in West Bengal, traditionally set in earthen pots.",
+    ),
+    "kubernetes": (
+        "Kubernetes",
+        "Kubernetes is an open-source system for automating deployment, scaling and management of containerised applications.",
+    ),
     "inflation": ("Inflation", "Inflation is a general increase in the prices of goods and services over time."),
-    "isro": ("Indian Space Research Organisation", "ISRO is India's national space agency, headquartered in Bengaluru."),
+    "isro": (
+        "Indian Space Research Organisation",
+        "ISRO is India's national space agency, headquartered in Bengaluru.",
+    ),
     "chikankari": ("Chikan embroidery", "Chikankari is a traditional hand embroidery style from Lucknow."),
-    "jwt": ("JSON Web Token", "A JSON Web Token (JWT) is a compact token format for transmitting claims, often used for authentication."),
-    "e-way bill": ("E-way bill", "An e-way bill is an electronic document required under GST for moving goods above a specified value."),
-    "taj mahal": ("Taj Mahal", "The Taj Mahal is a white marble mausoleum in Agra, commissioned in 1632 by Shah Jahan."),
+    "jwt": (
+        "JSON Web Token",
+        "A JSON Web Token (JWT) is a compact token format for transmitting claims, often used for authentication.",
+    ),
+    "e-way bill": (
+        "E-way bill",
+        "An e-way bill is an electronic document required under GST for moving goods above a specified value.",
+    ),
+    "taj mahal": (
+        "Taj Mahal",
+        "The Taj Mahal is a white marble mausoleum in Agra, commissioned in 1632 by Shah Jahan.",
+    ),
     "paneer": ("Paneer", "Paneer is a fresh cheese made by curdling heated milk with lemon juice or vinegar."),
 }
 
@@ -103,15 +134,38 @@ def stub_search(q):
 def stub_weather(city):
     c = city.strip().title() or "?"
     h = sum(map(ord, c))
-    return T.format_weather(c, 18 + h % 20, ["sunny", "light rain", "partly cloudy", "haze"][h % 4],
-                            40 + h % 50, 5 + h % 25, [5, 80, 30, 10][h % 4])
+    return T.format_weather(
+        c,
+        18 + h % 20,
+        ["sunny", "light rain", "partly cloudy", "haze"][h % 4],
+        40 + h % 50,
+        5 + h % 25,
+        [5, 80, 30, 10][h % 4],
+    )
 
 
 # ═══════════════════════════════════════════════════════════════
 # SCORING
 # ═══════════════════════════════════════════════════════════════
-CALC_CONSTANTS = {"100", "12", "1000", "60", "24", "365", "1024", "1048576", "1.60934", "0.453592",
-                  "2.20462", "0.3048", "2.54", "0.0929", "32", "100000", "10000000"}
+CALC_CONSTANTS = {
+    "100",
+    "12",
+    "1000",
+    "60",
+    "24",
+    "365",
+    "1024",
+    "1048576",
+    "1.60934",
+    "0.453592",
+    "2.20462",
+    "0.3048",
+    "2.54",
+    "0.0929",
+    "32",
+    "100000",
+    "10000000",
+}
 UNAVAILABLE = ("out of stock", "batch full", "fully booked")
 
 
@@ -149,11 +203,18 @@ def score(case: dict, response: str, calls: list[tuple]) -> dict:
         s["args"] = None
 
     s["grounded"] = not T.ungrounded_numbers(response, [case["q"]] + results, case["allow"])
-    usable = [r for r in results if not r.startswith(("Error", "No match"))
-              and not all(any(u in ln for u in UNAVAILABLE) for ln in r.split("\n"))]
+    usable = [
+        r
+        for r in results
+        if not r.startswith(("Error", "No match"))
+        and not all(any(u in ln for u in UNAVAILABLE) for ln in r.split("\n"))
+    ]
     result_nums = {n for r in usable for n in T.numbers_in(r) if len(n.replace(".", "")) > 1}
-    s["uses"] = (bool(result_nums & T.numbers_in(response)) if result_nums and case["cat"] not in ("search", "route", "store_faq")
-                 else None)
+    s["uses"] = (
+        bool(result_nums & T.numbers_in(response))
+        if result_nums and case["cat"] not in ("search", "route", "store_faq")
+        else None
+    )
     s["clean"] = bool(response.strip()) and "<|" not in response and "|>" not in response
     s["pass"] = all(v for k, v in s.items() if v is not None)
 
@@ -176,8 +237,17 @@ def make_agent(checkpoint: str, device: str, max_tool_calls: int, constrain: boo
     model = load_model(checkpoint, device)
 
     def agent(q):
-        return react_loop(model, q, device=device, max_tool_calls=max_tool_calls,
-                             temperature=0.0, verbose=False, guard=False, constrain=constrain)
+        return react_loop(
+            model,
+            q,
+            device=device,
+            max_tool_calls=max_tool_calls,
+            temperature=0.0,
+            verbose=False,
+            guard=False,
+            constrain=constrain,
+        )
+
     return agent
 
 
@@ -193,11 +263,12 @@ def run(agent, cases: list[dict], live: bool = False) -> list[dict]:
         t0 = time.time()
         try:
             response, calls = agent(case["q"])
-        except Exception as e:                       # a crash is a failure, not a stop
+        except Exception as e:  # a crash is a failure, not a stop
             response, calls = f"[crash: {type(e).__name__}: {e}]", []
         sc = score(case, response, calls)
         out.append(dict(case=case, response=response, calls=calls, score=sc, secs=round(time.time() - t0, 2)))
-    T.set_now(None); T.set_merchant_kb(None)
+    T.set_now(None)
+    T.set_merchant_kb(None)
     return out
 
 
@@ -224,15 +295,26 @@ def fmt(x):
     return "   –" if x is None else f"{x * 100:4.0f}"
 
 
-CAT_ORDER = ["store_product", "store_faq", "store_nomatch", "store_chain", "route", "calc", "date",
-             "search", "weather", "code", "no_tool", "ALL"]
+CAT_ORDER = [
+    "store_product",
+    "store_faq",
+    "store_nomatch",
+    "store_chain",
+    "route",
+    "calc",
+    "date",
+    "search",
+    "weather",
+    "code",
+    "no_tool",
+    "ALL",
+]
 
 
 def split_columns(names: list[str], result_sets: list[list[dict]], split: str) -> list[tuple[str, list[dict]]]:
     """(name, results) pairs for one split, dropping runs with no cases in it — a results
     file holding only test cases must not add an empty column to the dev table."""
-    cols = [(n, [r for r in rs if r["case"].get("split", "dev") == split])
-            for n, rs in zip(names, result_sets)]
+    cols = [(n, [r for r in rs if r["case"].get("split", "dev") == split]) for n, rs in zip(names, result_sets)]
     return [(n, rs) for n, rs in cols if rs]
 
 
@@ -273,11 +355,19 @@ def main():
     ap.add_argument("--device", default="cuda")
     ap.add_argument("--max-tool-calls", type=int, default=3)
     ap.add_argument("--only", help="run one category")
-    ap.add_argument("--split", choices=["dev", "test", "both"], default="both",
-                    help="dev = original 138 (leaked into v4.1 templates); test = held-out")
+    ap.add_argument(
+        "--split",
+        choices=["dev", "test", "both"],
+        default="both",
+        help="dev = original 138 (leaked into v4.1 templates); test = held-out",
+    )
     ap.add_argument("--live", action="store_true", help="real SEARCH/WEATHER instead of stubs")
-    ap.add_argument("--constrain", choices=["off", "on", "both"], default="off",
-                    help="constrained copy decoding; 'both' runs each checkpoint twice to compare")
+    ap.add_argument(
+        "--constrain",
+        choices=["off", "on", "both"],
+        default="off",
+        help="constrained copy decoding; 'both' runs each checkpoint twice to compare",
+    )
     ap.add_argument("--show-failures", type=int, default=12)
     args = ap.parse_args()
 
@@ -291,7 +381,9 @@ def main():
             for r in rows:
                 r["case"] = by_q.get(r["case"]["q"], r["case"])
                 r["score"] = score(r["case"], r["response"], [tuple(c) for c in r["calls"]])
-            names.append(os.path.basename(path).replace(".jsonl", "")); sums.append(rows); last = rows
+            names.append(os.path.basename(path).replace(".jsonl", ""))
+            sums.append(rows)
+            last = rows
         for split in ("dev", "test"):
             cols = split_columns(names, sums, split)
             if cols:
@@ -314,17 +406,21 @@ def main():
         print(f"  done in {time.time() - t0:.0f}s ({(time.time() - t0) / len(cases):.1f}s per case)")
         if cons:
             from milo.agent.decoding import CONSTRAINT_STATS as st
+
             print(f"  constraint: {st['fallbacks']} fallbacks in {st['steps']} constrained steps (should be ~0)")
             st["steps"] = st["fallbacks"] = 0
         with open(f"eval_results/{name}.jsonl", "w", encoding="utf-8") as f:
             for r in results:
                 f.write(json.dumps(r, ensure_ascii=False) + "\n")
-        names.append(name); all_results.append(results)
+        names.append(name)
+        all_results.append(results)
         del agent
     for split in ("dev", "test"):
         cols = split_columns(names, all_results, split)
         if cols:
-            print(f"\n══ {split.upper()} SPLIT ({len(cols[0][1])} cases){' — held out' if split == 'test' else ' — leaked into v4.1+ data'} ══")
+            print(
+                f"\n══ {split.upper()} SPLIT ({len(cols[0][1])} cases){' — held out' if split == 'test' else ' — leaked into v4.1+ data'} ══"
+            )
             print_table([n for n, _ in cols], [summarize(rs) for _, rs in cols])
     print_failures(all_results[-1], args.show_failures)
     print("\nFull traces: eval_results/<name>.jsonl")

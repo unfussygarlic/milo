@@ -7,7 +7,8 @@ import tiktoken
 from datasets import load_dataset
 
 enc = tiktoken.get_encoding("gpt2")
-EOT = enc.encode("<|endoftext|>", allowed_special={'<|endoftext|>'})
+EOT = enc.encode("<|endoftext|>", allowed_special={"<|endoftext|>"})
+
 
 def stream_and_save(dataset_name, subset, target_tokens, output_dir, prefix):
     print(f"\n=== {prefix} (target: {target_tokens:,} tokens) ===")
@@ -22,11 +23,11 @@ def stream_and_save(dataset_name, subset, target_tokens, output_dir, prefix):
     t0 = time.time()
 
     for example in ds:
-        text = example.get('text', '')
+        text = example.get("text", "")
         if len(text) < 100:
             continue
 
-        tokens = enc.encode(text, allowed_special={'<|endoftext|>'}) + EOT
+        tokens = enc.encode(text, allowed_special={"<|endoftext|>"}) + EOT
         buffer.extend(tokens)
         doc_count += 1
 
@@ -41,11 +42,13 @@ def stream_and_save(dataset_name, subset, target_tokens, output_dir, prefix):
             elapsed = time.time() - t0
             rate = total_saved / max(elapsed, 1)
             eta = (target_tokens - total_saved) / rate if rate > 0 else 0
-            print(f"  [{prefix}] Chunk {chunk_num} | "
-                  f"{total_saved:,}/{target_tokens:,} | "
-                  f"Docs: {doc_count:,} | "
-                  f"{rate/1e6:.1f}M tok/s | "
-                  f"ETA: {eta/60:.0f} min")
+            print(
+                f"  [{prefix}] Chunk {chunk_num} | "
+                f"{total_saved:,}/{target_tokens:,} | "
+                f"Docs: {doc_count:,} | "
+                f"{rate / 1e6:.1f}M tok/s | "
+                f"ETA: {eta / 60:.0f} min"
+            )
 
         if total_saved >= target_tokens:
             break
@@ -58,15 +61,14 @@ def stream_and_save(dataset_name, subset, target_tokens, output_dir, prefix):
         total_saved += len(buffer)
 
     elapsed = time.time() - t0
-    print(f"  {prefix} done: {total_saved:,} tokens, {chunk_num} files, {elapsed/60:.1f} min")
+    print(f"  {prefix} done: {total_saved:,} tokens, {chunk_num} files, {elapsed / 60:.1f} min")
     return total_saved
 
 
 def build_curriculum(output_dir):
     print("\n=== Building curriculum ===")
 
-    all_files = sorted([f for f in os.listdir(output_dir)
-                        if f.endswith('.npy') and not f.startswith('stage')])
+    all_files = sorted([f for f in os.listdir(output_dir) if f.endswith(".npy") and not f.startswith("stage")])
 
     if not all_files:
         print("No data files found!")
@@ -112,7 +114,7 @@ def build_curriculum(output_dir):
 
         path = os.path.join(curriculum_dir, f"{stage_name}.npy")
         np.save(path, combined)
-        print(f"  {stage_name}: {len(combined):,} tokens ({len(combined)*2/1e9:.2f} GB)")
+        print(f"  {stage_name}: {len(combined):,} tokens ({len(combined) * 2 / 1e9:.2f} GB)")
 
         # Free memory
         del arrays, combined
@@ -122,9 +124,9 @@ def build_curriculum(output_dir):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--tokens', type=int, default=4_000_000_000)
-    parser.add_argument('--output', type=str, default='data/smollm')
-    parser.add_argument('--skip-curriculum', action='store_true')
+    parser.add_argument("--tokens", type=int, default=4_000_000_000)
+    parser.add_argument("--output", type=str, default="data/smollm")
+    parser.add_argument("--skip-curriculum", action="store_true")
     args = parser.parse_args()
 
     os.makedirs(args.output, exist_ok=True)
@@ -140,17 +142,25 @@ def main():
     t_start = time.time()
 
     # Check for existing progress
-    existing_cosmo = sum(
-        os.path.getsize(os.path.join(args.output, f)) // 2
-        for f in os.listdir(args.output)
-        if f.startswith('cosmo') and f.endswith('.npy')
-    ) if os.path.exists(args.output) else 0
+    existing_cosmo = (
+        sum(
+            os.path.getsize(os.path.join(args.output, f)) // 2
+            for f in os.listdir(args.output)
+            if f.startswith("cosmo") and f.endswith(".npy")
+        )
+        if os.path.exists(args.output)
+        else 0
+    )
 
-    existing_fineweb = sum(
-        os.path.getsize(os.path.join(args.output, f)) // 2
-        for f in os.listdir(args.output)
-        if f.startswith('fineweb') and f.endswith('.npy')
-    ) if os.path.exists(args.output) else 0
+    existing_fineweb = (
+        sum(
+            os.path.getsize(os.path.join(args.output, f)) // 2
+            for f in os.listdir(args.output)
+            if f.startswith("fineweb") and f.endswith(".npy")
+        )
+        if os.path.exists(args.output)
+        else 0
+    )
 
     if existing_cosmo > 0:
         print(f"\n  Found existing cosmo: {existing_cosmo:,} tokens")
@@ -163,10 +173,7 @@ def main():
             remaining = cosmo_target - existing_cosmo
         else:
             remaining = cosmo_target
-        stream_and_save(
-            "HuggingFaceTB/smollm-corpus", "cosmopedia-v2",
-            remaining, args.output, "cosmo"
-        )
+        stream_and_save("HuggingFaceTB/smollm-corpus", "cosmopedia-v2", remaining, args.output, "cosmo")
     else:
         print("  Cosmopedia already complete, skipping.")
 
@@ -176,10 +183,7 @@ def main():
             remaining = fineweb_target - existing_fineweb
         else:
             remaining = fineweb_target
-        stream_and_save(
-            "HuggingFaceTB/smollm-corpus", "fineweb-edu-dedup",
-            remaining, args.output, "fineweb"
-        )
+        stream_and_save("HuggingFaceTB/smollm-corpus", "fineweb-edu-dedup", remaining, args.output, "fineweb")
     else:
         print("  FineWeb-Edu already complete, skipping.")
 
@@ -187,9 +191,9 @@ def main():
         build_curriculum(args.output)
 
     total_time = time.time() - t_start
-    print(f"\n{'='*60}")
-    print(f"DONE in {total_time/60:.0f} minutes")
-    print(f"{'='*60}")
+    print(f"\n{'=' * 60}")
+    print(f"DONE in {total_time / 60:.0f} minutes")
+    print(f"{'=' * 60}")
 
 
 if __name__ == "__main__":

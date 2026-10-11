@@ -13,16 +13,50 @@ import re
 # ═══════════════════════════════════════════════════════════════
 _NUM_RE = re.compile(r"\d+(?:[.,]\d+)*")
 NUMBER_WORDS = {
-    "ek": 1, "do": 2, "teen": 3, "char": 4, "chaar": 4, "paanch": 5, "panch": 5, "chhe": 6, "chhah": 6,
-    "saat": 7, "aath": 8, "nau": 9, "das": 10, "gyarah": 11, "barah": 12, "pandrah": 15, "bees": 20,
-    "pachas": 50, "sau": 100, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
-    "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12, "fifteen": 15, "twenty": 20,
-    "fifty": 50, "hundred": 100, "dozen": 12, "darjan": 12,
+    "ek": 1,
+    "do": 2,
+    "teen": 3,
+    "char": 4,
+    "chaar": 4,
+    "paanch": 5,
+    "panch": 5,
+    "chhe": 6,
+    "chhah": 6,
+    "saat": 7,
+    "aath": 8,
+    "nau": 9,
+    "das": 10,
+    "gyarah": 11,
+    "barah": 12,
+    "pandrah": 15,
+    "bees": 20,
+    "pachas": 50,
+    "sau": 100,
+    "one": 1,
+    "two": 2,
+    "three": 3,
+    "four": 4,
+    "five": 5,
+    "six": 6,
+    "seven": 7,
+    "eight": 8,
+    "nine": 9,
+    "ten": 10,
+    "eleven": 11,
+    "twelve": 12,
+    "fifteen": 15,
+    "twenty": 20,
+    "fifty": 50,
+    "hundred": 100,
+    "dozen": 12,
+    "darjan": 12,
 }
-_SCALES = [(r"(\d+(?:\.\d+)?)\s*(?:lakh|lakhs|lac|lacs)\b", 100000),
-           (r"(\d+(?:\.\d+)?)\s*(?:crore|crores|cr)\b", 10000000),
-           (r"(\d+(?:\.\d+)?)\s*k\b", 1000),
-           (r"(\d+)\s*(?:dozen|darjan)\b", 12)]
+_SCALES = [
+    (r"(\d+(?:\.\d+)?)\s*(?:lakh|lakhs|lac|lacs)\b", 100000),
+    (r"(\d+(?:\.\d+)?)\s*(?:crore|crores|cr)\b", 10000000),
+    (r"(\d+(?:\.\d+)?)\s*k\b", 1000),
+    (r"(\d+)\s*(?:dozen|darjan)\b", 12),
+]
 
 
 def _num_str(x):
@@ -48,8 +82,9 @@ def ungrounded_numbers(answer: str, sources: list[str], allow: tuple[str, ...] =
     ok = set(allow)
     for s in sources:
         ok |= numbers_in(s)
-    return sorted(n for n in {x.replace(",", "") for x in _NUM_RE.findall(answer)}
-                  if len(n.replace(".", "")) > 1 and n not in ok)
+    return sorted(
+        n for n in {x.replace(",", "") for x in _NUM_RE.findall(answer)} if len(n.replace(".", "")) > 1 and n not in ok
+    )
 
 
 def fallback_answer(calls: list[tuple[str, str, str]]) -> str:

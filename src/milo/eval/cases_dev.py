@@ -69,7 +69,13 @@ CASES = [
     C("store_chain", "aaj order kiya to delivery kis date tak hogi?", MQ, ["MQ_SEARCH", "DATE"], kb="kirana"),
     C("store_chain", "if I order a kurti today when will it reach me?", MQ, ["MQ_SEARCH", "DATE"], kb="ethnic_wear"),
     C("store_chain", "blouse aaj diya to kis din milega?", MQ, ["MQ_SEARCH", "DATE"], kb="tailor"),
-    C("store_chain", "₹8000 ka saman lena hai, bulk discount kitna milega?", MQ, ["MQ_SEARCH", "CALCULATE"], kb="kirana"),
+    C(
+        "store_chain",
+        "₹8000 ka saman lena hai, bulk discount kitna milega?",
+        MQ,
+        ["MQ_SEARCH", "CALCULATE"],
+        kb="kirana",
+    ),
     C("store_chain", "10 led bulb 9w ka total", MQ, ["MQ_SEARCH", "CALCULATE"], kb="hardware"),
     C("store_chain", "2 kg paneer chahiye, 1kg wala 2 pack, total?", MQ, ["MQ_SEARCH", "CALCULATE"], kb="dairy"),
     # ── general calculation ──
@@ -144,7 +150,7 @@ CASES = [
     C("no_tool", "iska rate kya hai?", []),
     C("no_tool", "kitne ka hai", []),
     C("no_tool", "mujhe order dena hai", []),
-    C("no_tool", "2 kilo atta aur 1 tel bhej do", [None, "MQ_SEARCH"], kb="kirana"),   # either is fine
+    C("no_tool", "2 kilo atta aur 1 tel bhej do", [None, "MQ_SEARCH"], kb="kirana"),  # either is fine
     C("no_tool", "mera order abhi tak nahi aaya", []),
     C("no_tool", "order no 45821 kahan hai?", []),
     C("no_tool", "jo cake aaya tha wo kharab tha", []),

@@ -37,6 +37,7 @@ from milo.model.slm import SLM
 # --- Experiment tracking (same as train.py) ---
 class Experiment:
     """Manages experiment directory, logging, and artifacts."""
+
     def __init__(self, base_dir="experiments", resume_dir=None):
         if resume_dir:
             self.dir = resume_dir
@@ -58,14 +59,17 @@ class Experiment:
         class Logger:
             def __init__(self, filepath):
                 self.terminal = sys.__stdout__
-                self.log = open(filepath, 'a')
+                self.log = open(filepath, "a")
+
             def write(self, msg):
                 self.terminal.write(msg)
                 self.log.write(msg)
                 self.log.flush()
+
             def flush(self):
                 self.terminal.flush()
                 self.log.flush()
+
         sys.stdout = Logger(self.log_path)
         sys.stderr = Logger(self.log_path)
 
@@ -115,8 +119,7 @@ class Experiment:
     def _cleanup_checkpoints(self):
         ckpt_dir = os.path.join(self.dir, "checkpoints")
         step_files = sorted(
-            [f for f in os.listdir(ckpt_dir) if f.startswith("step_")],
-            key=lambda f: int(f.split("_")[1].split(".")[0])
+            [f for f in os.listdir(ckpt_dir) if f.startswith("step_")], key=lambda f: int(f.split("_")[1].split(".")[0])
         )
         # Keep last 3
         for f in step_files[:-3]:
@@ -139,7 +142,10 @@ class Experiment:
             "total_steps": total_steps,
             "best_val_loss": best_val_loss,
             "total_time_hours": total_time / 3600,
-            "total_tokens_processed": total_steps * config['batch_size'] * config['grad_accum_steps'] * config['seq_len'],
+            "total_tokens_processed": total_steps
+            * config["batch_size"]
+            * config["grad_accum_steps"]
+            * config["seq_len"],
         }
         path = os.path.join(self.dir, "summary.json")
         with open(path, "w") as f:
@@ -151,8 +157,14 @@ class Experiment:
 CONFIG = training_config("sft")
 
 enc = tiktoken.get_encoding("gpt2")
-def encode(s): return enc.encode(s, allowed_special={'<|endoftext|>'})
-def decode(tokens): return enc.decode(tokens)
+
+
+def encode(s):
+    return enc.encode(s, allowed_special={"<|endoftext|>"})
+
+
+def decode(tokens):
+    return enc.decode(tokens)
 
 
 # --- SFT Dataset ---
@@ -183,7 +195,7 @@ class SFTDataset:
         self.examples = []
         skipped = 0
         for item in raw:
-            result = self._tokenize(item['messages'])
+            result = self._tokenize(item["messages"])
             if result is not None:
                 self.examples.append(result)
             else:
@@ -192,8 +204,8 @@ class SFTDataset:
         print(f"  {len(self.examples):,} examples loaded ({skipped} skipped)")
 
     def _tokenize(self, messages):
-        user_msg = messages[0]['content'].strip()
-        assistant_msg = messages[1]['content'].strip()
+        user_msg = messages[0]["content"].strip()
+        assistant_msg = messages[1]["content"].strip()
 
         prefix = f"<|user|>\n{user_msg}\n<|assistant|>\n"
         response = assistant_msg
@@ -206,7 +218,7 @@ class SFTDataset:
 
         # Must fit in seq_len + 1 (for input/target shift)
         if len(full_tokens) > self.seq_len + 1:
-            full_tokens = full_tokens[:self.seq_len + 1]
+            full_tokens = full_tokens[: self.seq_len + 1]
 
         if len(full_tokens) < 10:
             return None
@@ -241,10 +253,10 @@ class SFTDataset:
 
 # --- LR Schedule ---
 def get_lr(step, total_steps):
-    if step < CONFIG['warmup_steps']:
-        return CONFIG['lr'] * (step + 1) / CONFIG['warmup_steps']
-    progress = (step - CONFIG['warmup_steps']) / (total_steps - CONFIG['warmup_steps'])
-    return CONFIG['min_lr'] + 0.5 * (CONFIG['lr'] - CONFIG['min_lr']) * (1 + math.cos(math.pi * progress))
+    if step < CONFIG["warmup_steps"]:
+        return CONFIG["lr"] * (step + 1) / CONFIG["warmup_steps"]
+    progress = (step - CONFIG["warmup_steps"]) / (total_steps - CONFIG["warmup_steps"])
+    return CONFIG["min_lr"] + 0.5 * (CONFIG["lr"] - CONFIG["min_lr"]) * (1 + math.cos(math.pi * progress))
 
 
 # --- Generation ---
@@ -253,7 +265,7 @@ def generate(model, prompt, max_tokens=150, temperature=0.7):
     idx = torch.tensor([encode(prompt)], dtype=torch.long, device=next(model.parameters()).device)
     with torch.no_grad():
         for _ in range(max_tokens):
-            idx_cond = idx[:, -CONFIG['seq_len']:]
+            idx_cond = idx[:, -CONFIG["seq_len"] :]
             logits, _ = model(idx_cond)
             logits = logits[:, -1, :] / temperature
             probs = F.softmax(logits, dim=-1)
@@ -263,7 +275,7 @@ def generate(model, prompt, max_tokens=150, temperature=0.7):
                 break
     result = decode(idx[0].tolist())
     if "<|endoftext|>" in result:
-        result = result[:result.index("<|endoftext|>")]
+        result = result[: result.index("<|endoftext|>")]
     return result
 
 
@@ -278,15 +290,15 @@ def evaluate(model, val_dataset, device, n_batches=50):
     indices = list(range(len(val_dataset)))
     random.shuffle(indices)
 
-    for i in range(0, min(len(indices), n_batches * CONFIG['batch_size']), CONFIG['batch_size']):
-        batch_idx = indices[i:i + CONFIG['batch_size']]
-        if len(batch_idx) < CONFIG['batch_size']:
+    for i in range(0, min(len(indices), n_batches * CONFIG["batch_size"]), CONFIG["batch_size"]):
+        batch_idx = indices[i : i + CONFIG["batch_size"]]
+        if len(batch_idx) < CONFIG["batch_size"]:
             break
 
         input_ids = torch.stack([val_dataset[j][0] for j in batch_idx]).to(device)
         labels = torch.stack([val_dataset[j][1] for j in batch_idx]).to(device)
 
-        with torch.amp.autocast('cuda'):
+        with torch.amp.autocast("cuda"):
             logits, _ = model(input_ids)
             loss = F.cross_entropy(
                 logits.reshape(-1, logits.size(-1)),
@@ -315,28 +327,26 @@ SAMPLE_PROMPTS = [
 # --- Main ---
 def train():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--checkpoint', type=str, default=None,
-                        help='Path to pretrained best.pt')
-    parser.add_argument('--train_data', type=str, default='data/sft/train.jsonl')
-    parser.add_argument('--val_data', type=str, default='data/sft/val.jsonl')
-    parser.add_argument('--resume', type=str, default=None,
-                        help='Path to latest.pt to resume from')
-    parser.add_argument('--exp_dir', type=str, default='experiments')
+    parser.add_argument("--checkpoint", type=str, default=None, help="Path to pretrained best.pt")
+    parser.add_argument("--train_data", type=str, default="data/sft/train.jsonl")
+    parser.add_argument("--val_data", type=str, default="data/sft/val.jsonl")
+    parser.add_argument("--resume", type=str, default=None, help="Path to latest.pt to resume from")
+    parser.add_argument("--exp_dir", type=str, default="experiments")
     args = parser.parse_args()
 
     # Device
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    if device.type == 'cuda':
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if device.type == "cuda":
         print(f"GPU: {torch.cuda.get_device_name()}")
         print(f"VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
     print(f"Device: {device}\n")
 
     # Auto-find checkpoint if not specified
     if not args.checkpoint and not args.resume:
-        exp_dirs = sorted(glob.glob(os.path.join(args.exp_dir, '202*')))
+        exp_dirs = sorted(glob.glob(os.path.join(args.exp_dir, "202*")))
         for d in reversed(exp_dirs):
-            best = os.path.join(d, 'checkpoints', 'best.pt')
-            if os.path.exists(best) and 'sft' not in d:
+            best = os.path.join(d, "checkpoints", "best.pt")
+            if os.path.exists(best) and "sft" not in d:
                 args.checkpoint = best
                 break
         if not args.checkpoint:
@@ -364,34 +374,41 @@ def train():
 
     # Model
     model = SLM(
-        CONFIG['vocab_size'], CONFIG['d_model'], CONFIG['n_q_heads'],
-        CONFIG['n_kv_heads'], CONFIG['n_layers'], CONFIG['seq_len'],
-        CONFIG['dropout'], CONFIG['share_blocks'],
+        CONFIG["vocab_size"],
+        CONFIG["d_model"],
+        CONFIG["n_q_heads"],
+        CONFIG["n_kv_heads"],
+        CONFIG["n_layers"],
+        CONFIG["seq_len"],
+        CONFIG["dropout"],
+        CONFIG["share_blocks"],
     ).to(device)
 
     total_params = sum(p.numel() for p in model.parameters())
-    print(f"Model: {total_params:,} params ({total_params/1e6:.1f}M)")
-    print(f"  d={CONFIG['d_model']}, layers={CONFIG['n_layers']}, "
-          f"q_heads={CONFIG['n_q_heads']}, kv_heads={CONFIG['n_kv_heads']}, "
-          f"shared={CONFIG['share_blocks']}")
+    print(f"Model: {total_params:,} params ({total_params / 1e6:.1f}M)")
+    print(
+        f"  d={CONFIG['d_model']}, layers={CONFIG['n_layers']}, "
+        f"q_heads={CONFIG['n_q_heads']}, kv_heads={CONFIG['n_kv_heads']}, "
+        f"shared={CONFIG['share_blocks']}"
+    )
 
     # Load pretrained weights
     if not args.resume:
         print(f"\nLoading pretrained checkpoint: {args.checkpoint}")
         ckpt = torch.load(args.checkpoint, map_location=device)
-        state_dict = ckpt['model'] if 'model' in ckpt else ckpt
+        state_dict = ckpt["model"] if "model" in ckpt else ckpt
         model.load_state_dict(state_dict)
         print(f"  Loaded (pretrained val loss: {ckpt.get('val_loss', '?')})")
 
     # Data
     print("\nLoading SFT data:")
-    train_dataset = SFTDataset(args.train_data, CONFIG['seq_len'], shuffle=True)
-    val_dataset = SFTDataset(args.val_data, CONFIG['seq_len'], shuffle=False)
+    train_dataset = SFTDataset(args.train_data, CONFIG["seq_len"], shuffle=True)
+    val_dataset = SFTDataset(args.val_data, CONFIG["seq_len"], shuffle=False)
 
-    steps_per_epoch = len(train_dataset) // (CONFIG['batch_size'] * CONFIG['grad_accum_steps'])
-    total_steps = steps_per_epoch * CONFIG['epochs']
-    effective_batch = CONFIG['batch_size'] * CONFIG['grad_accum_steps']
-    tokens_per_step = effective_batch * CONFIG['seq_len']
+    steps_per_epoch = len(train_dataset) // (CONFIG["batch_size"] * CONFIG["grad_accum_steps"])
+    total_steps = steps_per_epoch * CONFIG["epochs"]
+    effective_batch = CONFIG["batch_size"] * CONFIG["grad_accum_steps"]
+    tokens_per_step = effective_batch * CONFIG["seq_len"]
 
     print("\nSFT Training Plan:")
     print(f"  Train examples : {len(train_dataset):,}")
@@ -406,23 +423,25 @@ def train():
 
     # Optimizer
     optimizer = torch.optim.AdamW(
-        model.parameters(), lr=CONFIG['lr'],
-        weight_decay=CONFIG['weight_decay'], betas=(0.9, 0.95),
+        model.parameters(),
+        lr=CONFIG["lr"],
+        weight_decay=CONFIG["weight_decay"],
+        betas=(0.9, 0.95),
     )
-    scaler = torch.amp.GradScaler('cuda')
+    scaler = torch.amp.GradScaler("cuda")
 
     # Resume
     start_step = 0
     start_epoch = 0
-    best_val_loss = float('inf')
+    best_val_loss = float("inf")
     if args.resume and os.path.exists(args.resume):
         print(f"\nResuming from {args.resume}")
         ckpt = torch.load(args.resume, map_location=device)
-        model.load_state_dict(ckpt['model'])
-        optimizer.load_state_dict(ckpt['optimizer'])
-        scaler.load_state_dict(ckpt['scaler'])
-        start_step = ckpt['step']
-        best_val_loss = ckpt.get('val_loss', float('inf'))
+        model.load_state_dict(ckpt["model"])
+        optimizer.load_state_dict(ckpt["optimizer"])
+        scaler.load_state_dict(ckpt["scaler"])
+        start_step = ckpt["step"]
+        best_val_loss = ckpt.get("val_loss", float("inf"))
         # Figure out which epoch we're in
         if steps_per_epoch > 0:
             start_epoch = start_step // steps_per_epoch
@@ -436,74 +455,75 @@ def train():
     best_val_loss = min(best_val_loss, val_loss)
 
     # Training
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print("SFT TRAINING START")
-    print(f"{'='*60}\n")
+    print(f"{'=' * 60}\n")
 
     model.train()
     t0 = time.time()
     train_start = time.time()
     step = start_step
 
-    for epoch in range(start_epoch, CONFIG['epochs']):
+    for epoch in range(start_epoch, CONFIG["epochs"]):
         # Shuffle each epoch
         indices = list(range(len(train_dataset)))
         random.shuffle(indices)
 
         micro_step = 0
 
-        for i in range(0, len(indices) - CONFIG['batch_size'] + 1, CONFIG['batch_size']):
-            batch_idx = indices[i:i + CONFIG['batch_size']]
+        for i in range(0, len(indices) - CONFIG["batch_size"] + 1, CONFIG["batch_size"]):
+            batch_idx = indices[i : i + CONFIG["batch_size"]]
 
             input_ids = torch.stack([train_dataset[j][0] for j in batch_idx]).to(device)
             labels = torch.stack([train_dataset[j][1] for j in batch_idx]).to(device)
 
             # Forward — can't use model's built-in loss (no ignore_index support)
-            with torch.amp.autocast('cuda'):
+            with torch.amp.autocast("cuda"):
                 logits, _ = model(input_ids)
                 loss = F.cross_entropy(
                     logits.reshape(-1, logits.size(-1)),
                     labels.reshape(-1),
                     ignore_index=-100,
                 )
-                loss = loss / CONFIG['grad_accum_steps']
+                loss = loss / CONFIG["grad_accum_steps"]
 
             scaler.scale(loss).backward()
             micro_step += 1
 
             # Optimizer step after accumulation
-            if micro_step % CONFIG['grad_accum_steps'] == 0:
+            if micro_step % CONFIG["grad_accum_steps"] == 0:
                 scaler.unscale_(optimizer)
-                torch.nn.utils.clip_grad_norm_(model.parameters(), CONFIG['max_grad_norm'])
+                torch.nn.utils.clip_grad_norm_(model.parameters(), CONFIG["max_grad_norm"])
 
                 lr = get_lr(step, total_steps)
                 for pg in optimizer.param_groups:
-                    pg['lr'] = lr
+                    pg["lr"] = lr
 
                 scaler.step(optimizer)
                 scaler.update()
                 optimizer.zero_grad()
 
                 # --- Logging ---
-                if step % CONFIG['log_interval'] == 0:
+                if step % CONFIG["log_interval"] == 0:
                     elapsed = time.time() - t0
-                    tok_s = tokens_per_step * CONFIG['log_interval'] / max(elapsed, 1e-6) if step > start_step else 0
+                    tok_s = tokens_per_step * CONFIG["log_interval"] / max(elapsed, 1e-6) if step > start_step else 0
                     total_elapsed = time.time() - train_start
                     steps_done = step - start_step
                     eta = (total_steps - step) / (steps_done / total_elapsed) if steps_done > 0 else 0
 
-                    accum_loss = loss.item() * CONFIG['grad_accum_steps']
-                    print(f"Step {step:5d}/{total_steps} | Epoch {epoch+1}/{CONFIG['epochs']} | "
-                          f"Loss: {accum_loss:.4f} | LR: {lr:.2e} | "
-                          f"Tok/s: {tok_s:,.0f} | "
-                          f"ETA: {eta/3600:.1f}h")
+                    accum_loss = loss.item() * CONFIG["grad_accum_steps"]
+                    print(
+                        f"Step {step:5d}/{total_steps} | Epoch {epoch + 1}/{CONFIG['epochs']} | "
+                        f"Loss: {accum_loss:.4f} | LR: {lr:.2e} | "
+                        f"Tok/s: {tok_s:,.0f} | "
+                        f"ETA: {eta / 3600:.1f}h"
+                    )
 
-                    exp.log_metrics(step, train_loss=accum_loss, lr=lr, tok_s=tok_s,
-                                    epoch=epoch+1)
+                    exp.log_metrics(step, train_loss=accum_loss, lr=lr, tok_s=tok_s, epoch=epoch + 1)
                     t0 = time.time()
 
                 # --- Evaluation ---
-                if step > 0 and step % CONFIG['eval_interval'] == 0:
+                if step > 0 and step % CONFIG["eval_interval"] == 0:
                     val_loss = evaluate(model, val_dataset, device)
                     is_best = val_loss < best_val_loss
                     print(f"\n  >>> Val loss: {val_loss:.4f} {'(new best!)' if is_best else ''}")
@@ -511,20 +531,19 @@ def train():
 
                     if is_best:
                         best_val_loss = val_loss
-                        exp.save_checkpoint(model, optimizer, scaler, CONFIG,
-                                            step, val_loss, best=True)
+                        exp.save_checkpoint(model, optimizer, scaler, CONFIG, step, val_loss, best=True)
 
                     model.train()
 
                 # --- Samples ---
-                if step > 0 and step % CONFIG['sample_interval'] == 0:
+                if step > 0 and step % CONFIG["sample_interval"] == 0:
                     print(f"\n  --- Samples at step {step} ---")
                     samples = []
                     for prompt in SAMPLE_PROMPTS:
                         output = generate(model, prompt, max_tokens=150)
                         # Show only the assistant response
                         display = output.split("<|assistant|>")[-1].strip() if "<|assistant|>" in output else output
-                        short_prompt = prompt.replace('<|user|>\n', '').replace('\n<|assistant|>\n', '')
+                        short_prompt = prompt.replace("<|user|>\n", "").replace("\n<|assistant|>\n", "")
                         print(f"  Q: {short_prompt}")
                         print(f"  A: {display[:200]}\n")
                         samples.append((prompt, output))
@@ -533,9 +552,8 @@ def train():
                     model.train()
 
                 # --- Checkpoint ---
-                if step > 0 and step % CONFIG['checkpoint_interval'] == 0:
-                    exp.save_checkpoint(model, optimizer, scaler, CONFIG,
-                                        step, best_val_loss, best=False)
+                if step > 0 and step % CONFIG["checkpoint_interval"] == 0:
+                    exp.save_checkpoint(model, optimizer, scaler, CONFIG, step, best_val_loss, best=False)
                     print(f"  >>> Checkpoint saved at step {step}")
 
                 step += 1
@@ -546,7 +564,7 @@ def train():
         if step >= total_steps:
             break
 
-        print(f"\n  === Epoch {epoch+1} complete ===\n")
+        print(f"\n  === Epoch {epoch + 1} complete ===\n")
 
     # --- Final ---
     total_time = time.time() - train_start
@@ -560,19 +578,19 @@ def train():
     exp.save_checkpoint(model, optimizer, scaler, CONFIG, step, best_val_loss, best=is_best)
     exp.save_summary(CONFIG, step, best_val_loss, total_time)
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print("TRAINING COMPLETE")
     print(f"  Best val loss: {best_val_loss:.4f}")
-    print(f"  Total time: {total_time/3600:.1f} hours")
+    print(f"  Total time: {total_time / 3600:.1f} hours")
     print(f"  Experiment: {exp.dir}")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
 
     # Final samples
     print("\n=== Final Generations ===")
     for prompt in SAMPLE_PROMPTS:
         output = generate(model, prompt, max_tokens=150)
         display = output.split("<|assistant|>")[-1].strip() if "<|assistant|>" in output else output
-        short_prompt = prompt.replace('<|user|>\n', '').replace('\n<|assistant|>\n', '')
+        short_prompt = prompt.replace("<|user|>\n", "").replace("\n<|assistant|>\n", "")
         print(f"\nQ: {short_prompt}")
         print(f"A: {display[:300]}")
     print()

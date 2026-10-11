@@ -14,7 +14,7 @@ from .run_code import run_code
 from .web import search, weather
 
 MAX_RESULT_CHARS = 300
-_TAG_RE = re.compile(r"<\|[a-z_]+\|>")   # strip special tags from tool output (prompt-injection guard)
+_TAG_RE = re.compile(r"<\|[a-z_]+\|>")  # strip special tags from tool output (prompt-injection guard)
 
 # ═══════════════════════════════════════════════════════════════
 # REGISTRY, DISPATCH, PARSING, FORMATTING

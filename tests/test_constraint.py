@@ -17,8 +17,11 @@ DT = "<|tool_call|>DATE("
 
 def test_copy_constraint():
     """One sequence, in the original order: CopyConstraint carries per-call state."""
-    cc = CopyConstraint("do u guys have sarson oil 1 litre",
-                          ["do u guys have sarson oil 1 litre", "Mustard Oil 1l | ₹185 incl. GST | in stock"], True)
+    cc = CopyConstraint(
+        "do u guys have sarson oil 1 litre",
+        ["do u guys have sarson oil 1 litre", "Mustard Oil 1l | ₹185 incl. GST | in stock"],
+        True,
+    )
     assert not (cc.ok(TC, "ub")), "cc garbled arg blocked"
     assert cc.ok(TC + "sarson", " oil"), "cc copied arg ok"
     assert cc.ok(TC + "sarson oil", ")"), "cc close ok"
@@ -37,7 +40,6 @@ def test_copy_constraint():
     co = CopyConstraint("order no 45821 kahan hai?", ["order no 45821 kahan hai?"], False)
     assert co.ok("Order #", "458"), "cc no-tool order id copied"
     assert not (co.ok("Order #", "319")), "cc no-tool order id invented"
-
 
     cb = CopyConstraint("bhains ka doodh milta hai?", ["bhains ka doodh milta hai?"], False)
     assert not (cb.ok(TC, "hains")), "cc mid-word start blocked"
@@ -58,7 +60,6 @@ def test_copy_constraint():
     assert cw.ok(WT, "ind"), "cc weather city ok"
     assert cw.ok(WT + "indore", ")"), "cc weather close on city"
 
-
     ce = CopyConstraint("earbuds kitne ke", ["earbuds kitne ke", "Bluetooth Earbuds | ₹1170", "2340"], True)
     assert not (ce.eos_ok("")), "eos blocked on empty reply"
     assert not (ce.eos_ok("<|tool_call|>MQ_SEARCH(earbuds")), "eos blocked mid tool call"
@@ -76,7 +77,6 @@ def test_copy_constraint():
     assert cd.ok(DT + "days ", "until"), "date keyword ok"
     assert cd.ok(DT + "days until ", "republic"), "date festival ok"
 
-
     # regression: CALCULATE must be able to close and emit the result tag
     ck = CopyConstraint("2350 ka 18 percent gst", ["2350 ka 18 percent gst"], False)
     assert ck.ok(CT + "2350 * 18 / 100", ")"), "calc close paren ok"
@@ -93,7 +93,6 @@ def test_copy_constraint():
     cde = CopyConstraint("31 feb", ["31 feb", "Error: could not understand date '31 feb'"], True)
     assert cde.ok("like ", "15"), "15 allowed after date error"
 
-
     cdn = CopyConstraint("republic day kis din hai", ["republic day kis din hai"], False)
     assert not (cdn.ok(DT + "days until navrat", ")")), "date half word can't close"
     assert cdn.ok(DT + "days until republic day", ")"), "date full festival can close"
@@ -105,11 +104,11 @@ def test_copy_constraint():
     cwk = CopyConstraint("shimla me sardi hai kya", ["shimla me sardi hai kya"], False)
     assert cwk.ok("<|tool_call|>", "WEATHER"), "weather tool allowed with city"
 
-
-    c37 = CopyConstraint("two face wash and one sunscreen", ["two face wash and one sunscreen", "Sunscreen | ₹379", "1577"], True)
+    c37 = CopyConstraint(
+        "two face wash and one sunscreen", ["two face wash and one sunscreen", "Sunscreen | ₹379", "1577"], True
+    )
     assert not (c37.ok("Sunscreen: 37,", " in")), "truncated number closed via comma blocked"
     assert c37.ok("Sunscreen: 379,", " in"), "full number then comma ok"
-
 
     assert not (cd.ok(DT + "15 August", "\n")), "newline blocked in date args"
     assert not (ck.ok(CT + "2350 * 18", "\n")), "newline blocked in calc args"

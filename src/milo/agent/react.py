@@ -38,9 +38,15 @@ from milo.tools import (
 )
 
 
-def react_step(model, prompt_tokens: list[int], device: str = "cuda", temperature: float = 0.7,
-               max_new_tokens: int = 256, allow_tools: bool = True,
-               constraint: CopyConstraint | None = None) -> tuple:
+def react_step(
+    model,
+    prompt_tokens: list[int],
+    device: str = "cuda",
+    temperature: float = 0.7,
+    max_new_tokens: int = 256,
+    allow_tools: bool = True,
+    constraint: CopyConstraint | None = None,
+) -> tuple:
     """
     One step of the ReAct loop.
 
@@ -54,21 +60,21 @@ def react_step(model, prompt_tokens: list[int], device: str = "cuda", temperatur
     """
     stop = [TOOL_RESULT_TAG] if allow_tools else [TOOL_CALL_TAG]
     generated = generate(
-        model, prompt_tokens,
+        model,
+        prompt_tokens,
         max_new_tokens=max_new_tokens,
         temperature=temperature,
         stop_strings=stop,
         device=device,
         constraint=constraint,
     )
-    new_text = decode(generated[len(prompt_tokens):])
+    new_text = decode(generated[len(prompt_tokens) :])
 
     if allow_tools:
         call = parse_tool_call(new_text)
         if call:
             result = execute(call.name, call.args)
-            augmented = (f"{call.before}{TOOL_CALL_TAG}{call.name}({call.args})"
-                         f"{TOOL_RESULT_TAG}{result}{END_TOOL_TAG}")
+            augmented = f"{call.before}{TOOL_CALL_TAG}{call.name}({call.args}){TOOL_RESULT_TAG}{result}{END_TOOL_TAG}"
             augmented_tokens = encode(decode(prompt_tokens) + augmented)
             return strip_tags(call.before), True, augmented_tokens, call.name, call.args, result
 
@@ -81,7 +87,7 @@ def react_step(model, prompt_tokens: list[int], device: str = "cuda", temperatur
 
 def build_prompt(user_message: str, conversation_history: list[tuple[str, str]] | None = None) -> str:
     prompt = ""
-    for role, content in (conversation_history or []):
+    for role, content in conversation_history or []:
         if role == "user":
             prompt += f"{USER_TOKEN}\n{content}\n"
         else:
@@ -90,10 +96,17 @@ def build_prompt(user_message: str, conversation_history: list[tuple[str, str]] 
     return prompt
 
 
-def react_loop(model, user_message: str, conversation_history: list[tuple[str, str]] | None = None,
-               device: str = "cuda", max_tool_calls: int = 3, temperature: float = 0.7,
-               verbose: bool = True, guard: bool = True,
-               constrain: bool = True) -> tuple[str, list[tuple[str, str, str]]]:
+def react_loop(
+    model,
+    user_message: str,
+    conversation_history: list[tuple[str, str]] | None = None,
+    device: str = "cuda",
+    max_tool_calls: int = 3,
+    temperature: float = 0.7,
+    verbose: bool = True,
+    guard: bool = True,
+    constrain: bool = True,
+) -> tuple[str, list[tuple[str, str, str]]]:
     """
     Full ReAct loop for a user message.
 
@@ -115,12 +128,21 @@ def react_loop(model, user_message: str, conversation_history: list[tuple[str, s
     response_parts = []
 
     for step_i in range(max_tool_calls + 1):
-        allow = step_i < max_tool_calls   # last iteration forces a final answer
-        constraint = (CopyConstraint(user_message, [user_message] + [r for _, _, r in tool_calls],
-                                     numbers_in_reply=bool(tool_calls)) if constrain else None)
+        allow = step_i < max_tool_calls  # last iteration forces a final answer
+        constraint = (
+            CopyConstraint(
+                user_message, [user_message] + [r for _, _, r in tool_calls], numbers_in_reply=bool(tool_calls)
+            )
+            if constrain
+            else None
+        )
         text, tool_called, tokens, tool_name, args, result = react_step(
-            model, prompt_tokens, device=device, temperature=temperature,
-            allow_tools=allow, constraint=constraint,
+            model,
+            prompt_tokens,
+            device=device,
+            temperature=temperature,
+            allow_tools=allow,
+            constraint=constraint,
         )
 
         if tool_called:

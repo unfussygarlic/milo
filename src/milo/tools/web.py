@@ -13,6 +13,7 @@ MAX_SEARCH_CHARS = 280
 HTTP_TIMEOUT = 6
 USER_AGENT = "Milo-Agent/1.0"
 
+
 # ═══════════════════════════════════════════════════════════════
 # HTTP helper
 # ═══════════════════════════════════════════════════════════════
@@ -29,18 +30,18 @@ def _truncate(text, limit):
     cut = text[:limit]
     dot = cut.rfind(". ")
     if dot > limit * 0.5:
-        return cut[:dot + 1]
+        return cut[: dot + 1]
     return cut.rsplit(" ", 1)[0] + "..."
 
 
 # ═══════════════════════════════════════════════════════════════
 # WEATHER
 # ═══════════════════════════════════════════════════════════════
-def format_weather(city: str, temp_c: float, condition: str, humidity: int, wind_kmph: int,
-                   rain_chance: int | None = None) -> str:
+def format_weather(
+    city: str, temp_c: float, condition: str, humidity: int, wind_kmph: int, rain_chance: int | None = None
+) -> str:
     """Canonical weather string — the generator must call this too."""
-    s = (f"{city}: {temp_c}°C, {condition.strip().lower()}, "
-         f"humidity {humidity}%, wind {wind_kmph} km/h")
+    s = f"{city}: {temp_c}°C, {condition.strip().lower()}, humidity {humidity}%, wind {wind_kmph} km/h"
     if rain_chance is not None:
         s += f", rain chance {rain_chance}%"
     return s
@@ -55,8 +56,13 @@ def weather(city: str) -> str:
         cur = data["current_condition"][0]
         rain = max(int(h.get("chanceofrain", 0)) for h in data["weather"][0]["hourly"])
         return format_weather(
-            city.title(), int(cur["temp_C"]), cur["weatherDesc"][0]["value"],
-            int(cur["humidity"]), int(cur["windspeedKmph"]), rain)
+            city.title(),
+            int(cur["temp_C"]),
+            cur["weatherDesc"][0]["value"],
+            int(cur["humidity"]),
+            int(cur["windspeedKmph"]),
+            rain,
+        )
     except Exception:
         return f"Error: weather unavailable for {city.title()}"
 
@@ -70,16 +76,15 @@ def format_search_result(title: str, text: str) -> str:
 
 
 def _search_wikipedia(query):
-    params = urllib.parse.urlencode({
-        "action": "query", "list": "search", "srsearch": query,
-        "srlimit": 1, "format": "json"})
+    params = urllib.parse.urlencode(
+        {"action": "query", "list": "search", "srsearch": query, "srlimit": 1, "format": "json"}
+    )
     hits = _http_json(f"https://en.wikipedia.org/w/api.php?{params}")["query"]["search"]
     if not hits:
         return None
     title = hits[0]["title"]
     page = urllib.parse.quote(title.replace(" ", "_"))
-    extract = _http_json(
-        f"https://en.wikipedia.org/api/rest_v1/page/summary/{page}").get("extract", "")
+    extract = _http_json(f"https://en.wikipedia.org/api/rest_v1/page/summary/{page}").get("extract", "")
     return format_search_result(title, extract) if extract else None
 
 

@@ -13,8 +13,7 @@ import re
 from milo.special_tokens import ASST_TOKEN, END_TOOL_TAG, TOOL_RESULT_TAG
 
 ASST_MARKER = ASST_TOKEN + "\n"
-TOOL_RESULT_SPAN = re.compile(
-    re.escape(TOOL_RESULT_TAG) + r"(.*?)" + re.escape(END_TOOL_TAG), re.DOTALL)
+TOOL_RESULT_SPAN = re.compile(re.escape(TOOL_RESULT_TAG) + r"(.*?)" + re.escape(END_TOOL_TAG), re.DOTALL)
 
 
 def loss_mask(text: str, offsets: list[int]) -> list[int]:
@@ -25,5 +24,4 @@ def loss_mask(text: str, offsets: list[int]) -> list[int]:
     a = text.rfind(ASST_MARKER)
     train_start = a + len(ASST_MARKER) if a >= 0 else 0
     no_loss = [(m.start(1), m.end()) for m in TOOL_RESULT_SPAN.finditer(text)]
-    return [off >= train_start and not any(s <= off < e for s, e in no_loss)
-            for off in offsets]
+    return [off >= train_start and not any(s <= off < e for s, e in no_loss) for off in offsets]

@@ -26,7 +26,7 @@ from milo.eval.cases_test import TEST_CASES as _TEST
 
 def _grams(s, n=4):
     w = re.findall(r"[a-z]+", s.lower())
-    return {" ".join(w[i:i + n]) for i in range(len(w) - n + 1)}
+    return {" ".join(w[i : i + n]) for i in range(len(w) - n + 1)}
 
 
 _TEST_GRAMS = set().union(*[_grams(c["q"]) for c in _TEST]) if _TEST else set()
@@ -41,6 +41,7 @@ def leak_filter(templates: list[str]) -> list[str]:
         clean = re.sub(r"\{[^}]*\}", " ", t).replace("[", "").replace("]", "")
         (LEAK_DROPPED if _grams(clean) & _TEST_GRAMS else keep).append(t)
     return keep
+
 
 R = random.Random()
 
@@ -57,9 +58,31 @@ class Skip(Exception):
 # NUMBERS & VALIDATION
 # ═══════════════════════════════════════════════════════════════
 _NUM = re.compile(r"\d+(?:[.,]\d+)*")
-CALC_CONSTANTS = {"100", "12", "1", "2", "1.60934", "0.453592", "2.20462", "0.3048", "2.54",
-                  "0.0929", "10.764", "1048576", "1024", "60", "24", "7", "365", "1000", "9", "5", "32",
-                  "30", "52"}
+CALC_CONSTANTS = {
+    "100",
+    "12",
+    "1",
+    "2",
+    "1.60934",
+    "0.453592",
+    "2.20462",
+    "0.3048",
+    "2.54",
+    "0.0929",
+    "10.764",
+    "1048576",
+    "1024",
+    "60",
+    "24",
+    "7",
+    "365",
+    "1000",
+    "9",
+    "5",
+    "32",
+    "30",
+    "52",
+}
 
 
 def nums(s: str) -> set[str]:
@@ -81,8 +104,12 @@ class Ex:
         """Run the real tool."""
         call, result = T.run_tool_call(name, args)
         if name in ("CALCULATE", "DATE"):
-            bad = [n for n in nums(args) if n not in nums(self.user) | set().union(*[nums(r) for r in self.results] or [set()])
-                   and n not in CALC_CONSTANTS]
+            bad = [
+                n
+                for n in nums(args)
+                if n not in nums(self.user) | set().union(*[nums(r) for r in self.results] or [set()])
+                and n not in CALC_CONSTANTS
+            ]
             if bad:
                 raise Skip(f"calc arg numbers not grounded: {bad}")
         if name == "MQ_SEARCH":
@@ -90,14 +117,17 @@ class Ex:
             a = set(re.findall(r"[a-z0-9]+", args.lower()))
             if not a <= u:
                 raise Skip(f"MQ args not copied from user: {a - u}")
-        self.calls.append(call); self.results.append(result); self.names.append(name)
+        self.calls.append(call)
+        self.results.append(result)
+        self.names.append(name)
         return result
 
     def fake(self, name, args, result):
         """External tools (SEARCH, WEATHER): synthetic result in the canonical format."""
         result = T.clean_result(result)
         self.calls.append(T.format_tool_call(name, args, result))
-        self.results.append(result); self.names.append(name)
+        self.results.append(result)
+        self.names.append(name)
         return result
 
     def done(self, answer, allow=()):
@@ -129,8 +159,8 @@ def _typo_word(w):
         return w
     i = R.randrange(1, len(w) - 1)
     if R.random() < 0.5 and w[i] in "aeiou":
-        return w[:i] + w[i + 1:]                    # drop a vowel
-    return w[:i] + w[i + 1] + w[i] + w[i + 2:]      # swap two letters
+        return w[:i] + w[i + 1 :]  # drop a vowel
+    return w[:i] + w[i + 1] + w[i] + w[i + 2 :]  # swap two letters
 
 
 def noisy(template, lang):
@@ -170,12 +200,15 @@ def fill(template, lang, **slots):
     span = None
     if m:
         span = m.group(1).format(**slots)
-        t = t[:m.start()] + m.group(1) + t[m.end():]
+        t = t[: m.start()] + m.group(1) + t[m.end() :]
     return finish(t.format(**slots)), span
 
 
-HI_WORDS = re.compile(r"\b(hai|hain|kya|kitna|kitne|kitni|ka|ki|ke|ko|karo|batao|chahiye|aaj|kab|mujhe|mera|"
-                      r"nahi|kaun|kaunsa|wapas|hoga|milega|bhai|bhaiya|ji|ye|isme|ulta|nikalo|hatao|chala)\b", re.I)
+HI_WORDS = re.compile(
+    r"\b(hai|hain|kya|kitna|kitne|kitni|ka|ki|ke|ko|karo|batao|chahiye|aaj|kab|mujhe|mera|"
+    r"nahi|kaun|kaunsa|wapas|hoga|milega|bhai|bhaiya|ji|ye|isme|ulta|nikalo|hatao|chala)\b",
+    re.I,
+)
 
 
 def is_hi(text):

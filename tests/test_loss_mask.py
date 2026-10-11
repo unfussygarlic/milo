@@ -9,9 +9,11 @@ import tiktoken
 
 from milo.training.masking import loss_mask
 
-TEXT = ("<|user|>\n₹1499 pe 18% GST?\n<|assistant|>\n"
-        "<|tool_call|>CALCULATE(1499 * 18 / 100)<|tool_result|>269.82<|end_tool|>\n"
-        "GST: ₹269.82<|endoftext|>")
+TEXT = (
+    "<|user|>\n₹1499 pe 18% GST?\n<|assistant|>\n"
+    "<|tool_call|>CALCULATE(1499 * 18 / 100)<|tool_result|>269.82<|end_tool|>\n"
+    "GST: ₹269.82<|endoftext|>"
+)
 
 
 def _offsets(text):
@@ -24,6 +26,7 @@ def test_loss_mask_spans():
     m = loss_mask(TEXT, offs)
     res_start = TEXT.index("269.82")
     res_end = TEXT.index("<|end_tool|>") + len("<|end_tool|>")
+
     def trained(lo, hi):
         return any(k for o, k in zip(offs, m) if lo <= o < hi)
 

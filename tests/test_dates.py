@@ -29,10 +29,14 @@ def test_date_tool():
     assert d("days until 25 Dec") == "76 days until Friday, December 25, 2026", "days until no year"
     assert d("days until 2026-10-01") == "Thursday, October 1, 2026 was 9 days ago", "past"
     assert d("days until tomorrow") == "1 day until Sunday, October 11, 2026", "1 day"
-    assert (d("days between 2026-01-01 and 2026-03-01")) == "59 days between Thursday, January 1, 2026 and Sunday, March 1, 2026", "between"
+    assert (
+        d("days between 2026-01-01 and 2026-03-01")
+    ) == "59 days between Thursday, January 1, 2026 and Sunday, March 1, 2026", "between"
     assert d("today + 5 days") == "Thursday, October 15, 2026", "plus"
     assert d("2026-11-08 - 3 days") == "Thursday, November 5, 2026", "minus"
-    assert d("working days until 2026-10-17") == "6 working days (Mon–Sat) until Saturday, October 17, 2026", "working days"
+    assert d("working days until 2026-10-17") == "6 working days (Mon–Sat) until Saturday, October 17, 2026", (
+        "working days"
+    )
     assert d("tuesday-ish") == "Error: could not understand date 'tuesday-ish'", "bad"
     assert d("days until diwali") == "29 days until Sunday, November 8, 2026", "festival"
     assert d("rakhi") == "Tuesday, August 17, 2027", "festival alias"

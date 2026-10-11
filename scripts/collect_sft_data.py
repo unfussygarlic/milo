@@ -43,32 +43,35 @@ except ImportError:
 # ─── Config ───────────────────────────────────────────────
 
 TARGETS = {
-    'general':  30000,   # SlimOrca
-    'math':     25000,   # MetaMathQA
-    'code':     15000,   # CodeAlpaca
-    'science':  10000,   # SciQ
-    'diverse':  20000,   # OpenHermes 2.5
+    "general": 30000,  # SlimOrca
+    "math": 25000,  # MetaMathQA
+    "code": 15000,  # CodeAlpaca
+    "science": 10000,  # SciQ
+    "diverse": 20000,  # OpenHermes 2.5
 }
 
 TOTAL_TARGET = sum(TARGETS.values())  # 15,000
 
-MAX_SEQ_TOKENS = 480    # full formatted example must fit in 512 seq_len
+MAX_SEQ_TOKENS = 480  # full formatted example must fit in 512 seq_len
 MIN_RESPONSE_TOKENS = 15
 MIN_RESPONSE_CHARS = 40
 VAL_RATIO = 0.10
-OUTPUT_DIR = 'data/sft'
+OUTPUT_DIR = "data/sft"
 SEED = 42
 
-enc = tiktoken.get_encoding('gpt2')
+enc = tiktoken.get_encoding("gpt2")
 
 # ─── Helpers ──────────────────────────────────────────────
 
+
 def count_tokens(text):
-    return len(enc.encode(text, allowed_special={'<|endoftext|>'}))
+    return len(enc.encode(text, allowed_special={"<|endoftext|>"}))
+
 
 def format_example(user_msg, assistant_msg):
     """Format as Milo's chat template."""
     return f"<|user|>\n{user_msg.strip()}\n<|assistant|>\n{assistant_msg.strip()}<|endoftext|>"
+
 
 def is_valid(user_msg, assistant_msg):
     """Quality + length filter."""
@@ -94,12 +97,14 @@ def is_valid(user_msg, assistant_msg):
         return False
 
     # Skip if response is mostly code-fence with no explanation (low quality)
-    if assistant_msg.count('```') >= 4 and len(assistant_msg) < 100:
+    if assistant_msg.count("```") >= 4 and len(assistant_msg) < 100:
         return False
 
     return True
 
+
 seen = set()
+
 
 def is_dup(text):
     h = hashlib.md5(text.strip().lower()[:300].encode()).hexdigest()
@@ -107,6 +112,7 @@ def is_dup(text):
         return True
     seen.add(h)
     return False
+
 
 def collect(name, ds_iter, extract_fn, target, category, max_scan=None):
     """
@@ -121,11 +127,11 @@ def collect(name, ds_iter, extract_fn, target, category, max_scan=None):
     t0 = time.time()
 
     if max_scan is None:
-        max_scan = target * 20   # scan up to 20x target before giving up
+        max_scan = target * 20  # scan up to 20x target before giving up
 
-    print(f"\n{'─'*60}")
+    print(f"\n{'─' * 60}")
     print(f"  {category.upper()}: {name}  (target {target:,})")
-    print(f"{'─'*60}")
+    print(f"{'─' * 60}")
 
     for item in ds_iter:
         if len(collected) >= target:
@@ -150,31 +156,38 @@ def collect(name, ds_iter, extract_fn, target, category, max_scan=None):
             skip_bad += 1
             continue
 
-        collected.append({
-            'messages': [
-                {'role': 'user', 'content': user_msg.strip()},
-                {'role': 'assistant', 'content': assistant_msg.strip()},
-            ],
-            'category': category,
-            'source': name,
-        })
+        collected.append(
+            {
+                "messages": [
+                    {"role": "user", "content": user_msg.strip()},
+                    {"role": "assistant", "content": assistant_msg.strip()},
+                ],
+                "category": category,
+                "source": name,
+            }
+        )
 
         if len(collected) % 500 == 0:
             elapsed = time.time() - t0
             rate = len(collected) / elapsed
-            print(f"  {len(collected):>5,}/{target:,}  "
-                  f"(scanned {scanned:,} | dup {skip_dup:,} | bad {skip_bad:,} | "
-                  f"{rate:.0f} ex/s)")
+            print(
+                f"  {len(collected):>5,}/{target:,}  "
+                f"(scanned {scanned:,} | dup {skip_dup:,} | bad {skip_bad:,} | "
+                f"{rate:.0f} ex/s)"
+            )
 
     elapsed = time.time() - t0
-    print(f"  ✓ {len(collected):,}/{target:,} collected in {elapsed:.1f}s  "
-          f"(scanned {scanned:,}, dup {skip_dup:,}, bad {skip_bad:,}, err {skip_err:,})")
+    print(
+        f"  ✓ {len(collected):,}/{target:,} collected in {elapsed:.1f}s  "
+        f"(scanned {scanned:,}, dup {skip_dup:,}, bad {skip_bad:,}, err {skip_err:,})"
+    )
     return collected
 
 
 # ═══════════════════════════════════════════════════════════
 #  Dataset-specific collectors
 # ═══════════════════════════════════════════════════════════
+
 
 def collect_general():
     """
@@ -186,25 +199,21 @@ def collect_general():
     ds = load_dataset("Open-Orca/SlimOrca", split="train", streaming=True)
 
     def extract(item):
-        convos = item['conversations']
+        convos = item["conversations"]
         user_msg = None
         assistant_msg = None
         for turn in convos:
-            role = turn.get('from', '')
-            if role == 'human' and user_msg is None:
-                user_msg = turn['value']
-            elif role == 'gpt' and user_msg is not None and assistant_msg is None:
-                assistant_msg = turn['value']
+            role = turn.get("from", "")
+            if role == "human" and user_msg is None:
+                user_msg = turn["value"]
+            elif role == "gpt" and user_msg is not None and assistant_msg is None:
+                assistant_msg = turn["value"]
                 break
         if not user_msg or not assistant_msg:
             raise ValueError("incomplete")
         return user_msg, assistant_msg
 
-    return collect(
-        "SlimOrca", ds, extract,
-        TARGETS['general'], 'general',
-        max_scan=300_000
-    )
+    return collect("SlimOrca", ds, extract, TARGETS["general"], "general", max_scan=300_000)
 
 
 def collect_math():
@@ -216,13 +225,9 @@ def collect_math():
     ds = load_dataset("meta-math/MetaMathQA", split="train", streaming=True)
 
     def extract(item):
-        return item['query'], item['response']
+        return item["query"], item["response"]
 
-    return collect(
-        "MetaMathQA", ds, extract,
-        TARGETS['math'], 'math',
-        max_scan=400_000
-    )
+    return collect("MetaMathQA", ds, extract, TARGETS["math"], "math", max_scan=400_000)
 
 
 def collect_code():
@@ -234,17 +239,13 @@ def collect_code():
     ds = load_dataset("sahil2801/CodeAlpaca-20k", split="train", streaming=True)
 
     def extract(item):
-        instruction = item['instruction']
-        inp = (item.get('input') or '').strip()
+        instruction = item["instruction"]
+        inp = (item.get("input") or "").strip()
         if inp:
             instruction = f"{instruction}\n\nInput:\n{inp}"
-        return instruction, item['output']
+        return instruction, item["output"]
 
-    return collect(
-        "CodeAlpaca-20k", ds, extract,
-        TARGETS['code'], 'code',
-        max_scan=20_000
-    )
+    return collect("CodeAlpaca-20k", ds, extract, TARGETS["code"], "code", max_scan=20_000)
 
 
 def collect_science():
@@ -257,9 +258,9 @@ def collect_science():
     ds = load_dataset("allenai/sciq", split="train", streaming=True)
 
     def extract(item):
-        question = item['question']
-        answer = item['correct_answer'].strip()
-        support = (item.get('support') or '').strip()
+        question = item["question"]
+        answer = item["correct_answer"].strip()
+        support = (item.get("support") or "").strip()
 
         # Build a full response: answer + explanation
         if support and len(support) > 30:
@@ -268,11 +269,7 @@ def collect_science():
             response = answer
         return question, response
 
-    return collect(
-        "SciQ", ds, extract,
-        TARGETS['science'], 'science',
-        max_scan=15_000
-    )
+    return collect("SciQ", ds, extract, TARGETS["science"], "science", max_scan=15_000)
 
 
 def collect_diverse():
@@ -285,30 +282,27 @@ def collect_diverse():
     ds = load_dataset("teknium/OpenHermes-2.5", split="train", streaming=True)
 
     def extract(item):
-        convos = item['conversations']
+        convos = item["conversations"]
         user_msg = None
         assistant_msg = None
         for turn in convos:
-            role = turn.get('from', '')
-            if role == 'human' and user_msg is None:
-                user_msg = turn['value']
-            elif role == 'gpt' and user_msg is not None and assistant_msg is None:
-                assistant_msg = turn['value']
+            role = turn.get("from", "")
+            if role == "human" and user_msg is None:
+                user_msg = turn["value"]
+            elif role == "gpt" and user_msg is not None and assistant_msg is None:
+                assistant_msg = turn["value"]
                 break
         if not user_msg or not assistant_msg:
             raise ValueError("incomplete")
         return user_msg, assistant_msg
 
-    return collect(
-        "OpenHermes-2.5", ds, extract,
-        TARGETS['diverse'], 'diverse',
-        max_scan=300_000
-    )
+    return collect("OpenHermes-2.5", ds, extract, TARGETS["diverse"], "diverse", max_scan=300_000)
 
 
 # ═══════════════════════════════════════════════════════════
 #  Main
 # ═══════════════════════════════════════════════════════════
+
 
 def main():
     random.seed(SEED)
@@ -332,10 +326,11 @@ def main():
             examples = fn()
             all_data.extend(examples)
             for ex in examples:
-                category_counts[ex['category']] += 1
+                category_counts[ex["category"]] += 1
         except Exception as e:
             print(f"\n  ✗ FAILED: {e}")
             import traceback
+
             traceback.print_exc()
             continue
 
@@ -352,24 +347,24 @@ def main():
     train_data = all_data[val_size:]
 
     # Save
-    train_path = os.path.join(OUTPUT_DIR, 'train.jsonl')
-    val_path = os.path.join(OUTPUT_DIR, 'val.jsonl')
+    train_path = os.path.join(OUTPUT_DIR, "train.jsonl")
+    val_path = os.path.join(OUTPUT_DIR, "val.jsonl")
 
-    with open(train_path, 'w') as f:
+    with open(train_path, "w") as f:
         for item in train_data:
-            f.write(json.dumps(item, ensure_ascii=False) + '\n')
+            f.write(json.dumps(item, ensure_ascii=False) + "\n")
 
-    with open(val_path, 'w') as f:
+    with open(val_path, "w") as f:
         for item in val_data:
-            f.write(json.dumps(item, ensure_ascii=False) + '\n')
+            f.write(json.dumps(item, ensure_ascii=False) + "\n")
 
     # ─── Token stats ──────────────────────────────────────
     total_tokens = 0
     token_counts = []
     for item in all_data:
         formatted = format_example(
-            item['messages'][0]['content'],
-            item['messages'][1]['content'],
+            item["messages"][0]["content"],
+            item["messages"][1]["content"],
         )
         n = count_tokens(formatted)
         total_tokens += n
@@ -384,19 +379,19 @@ def main():
     elapsed = time.time() - t_start
 
     # ─── Summary ──────────────────────────────────────────
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"  COLLECTION COMPLETE  ({elapsed:.0f}s)")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
     print(f"  Total examples : {len(all_data):,}")
     print(f"    Train        : {len(train_data):,}")
     print(f"    Val          : {len(val_data):,}")
     print()
     print("  By category:")
-    for cat in ['general', 'math', 'code', 'science', 'diverse']:
+    for cat in ["general", "math", "code", "science", "diverse"]:
         n = category_counts.get(cat, 0)
         target = TARGETS.get(cat, 0)
         pct = n / len(all_data) * 100
-        bar = '█' * int(pct / 2)
+        bar = "█" * int(pct / 2)
         print(f"    {cat:12s}  {n:>5,} / {target:,}  ({pct:4.1f}%)  {bar}")
     print()
     print("  Token stats:")
@@ -413,21 +408,21 @@ def main():
 
     # ─── Preview ──────────────────────────────────────────
     print("  Sample examples:")
-    for cat in ['general', 'math', 'code', 'science']:
+    for cat in ["general", "math", "code", "science"]:
         for item in train_data:
-            if item['category'] == cat:
-                u = item['messages'][0]['content'][:80].replace('\n', ' ')
-                a = item['messages'][1]['content'][:80].replace('\n', ' ')
+            if item["category"] == cat:
+                u = item["messages"][0]["content"][:80].replace("\n", " ")
+                a = item["messages"][1]["content"][:80].replace("\n", " ")
                 print(f"\n    [{cat}]")
                 print(f"    User: {u}...")
                 print(f"    Asst: {a}...")
                 break
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print("  Ready for fine-tuning!")
     print(f"  Next: python finetune.py --data {train_path} --val {val_path}")
-    print(f"{'='*60}\n")
+    print(f"{'=' * 60}\n")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
