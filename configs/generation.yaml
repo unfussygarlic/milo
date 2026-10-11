@@ -1,0 +1,11 @@
+# Inference defaults for the ReAct agent.
+device: cuda
+temperature: 0.7       # production serving overrides this (see serving.yaml, Phase 4)
+top_k: 50
+top_p: 0.9
+max_new_tokens: 256
+max_tool_calls: 3
+
+# Invariant 4 — never turn these off for customer traffic.
+constrain: true        # constrained copy decoding (CopyConstraint)
+guard: true            # number-grounding guard on the final reply

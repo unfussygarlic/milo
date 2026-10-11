@@ -3,14 +3,15 @@
 # ═══════════════════════════════════════
 
 # Experiments & checkpoints (large files)
-experiments/
+/experiments/
 *.pt
 *.ptrom
 
 # Training data (generated / downloaded)
-data/*.jsonl
-data/*.npy
-data/smollm_v2/
+/data/
+
+# Local secrets
+.env
 
 # Python
 __pycache__/
@@ -38,4 +39,4 @@ Thumbs.db
 *.bak
 *.tmp
 # Eval run artifacts
-eval_results/
+/eval_results/

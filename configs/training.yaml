@@ -1,0 +1,82 @@
+# Training hyperparameters, one section per stage. These are the values the
+# current checkpoints were actually trained with — treat them as a record of
+# what was run, not as knobs to twiddle casually.
+#
+# Model dimensions are repeated per stage (and must match configs/model.yaml,
+# except for dropout, which is 0 only at inference).
+
+pretrain:          # 3.6B tokens of SmolLM-Corpus, 55k steps, val loss 3.30
+  vocab_size: 50257
+  d_model: 1280
+  n_q_heads: 20
+  n_kv_heads: 4
+  n_layers: 16
+  seq_len: 512
+  dropout: 0.1
+  share_blocks: true
+
+  batch_size: 8
+  grad_accum_steps: 8          # effective batch = 128
+  lr: 3.0e-4
+  min_lr: 1.0e-5
+  warmup_steps: 1000
+  weight_decay: 0.1
+  max_grad_norm: 1.0
+
+  stage_1_steps: 8000          # curriculum; 55,000 steps total
+  stage_2_steps: 30000
+  stage_3_steps: 17000
+
+  log_interval: 100
+  eval_interval: 2000
+  checkpoint_interval: 5000
+  sample_interval: 5000
+
+sft:               # 90k instruction examples, 8,436 steps, val loss 1.4956
+  vocab_size: 50257
+  d_model: 1280
+  n_q_heads: 20
+  n_kv_heads: 4
+  n_layers: 16
+  seq_len: 512
+  dropout: 0.1
+  share_blocks: true
+
+  batch_size: 8
+  grad_accum_steps: 4          # effective batch = 32
+  epochs: 3
+  lr: 2.0e-5
+  min_lr: 2.0e-6
+  warmup_steps: 200
+  weight_decay: 0.05
+  max_grad_norm: 1.0
+
+  log_interval: 50
+  eval_interval: 500
+  sample_interval: 500
+  checkpoint_interval: 1000
+
+tools:             # tool-use fine-tuning on top of the SFT checkpoint
+  vocab_size: 50257
+  d_model: 1280
+  n_q_heads: 20
+  n_kv_heads: 4
+  n_layers: 16
+  seq_len: 512
+  share_blocks: true
+  dropout: 0.1
+
+  batch_size: 2
+  grad_accum_steps: 16         # effective batch = 32, fits 8GB VRAM
+  lr: 2.0e-5                   # same as SFT — low, we are fine-tuning
+  min_lr: 2.0e-6
+  warmup_steps: 100
+  weight_decay: 0.1
+  max_grad_norm: 1.0
+  epochs: 3
+
+  eval_every: 200
+  log_every: 10
+
+  train_data: data/tool_use_train.jsonl
+  val_data: data/tool_use_val.jsonl

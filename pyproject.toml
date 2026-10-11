@@ -1,0 +1,87 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "milo"
+version = "0.1.0"
+description = "A 202M-parameter WhatsApp customer-support agent for Indian MSMEs"
+requires-python = ">=3.10"
+dependencies = [
+    # Pinned to the versions the current checkpoints were trained and evaluated
+    # with. torch is the CUDA 13.0 build; install it from the PyTorch index.
+    "torch==2.14.0",
+    # Required, not optional: the GPT-2 BPE files decide tokenization, the
+    # --max_tokens filter and therefore the dataset bytes.
+    "tiktoken==0.14.0",
+    "numpy==2.5.3",
+    "pyyaml==6.0.3",
+]
+
+[project.optional-dependencies]
+# Phase 4 (WhatsApp serving).
+serving = [
+    "fastapi==0.143.0",
+    "uvicorn[standard]==0.54.0",
+    "pydantic==2.13.5",
+    "httpx==0.28.1",
+]
+# Only scripts/collect_sft_data.py and scripts/stream_pretrain_data.py need these.
+corpora = [
+    "datasets>=2.14",
+    "requests>=2.31",
+]
+dev = [
+    "pytest==9.1.1",
+    "ruff==0.16.7",
+]
+
+[project.scripts]
+milo-chat = "milo.agent.cli:main"
+milo-eval = "milo.eval.harness:main"
+milo-generate-data = "milo.data.generator.cli:main"
+milo-check-constraint = "milo.eval.invariants:main_replay"
+milo-fuzz-constraint = "milo.eval.invariants:main_fuzz"
+milo-finetune-tools = "milo.training.tools:main"
+milo-pretrain = "milo.training.pretrain:train"
+milo-sft = "milo.training.sft:train"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q -m 'not slow'"
+markers = [
+    "slow: minutes-long invariant sweeps; run with `pytest -m slow`",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B", "C4", "RUF"]
+ignore = [
+    "E501",    # long lines: the template banks and case tables are tabular on purpose
+    "E702",    # `new_now(); kb = new_kb(); lang = L()` — the generator's house style
+    "E741",    # `l` as a loop variable in the generator's language code
+    "B008",    # FastAPI dependency defaults (Phase 4)
+    "B905",    # zip(strict=) would turn today's truncation into an exception
+    "C408",    # dict(...) literals read better for config-shaped values
+    "RUF005",  # [user] + results is clearer than unpacking here
+    "RUF059",  # named-but-unused unpacking documents the tuple's shape
+    "RUF001",  # the data is Hinglish: curly quotes and ₹ are intentional
+    "RUF002",
+    "RUF003",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Statement-per-assertion test bodies read better ungrouped.
+"tests/*" = ["E402"]
+
+[tool.ruff.format]
+quote-style = "double"
+skip-magic-trailing-comma = false

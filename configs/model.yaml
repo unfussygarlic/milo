@@ -1,0 +1,11 @@
+# Architecture of the serving model. Must match the checkpoint you load —
+# load_model() verifies these against the checkpoint's state dict and fails loudly.
+# These are the production values (202M total / 101M unique params).
+vocab_size: 50257      # GPT-2 tiktoken
+d_model: 1280
+n_q_heads: 20
+n_kv_heads: 4          # GQA: 4 KV heads shared across 20 query heads
+n_layers: 16           # 8 unique blocks, each used twice (share_blocks)
+seq_len: 512
+share_blocks: true
+dropout: 0.0           # inference only; training configs set their own
