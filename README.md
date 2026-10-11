@@ -59,17 +59,47 @@ data/ experiments/ eval_results/    generated artifacts (gitignored)
 
 ## Setup
 
+Two supported setups: a shared venv for local development, and the pinned
+`pyproject.toml` for the Docker image.
+
+### Local development (this machine)
+
+Milo shares an existing venv rather than building its own — torch alone is ~3GB.
+Install the package without touching anything already in it:
+
+```bash
+source ~/Documents/projects/Cerebro/.venv/bin/activate
+pip install -e . --no-deps          # --no-deps: no other package in the venv changes
+pip check                           # should report no broken requirements
+```
+
+`--no-deps` is the point: the venv already has torch 2.14.0+cu130, tiktoken 0.14.0,
+numpy, pyyaml, fastapi and pytest, and those are the versions the current checkpoints
+were trained and evaluated with. Let pip resolve dependencies here and it would start
+moving them.
+
+### Docker / a fresh machine (Phase 4)
+
+`pyproject.toml` carries the real pins. torch comes from the PyTorch index because
+the CUDA build is not on PyPI:
+
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cu130   # match your CUDA
-pip install -e ".[dev]"
+pip install -e ".[dev]"             # add ".[serving]" for the WhatsApp app
 ```
 
+The image build runs the full check suite inside the container — tests, generator
+sha256s and the `--rescore` tables — against the Phase 0 baseline, so a dependency
+that shifts the model's behaviour fails the build rather than shipping.
+
+### tiktoken
+
 `tiktoken` is a **required** dependency, not an optional one: the GPT-2 BPE files decide
-tokenization and the generator's `--max_tokens` filter, so a missing encoding would silently
-change the dataset. For offline or Docker use, pre-cache those files and point
-`TIKTOKEN_CACHE_DIR` at them (see [.env.example](.env.example)) — otherwise the first run tries to
-download them.
+tokenization and the generator's `--max_tokens` filter, so a missing encoding would
+silently change the dataset. For offline or Docker use, pre-cache those files and point
+`TIKTOKEN_CACHE_DIR` at them (see [.env.example](.env.example)) — otherwise the first run
+tries to download them.
 
 Copy `.env.example` to `.env` for local settings. Keep `MILO_DISABLE_RUN_CODE=1` anywhere
 customers can reach.

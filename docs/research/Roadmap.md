@@ -195,3 +195,16 @@ Business Dashboard (React)
 
 *Last updated: October 2026*
 *Model: Milo 202M (SLM, GPT-style, block-wise weight sharing)*
+---
+
+## Phase 4 Docker check (do not drop)
+
+The image build must run, inside the container, against the Phase 0 baseline:
+
+- `pytest -m ""` — 12 tests / 154 assertions, replay 17240/17240, fuzz 0 dead ends
+- `milo-generate-data --seed 42 --scale 0.2` — sha256 must be
+  `bf93414c0087b15e3d8ebfc51249ed2b792f59fcbf41db4e928f970e6014bdca` (train) and
+  `7207d3145bca10ac2b18ddb3118a1eef8d1456d91efb501e008fac9595cbd2e6` (val)
+- `milo-eval --rescore eval_results/<run>.jsonl` — tables identical to the baseline
+
+A dependency version that changes the model's behaviour should fail the build, not ship.
