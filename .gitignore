@@ -1,6 +1,41 @@
-curriculum/
-data/
+# ═══════════════════════════════════════
+# Milo — .gitignore
+# ═══════════════════════════════════════
 
-**.venv**
-**.pt**
-**__pycache__**
+# Experiments & checkpoints (large files)
+experiments/
+*.pt
+*.ptrom
+
+# Training data (generated / downloaded)
+data/*.jsonl
+data/*.npy
+data/smollm_v2/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# Logs
+*.log
+training.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+*.bak
+*.tmp
+# Eval run artifacts
+eval_results/

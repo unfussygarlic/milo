@@ -1,0 +1,269 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Milo Product Strategy</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: single-column document with data callouts */
+:root {
+  --bg: #FAFAF8;
+  --fg: #1a1a18;
+  --fg-muted: #6b6b60;
+  --surface: #F0EFEB;
+  --border: #E0DFD8;
+  --accent: #2D6A4F;
+  --accent-light: #D8F3DC;
+  --warn: #BC4749;
+  --warn-light: #FDECEA;
+  --gold: #B08D35;
+  --gold-light: #FBF4E0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141413;
+    --fg: #E8E8E2;
+    --fg-muted: #8A8A7E;
+    --surface: #1E1E1C;
+    --border: #2E2E2A;
+    --accent: #52B788;
+    --accent-light: #1A3328;
+    --warn: #E07678;
+    --warn-light: #2D1A1A;
+    --gold: #D4A843;
+    --gold-light: #2A2210;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141413;
+  --fg: #E8E8E2;
+  --fg-muted: #8A8A7E;
+  --surface: #1E1E1C;
+  --border: #2E2E2A;
+  --accent: #52B788;
+  --accent-light: #1A3328;
+  --warn: #E07678;
+  --warn-light: #2D1A1A;
+  --gold: #D4A843;
+  --gold-light: #2A2210;
+  color-scheme: dark;
+}
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  line-height: 1.6;
+  padding-inline: 20px;
+  padding-block: 0;
+  max-width: 720px;
+  margin: 0 auto;
+}
+h1, h2, h3 { font-family: 'Space Mono', monospace; text-wrap: balance; }
+h1 { font-size: 1.75rem; margin: 2.5rem 0 0.5rem; letter-spacing: -0.02em; }
+h2 { font-size: 1.15rem; margin: 2.5rem 0 1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.85rem; }
+h3 { font-size: 1.1rem; margin: 0 0 0.5rem; }
+p { margin: 0 0 1rem; }
+.subtitle { color: var(--fg-muted); font-size: 0.95rem; margin-bottom: 2rem; }
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 1.5rem 0; }
+.stat { background: var(--surface); border-radius: 8px; padding: 16px; }
+.stat-val { font-family: 'Space Mono', monospace; font-size: 1.4rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.stat-label { font-size: 0.78rem; color: var(--fg-muted); margin-top: 4px; }
+.competitor { display: flex; gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.competitor:last-child { border-bottom: none; }
+.comp-name { font-family: 'Space Mono', monospace; font-weight: 700; min-width: 120px; font-size: 0.9rem; }
+.comp-desc { font-size: 0.88rem; color: var(--fg-muted); }
+.idea-card { background: var(--surface); border-radius: 10px; padding: 20px 20px 16px; margin: 1rem 0; border-left: 3px solid var(--border); }
+.idea-card.pick { border-left-color: var(--accent); background: var(--accent-light); }
+.idea-num { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--fg-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+.idea-card h3 { margin-top: 4px; }
+.tag { display: inline-block; font-size: 0.72rem; font-family: 'Space Mono', monospace; padding: 2px 8px; border-radius: 4px; margin-right: 6px; margin-bottom: 4px; }
+.tag-green { background: var(--accent-light); color: var(--accent); }
+.tag-gold { background: var(--gold-light); color: var(--gold); }
+.tag-red { background: var(--warn-light); color: var(--warn); }
+.pain { font-style: italic; color: var(--fg-muted); margin: 0.5rem 0; font-size: 0.92rem; }
+.rev { font-family: 'Space Mono', monospace; font-size: 0.85rem; margin: 0.75rem 0 0; }
+.strengths { list-style: none; padding: 0; margin: 0.75rem 0 0; }
+.strengths li { padding: 4px 0; font-size: 0.9rem; }
+.strengths li::before { content: '→ '; color: var(--accent); font-weight: 700; }
+.verdict { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 10px; padding: 24px; margin: 2rem 0; }
+.verdict h3 { color: var(--accent); font-size: 1.2rem; }
+.verdict p { font-size: 0.95rem; }
+.verdict ol { padding-left: 1.2rem; margin: 0.75rem 0; }
+.verdict li { font-size: 0.9rem; margin-bottom: 6px; }
+.mvp-box { background: var(--surface); border-radius: 8px; padding: 16px 20px; margin: 1.5rem 0; }
+.mvp-box h3 { font-size: 0.95rem; }
+.mvp-box ul { padding-left: 1.2rem; margin: 0.5rem 0 0; }
+.mvp-box li { font-size: 0.9rem; margin-bottom: 4px; }
+.phase { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; }
+.phase-num { font-family: 'Space Mono', monospace; font-weight: 700; color: var(--accent); min-width: 24px; }
+.phase-text { font-size: 0.9rem; }
+.section-divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+.milo-constraints { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 1rem 0; }
+@media (max-width: 500px) { .milo-constraints { grid-template-columns: 1fr; } .comp-name { min-width: 90px; } }
+.constraint { font-size: 0.88rem; padding: 10px 12px; border-radius: 6px; }
+.pro { background: var(--accent-light); }
+.con { background: var(--warn-light); }
+.constraint-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+.pro .constraint-label { color: var(--accent); }
+.con .constraint-label { color: var(--warn); }
+</style>
+
+<h1>Milo → Product</h1>
+<p class="subtitle">202M-parameter SLM. India launch strategy. October 2026.</p>
+
+<h2>India AI Market</h2>
+
+<div class="stat-row">
+  <div class="stat">
+    <div class="stat-val">$126B</div>
+    <div class="stat-label">India AI market by 2030</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">63M+</div>
+    <div class="stat-label">MSMEs in India</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">59%</div>
+    <div class="stat-label">cite cost as AI barrier</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">12M+</div>
+    <div class="stat-label">WhatsApp Business accounts</div>
+  </div>
+</div>
+
+<p>The enterprise AI segment ($71B by 2030) is where the money concentrates. Consumer AI downloads are high but spend per download is just $0.07. The window for category-defining AI companies is 2026–2027.</p>
+
+<h2>Who You're Up Against</h2>
+
+<div>
+  <div class="competitor"><span class="comp-name">Sarvam AI</span><span class="comp-desc">105B params, $200M valuation, multilingual, enterprise</span></div>
+  <div class="competitor"><span class="comp-name">Krutrim (Ola)</span><span class="comp-desc">General-purpose consumer chatbot play</span></div>
+  <div class="competitor"><span class="comp-name">BharatGPT Mini</span><span class="comp-desc">534M params, 14 Indic languages, offline, govt/healthcare</span></div>
+  <div class="competitor"><span class="comp-name">Project Indus</span><span class="comp-desc">Tech Mahindra, 8B params, Hindi-first, education</span></div>
+  <div class="competitor"><span class="comp-name">Hanooman</span><span class="comp-desc">IIT consortium, multilingual, general-purpose</span></div>
+</div>
+
+<p style="margin-top: 1rem; font-size: 0.9rem; color: var(--fg-muted);">All building general-purpose or government-focused models. None are deeply specialised in tool-calling for small business.</p>
+
+<hr class="section-divider">
+
+<h2>Milo's Position</h2>
+
+<div class="milo-constraints">
+  <div class="constraint pro"><div class="constraint-label">Advantage</div>Cheap to run — $5/mo VPS or on-device</div>
+  <div class="constraint pro"><div class="constraint-label">Advantage</div>Tool-calling offloads what it can't reason about</div>
+  <div class="constraint pro"><div class="constraint-label">Advantage</div>You built it — full control, no API costs</div>
+  <div class="constraint pro"><div class="constraint-label">Advantage</div>No OpenAI dependency eating margins</div>
+  <div class="constraint con"><div class="constraint-label">Constraint</div>202M params — weak general reasoning</div>
+  <div class="constraint con"><div class="constraint-label">Constraint</div>512-token context window</div>
+  <div class="constraint con"><div class="constraint-label">Constraint</div>English-only (GPT-2 tokenizer)</div>
+  <div class="constraint con"><div class="constraint-label">Constraint</div>Solo developer — can't compete on breadth</div>
+</div>
+
+<hr class="section-divider">
+
+<h2>Five Product Ideas</h2>
+
+<div class="idea-card">
+  <div class="idea-num">Idea 01</div>
+  <h3>MSME Invoice & GST Compliance Assistant</h3>
+  <p class="pain">"56% of MSMEs struggle with invoice compliance. GST filing is complex. Most use expensive CAs or make errors."</p>
+  <div><span class="tag tag-green">structured task</span><span class="tag tag-green">tool-calling fit</span><span class="tag tag-gold">Tally/Zoho exist</span></div>
+  <ul class="strengths">
+    <li>Invoice photo → OCR → Milo validates GST fields via tool calls</li>
+    <li>GSTIN validation, HSN code lookup, invoice generation</li>
+    <li>WhatsApp-native (where MSMEs live)</li>
+  </ul>
+  <div class="rev">₹99–299/month · 1% of 63M MSMEs = 630K potential users</div>
+</div>
+
+<div class="idea-card">
+  <div class="idea-num">Idea 02</div>
+  <h3>Developer Copilot for Indian Tech Stack</h3>
+  <p class="pain">"Junior developers need help with common patterns, debugging, and boilerplate — Spring Boot, React, Node.js, Django."</p>
+  <div><span class="tag tag-green">RUN_CODE tool</span><span class="tag tag-red">Copilot dominates</span><span class="tag tag-red">quality gap</span></div>
+  <ul class="strengths">
+    <li>Generate code, test via tool, iterate — model handles intent, tool handles correctness</li>
+    <li>Could specialise (e.g., govt portal development)</li>
+  </ul>
+  <div class="rev">₹199–499/month freemium · 5M+ Indian developers</div>
+</div>
+
+<div class="idea-card pick">
+  <div class="idea-num">★ Recommended</div>
+  <h3>WhatsApp Customer Support Agent</h3>
+  <p class="pain">"Small businesses can't afford Zendesk/Intercom. They handle support manually on WhatsApp. Yellow.ai charges ₹5K–25K/month."</p>
+  <div><span class="tag tag-green">tool-calling core</span><span class="tag tag-green">English-OK</span><span class="tag tag-green">cost moat</span></div>
+  <ul class="strengths">
+    <li>Auto-respond to common queries: hours, pricing, order status</li>
+    <li>Tool calls: check orders, look up catalog, calculate pricing</li>
+    <li>RAG over business FAQ/documents for knowledge</li>
+    <li>Escalate complex queries to human</li>
+    <li>202M is the moat: ₹0.50/conversation vs ₹5–10 for GPT-4 competitors</li>
+  </ul>
+  <div class="rev">₹499–999/month · 12M+ WhatsApp Business accounts</div>
+</div>
+
+<div class="idea-card">
+  <div class="idea-num">Idea 04</div>
+  <h3>Vernacular Education Tutor</h3>
+  <p class="pain">"Students in tier 2–3 cities study in Hindi/regional languages. Tutoring is expensive. AI tools are English-only."</p>
+  <div><span class="tag tag-green">CALCULATE tool</span><span class="tag tag-gold">needs RAG</span><span class="tag tag-red">needs Hindi</span></div>
+  <ul class="strengths">
+    <li>NCERT-level doubt resolution, quiz generation</li>
+    <li>Voice I/O via Whisper + TTS</li>
+  </ul>
+  <div class="rev">₹49–99/month mass market · B2B to coaching institutes</div>
+</div>
+
+<div class="idea-card">
+  <div class="idea-num">Idea 05</div>
+  <h3>Agricultural Advisory Bot (Kisan Mitra)</h3>
+  <p class="pain">"150M+ farmers need crop advice, weather alerts, mandi prices. Discovery of government schemes is hard."</p>
+  <div><span class="tag tag-green">DATE/SEARCH tools</span><span class="tag tag-gold">govt subsidy path</span><span class="tag tag-red">needs Hindi</span></div>
+  <ul class="strengths">
+    <li>Crop calendar, mandi prices via data.gov APIs, plant disease RAG</li>
+    <li>WhatsApp/voice interface</li>
+  </ul>
+  <div class="rev">₹29/month or govt-subsidised · 150M+ farmers</div>
+</div>
+
+<hr class="section-divider">
+
+<h2>The Verdict</h2>
+
+<div class="verdict">
+  <h3>→ WhatsApp Customer Support Agent for Small Businesses</h3>
+  <p>This is the strongest fit for Milo as it exists today — English-only, 202M params, tool-calling trained.</p>
+  <ol>
+    <li><strong>No Indic languages needed yet</strong> — urban small businesses operate in English/Hinglish on WhatsApp</li>
+    <li><strong>Tool-calling IS the product</strong> — exactly what you just trained</li>
+    <li><strong>202M is a feature, not a bug</strong> — ₹0.50/conversation vs ₹5–10 for GPT-4 competitors</li>
+    <li><strong>Clear revenue</strong> — ₹499–999/month, undercuts Yellow.ai/Gupshup by 10×</li>
+    <li><strong>RAG covers the knowledge gap</strong> — each business's FAQ becomes the knowledge base</li>
+    <li><strong>Your agency experience</strong> gives you domain credibility with small businesses</li>
+    <li><strong>Expansion path</strong> — English → Hindi → more languages → more verticals</li>
+  </ol>
+</div>
+
+<h2>MVP Spec</h2>
+
+<div class="mvp-box">
+  <h3>What to build first</h3>
+  <ul>
+    <li>WhatsApp Business API integration (Twilio or Gupshup as provider)</li>
+    <li>Milo with tool-calling: product catalog lookup, order status, pricing calculator</li>
+    <li>FAISS RAG over business-specific FAQ/documents</li>
+    <li>Admin dashboard: configure bot personality, upload FAQ, view conversations</li>
+    <li>Price: <strong>₹499/month</strong></li>
+  </ul>
+</div>
+
+<h2>Expansion Roadmap</h2>
+
+<div class="phase"><span class="phase-num">01</span><span class="phase-text"><strong>Launch</strong> — English WhatsApp bot for urban small businesses (salons, restaurants, clinics)</span></div>
+<div class="phase"><span class="phase-num">02</span><span class="phase-text"><strong>Hindi</strong> — fine-tune on Hindi/Hinglish data, expand to tier-2 cities</span></div>
+<div class="phase"><span class="phase-num">03</span><span class="phase-text"><strong>Voice</strong> — Whisper STT → Milo → TTS for voice-first users</span></div>
+<div class="phase"><span class="phase-num">04</span><span class="phase-text"><strong>Verticals</strong> — LoRA adapters per industry for better domain performance</span></div>
+<div class="phase"><span class="phase-num">05</span><span class="phase-text"><strong>Scale</strong> — more Indic languages, enterprise tier, API for developers</span></div>
+
+</body></html>
