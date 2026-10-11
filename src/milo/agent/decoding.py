@@ -45,22 +45,50 @@ def generate(
     stop_strings: list[str] | None = None,
     device: str = "cuda",
     constraint: CopyConstraint | None = None,
+    use_cache: bool = True,
+    amp: bool = True,
 ) -> list[int]:
-    """
-    Generate tokens autoregressively. Stops on EOS, any stop_string,
-    or when max_new_tokens is reached.
+    """Generate tokens autoregressively. Stops on EOS, any stop_string, or max_new_tokens.
 
     Returns the full sequence (prompt + generated) as a list of ints.
+
+    With use_cache (the default) the prompt is encoded once and each new token
+    attends to the cached keys and values instead of re-running the whole
+    context. The tokens produced are the same either way — tests/test_kv_cache.py
+    checks that on real eval prompts with the constraint on, and
+    `use_cache=False` keeps the old path available for comparison.
+
+    Once the context passes seq_len the window slides by one token per step, which
+    moves every RoPE position, so the cache is rebuilt each step from there on —
+    same behaviour and same cost as before for over-long contexts.
+
+    amp=False runs in fp32. Under fp16 autocast, feeding a sequence as one chunk
+    or as prefill-plus-steps changes the reduction order and moves logits by
+    ~8e-3, which is enough to flip a near-tied greedy choice; fp32 makes the two
+    paths agree. It is about 1.6x slower, so the default stays fp16 and
+    scripts/verify_kv_cache.py uses the flag to tell ties from bugs.
     """
     seq_len = model_config()["seq_len"]
     generated = list(token_ids)
+    cache = None
 
     for _ in range(max_new_tokens):
-        context = generated[-seq_len:]
-        x = torch.tensor([context], dtype=torch.long, device=device)
+        if cache is None or len(generated) > seq_len:
+            # (Re)prefill. The window is the most recent seq_len tokens and its
+            # positions restart at 0 — the same tokens at the same positions the
+            # uncached path would have fed, so the logits are identical.
+            x = torch.tensor([generated[-seq_len:]], dtype=torch.long, device=device)
+            past = None
+        else:
+            # Steady state: one token, attending to the cache.
+            x = torch.tensor([[generated[-1]]], dtype=torch.long, device=device)
+            past = cache
 
-        with torch.amp.autocast("cuda"):
-            logits, _ = model(x)
+        with torch.amp.autocast("cuda", enabled=amp):
+            if use_cache:
+                logits, _, cache = model(x, past_key_values=past, use_cache=True)
+            else:
+                logits, _ = model(x)
 
         logits = logits[0, -1, :].float()
 

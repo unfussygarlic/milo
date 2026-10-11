@@ -131,6 +131,19 @@ inference settings in [configs/model.yaml](configs/model.yaml) and
 A browser chat UI for local poking lives in [scripts/dev_chat_ui/](scripts/dev_chat_ui/). It is the
 plain no-tool generation path — **dev only**, no constraint and no guard.
 
+## Decoding
+
+Generation is incremental: the prompt is encoded once and each new token attends to
+cached keys and values (4 KV heads, not 20 — that is what GQA buys). On a 4060 Laptop
+that is 1.2-2.0x more tokens/sec in fp16 and 2.1-4.6x in fp32, the gap widening with
+context length. Tool results are injected by re-prefilling, which keeps the token
+sequence exactly what the model saw in training.
+
+```bash
+pytest tests/test_kv_cache.py          # cache mechanics on CPU, no checkpoint needed
+python scripts/verify_kv_cache.py      # cached == uncached on every eval prompt, needs a GPU
+```
+
 ## Tests and invariants
 
 ```bash

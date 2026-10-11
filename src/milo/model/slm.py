@@ -11,12 +11,18 @@ def precompute_rope_frequencies(head_dim, max_seq_len=4096, theta=10000.0):
     return angles.cos(), angles.sin()
 
 
-def apply_rope(x, cos, sin):
+def apply_rope(x, cos, sin, pos_offset=0):
+    """Rotate x in-place-ish at absolute positions [pos_offset, pos_offset + T).
+
+    pos_offset is what makes incremental decoding work: a cached run feeds one
+    token at a time, and that token's position is how many tokens came before it,
+    not 0.
+    """
     B, n_heads, T, head_dim = x.shape
     x_pairs = x.view(B, n_heads, T, head_dim // 2, 2)
     x_even, x_odd = x_pairs[..., 0], x_pairs[..., 1]
-    cos = cos[:T].unsqueeze(0).unsqueeze(0)
-    sin = sin[:T].unsqueeze(0).unsqueeze(0)
+    cos = cos[pos_offset:pos_offset + T].unsqueeze(0).unsqueeze(0)
+    sin = sin[pos_offset:pos_offset + T].unsqueeze(0).unsqueeze(0)
     x_even_new = x_even * cos - x_odd * sin
     x_odd_new = x_even * sin + x_odd * cos
     return torch.stack([x_even_new, x_odd_new], dim=-1).view(B, n_heads, T, head_dim)
@@ -52,30 +58,47 @@ class GroupedQueryAttention(nn.Module):
         self.W_o = nn.Linear(d_model, d_model, bias=False)
         self.attn_dropout = nn.Dropout(dropout)
 
-    def forward(self, x, rope_cos, rope_sin):
+    def forward(self, x, rope_cos, rope_sin, past_kv=None, use_cache=False):
+        """past_kv: (K, V) for the tokens already seen, with n_kv_heads heads (4, not 20).
+
+        Returns (out, present) where present is None unless use_cache.
+        """
         B, T, C = x.shape
+        past_len = 0 if past_kv is None else past_kv[0].shape[2]
 
         Q = self.W_q(x).view(B, T, self.n_q_heads, self.head_dim).transpose(1, 2)
         K = self.W_k(x).view(B, T, self.n_kv_heads, self.head_dim).transpose(1, 2)
         V = self.W_v(x).view(B, T, self.n_kv_heads, self.head_dim).transpose(1, 2)
 
-        # RoPE on Q and K
-        Q = apply_rope(Q, rope_cos, rope_sin)
-        K = apply_rope(K, rope_cos, rope_sin)
+        # RoPE on Q and K, at absolute positions past_len .. past_len + T - 1
+        Q = apply_rope(Q, rope_cos, rope_sin, past_len)
+        K = apply_rope(K, rope_cos, rope_sin, past_len)
+
+        # The cache holds rotated K, so appending is enough — no re-rotation.
+        # Cache the 4 KV heads, before the expansion to 20 query heads.
+        if past_kv is not None:
+            K = torch.cat([past_kv[0], K], dim=2)
+            V = torch.cat([past_kv[1], V], dim=2)
+        present = (K, V) if use_cache else None
 
         # Expand K, V to match Q heads by repeating
-        # [B, n_kv_heads, T, head_dim] -> [B, n_q_heads, T, head_dim]
+        # [B, n_kv_heads, S, head_dim] -> [B, n_q_heads, S, head_dim]
         K = K.repeat_interleave(self.n_groups, dim=1)
         V = V.repeat_interleave(self.n_groups, dim=1)
 
         # Standard attention from here
         scores = Q @ K.transpose(-2, -1) / (self.head_dim**0.5)
-        mask = torch.triu(torch.ones(T, T, device=x.device), diagonal=1).bool()
-        scores = scores.masked_fill(mask, float("-inf"))
+        if T > 1:
+            # Query i sits at absolute position past_len + i and may attend to
+            # every cached key plus keys up to itself.
+            S = K.shape[2]
+            mask = torch.triu(torch.ones(T, S, device=x.device), diagonal=1 + past_len).bool()
+            scores = scores.masked_fill(mask, float("-inf"))
+        # T == 1: the single query is the newest token, so every key is allowed.
         attn_weights = self.attn_dropout(F.softmax(scores, dim=-1))
 
         out = (attn_weights @ V).transpose(1, 2).contiguous().view(B, T, -1)
-        return self.W_o(out)
+        return self.W_o(out), present
 
 
 # --- Change 3: SwiGLU FFN ---
@@ -105,10 +128,11 @@ class TransformerBlock(nn.Module):
         self.ln2 = RMSNorm(d_model)
         self.ffn = SwiGLUFeedForward(d_model, dropout)
 
-    def forward(self, x, rope_cos, rope_sin):
-        x = x + self.attn(self.ln1(x), rope_cos, rope_sin)
+    def forward(self, x, rope_cos, rope_sin, past_kv=None, use_cache=False):
+        attn_out, present = self.attn(self.ln1(x), rope_cos, rope_sin, past_kv, use_cache)
+        x = x + attn_out
         x = x + self.ffn(self.ln2(x))
-        return x
+        return x, present
 
 
 # --- Full Model ---
@@ -159,12 +183,23 @@ class SLM(nn.Module):
             elif isinstance(module, nn.Embedding):
                 nn.init.normal_(module.weight, mean=0.0, std=0.02)
 
-    def forward(self, idx, targets=None):
+    def forward(self, idx, targets=None, past_key_values=None, use_cache=False):
+        """Returns (logits, loss), or (logits, loss, past_key_values) when use_cache.
+
+        past_key_values is a list with one (K, V) per *stack position*, not per
+        module: with share_blocks each block object appears twice in self.blocks
+        and the two appearances see different activations, so they must not share
+        a cache entry.
+        """
         B, T = idx.shape
         x = self.token_embedding(idx)
 
-        for block in self.blocks:
-            x = block(x, self.rope_cos, self.rope_sin)
+        presents = [] if use_cache else None
+        for i, block in enumerate(self.blocks):
+            past_kv = None if past_key_values is None else past_key_values[i]
+            x, present = block(x, self.rope_cos, self.rope_sin, past_kv, use_cache)
+            if use_cache:
+                presents.append(present)
 
         x = self.ln_final(x)
         logits = self.lm_head(x)
@@ -172,6 +207,8 @@ class SLM(nn.Module):
         loss = None
         if targets is not None:
             loss = F.cross_entropy(logits.view(B * T, -1), targets.reshape(B * T))
+        if use_cache:
+            return logits, loss, presents
         return logits, loss
 
 
