@@ -1,0 +1,7 @@
+# Revisions to skip when running git blame: mechanical, whole-repo reformats.
+#
+# Enable locally with:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# Apply ruff format (mechanical, no behaviour change)
+04feea0e98ed42acaa2e3be55edee3b7fc219e4f
