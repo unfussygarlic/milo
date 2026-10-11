@@ -6,6 +6,13 @@ top_p: 0.9
 max_new_tokens: 256
 max_tool_calls: 3
 
+# Mixed precision. false = fp32, which on a batch-1 single stream is both faster
+# (we are kernel-launch bound, so autocast's per-op casts cost more than the math
+# saves) and numerically exact against the uncached path: under fp16 autocast,
+# splitting a sequence into prefill + steps moves logits by ~8e-3, enough to flip a
+# near-tied greedy choice. Re-benchmark on the serving GPU before changing it.
+amp: false
+
 # Invariant 4 — never turn these off for customer traffic.
 constrain: true        # constrained copy decoding (CopyConstraint)
 guard: true            # number-grounding guard on the final reply

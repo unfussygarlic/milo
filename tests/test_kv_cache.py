@@ -7,6 +7,7 @@ check against the real checkpoint on every eval prompt is in
 scripts/verify_kv_cache.py.
 """
 
+import pytest
 import torch
 
 from milo.agent.constraint import CopyConstraint
@@ -19,8 +20,14 @@ VOCAB = 50257  # the constraint's candidate tiers assume the real vocabulary
 def tiny_model(share_blocks=True, seq_len=16):
     torch.manual_seed(0)
     return SLM(
-        vocab_size=VOCAB, d_model=32, n_q_heads=4, n_kv_heads=2, n_layers=4,
-        seq_len=seq_len, dropout=0.1, share_blocks=share_blocks,
+        vocab_size=VOCAB,
+        d_model=32,
+        n_q_heads=4,
+        n_kv_heads=2,
+        n_layers=4,
+        seq_len=seq_len,
+        dropout=0.1,
+        share_blocks=share_blocks,
     ).eval()
 
 
@@ -95,4 +102,56 @@ def test_generate_identical_with_the_constraint_on():
     kw = dict(max_new_tokens=12, temperature=0.0, device="cpu")
     uncached = generate(m, prompt, constraint=CopyConstraint(msg, [msg], False), use_cache=False, **kw)
     cached = generate(m, prompt, constraint=CopyConstraint(msg, [msg], False), use_cache=True, **kw)
+    assert uncached == cached
+
+
+# ── the real thing: same weights, same prompts, fp32 ──
+
+CHECKED_PROMPTS = [
+    # one per category, fixed on purpose so a regression points at a behaviour
+    ("store_product", "sona masoori 5 kg ka kya rate chal raha hai", "kirana"),
+    ("store_faq", "what time do you shut today", "mobile"),  # the fp16 near-tie case
+    ("store_chain", "2 kilo paneer ka total kitna hoga", "dairy"),
+    ("calc", "1499 pe 18% gst kitna", "kirana"),
+    ("date", "diwali kitne din baad hai", "kirana"),
+    ("route", "upi kya hai", "kirana"),
+    ("no_tool", "naraz grahak ko kaise shant karu", "kirana"),
+    ("weather", "shimla me sardi hai kya", "kirana"),
+]
+
+
+@pytest.mark.gpu
+@pytest.mark.slow
+@pytest.mark.parametrize(("category", "message", "kb"), CHECKED_PROMPTS)
+def test_fp32_cached_equals_uncached_on_real_weights(cuda_model, category, message, kb):
+    """In fp32 the cache is exact, so greedy decoding must pick the same tokens.
+
+    fp16 autocast is a different story: splitting a sequence into prefill plus
+    steps moves logits by ~8e-3 there, which can flip a near-tied choice. That is
+    why serving runs fp32 (configs/generation.yaml).
+    """
+    import milo.tools as T
+    from milo.eval.harness import EVAL_NOW, store
+    from milo.model.tokenizer import encode
+
+    T.set_now(EVAL_NOW)
+    T.set_merchant_kb(store(kb))
+    try:
+        prompt = encode(f"<|user|>\n{message}\n<|assistant|>\n")
+        kw = dict(
+            max_new_tokens=100,
+            temperature=0.0,
+            stop_strings=["<|tool_result|>"],
+            device="cuda",
+            amp=False,
+        )
+        uncached = generate(
+            cuda_model, prompt, constraint=CopyConstraint(message, [message], False), use_cache=False, **kw
+        )
+        cached = generate(
+            cuda_model, prompt, constraint=CopyConstraint(message, [message], False), use_cache=True, **kw
+        )
+    finally:
+        T.set_now(None)
+        T.set_merchant_kb(None)
     assert uncached == cached

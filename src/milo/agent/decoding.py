@@ -1,10 +1,14 @@
 """Autoregressive generation and the constrained-decoding token filter."""
 
+import logging
+
 import torch
 
 from milo.agent.constraint import CopyConstraint
-from milo.config import model_config
+from milo.config import generation_config, model_config
 from milo.model.tokenizer import EOS_ID, decode, vocab_strings
+
+log = logging.getLogger(__name__)
 
 CONSTRAINT_STATS = {"steps": 0, "fallbacks": 0}
 
@@ -46,7 +50,7 @@ def generate(
     device: str = "cuda",
     constraint: CopyConstraint | None = None,
     use_cache: bool = True,
-    amp: bool = True,
+    amp: bool | None = None,
 ) -> list[int]:
     """Generate tokens autoregressively. Stops on EOS, any stop_string, or max_new_tokens.
 
@@ -62,17 +66,33 @@ def generate(
     moves every RoPE position, so the cache is rebuilt each step from there on —
     same behaviour and same cost as before for over-long contexts.
 
-    amp=False runs in fp32. Under fp16 autocast, feeding a sequence as one chunk
-    or as prefill-plus-steps changes the reduction order and moves logits by
-    ~8e-3, which is enough to flip a near-tied greedy choice; fp32 makes the two
-    paths agree. It is about 1.6x slower, so the default stays fp16 and
-    scripts/verify_kv_cache.py uses the flag to tell ties from bugs.
+    amp selects mixed precision; None (the default) takes it from
+    configs/generation.yaml, which ships fp32. Under fp16 autocast, feeding a
+    sequence as one chunk or as prefill-plus-steps changes the reduction order
+    and moves logits by ~8e-3, enough to flip a near-tied greedy choice. fp32
+    makes the two paths agree exactly and, at batch 1 on an 8GB 4060, is also
+    faster — see configs/generation.yaml.
     """
+    if amp is None:
+        amp = generation_config()["amp"]
     seq_len = model_config()["seq_len"]
     generated = list(token_ids)
     cache = None
+    warned_overflow = False
 
     for _ in range(max_new_tokens):
+        if len(generated) > seq_len and not warned_overflow:
+            # Phase 4 trims conversation history so this never happens in serving;
+            # if it does, the oldest tokens are silently dropped, so say so.
+            log.warning(
+                "context %d exceeds the %d-token window: generating from the most recent %d "
+                "tokens and rebuilding the cache every step (slow). Trim the conversation.",
+                len(generated),
+                seq_len,
+                seq_len,
+            )
+            warned_overflow = True
+
         if cache is None or len(generated) > seq_len:
             # (Re)prefill. The window is the most recent seq_len tokens and its
             # positions restart at 0 — the same tokens at the same positions the

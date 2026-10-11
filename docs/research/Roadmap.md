@@ -208,3 +208,33 @@ The image build must run, inside the container, against the Phase 0 baseline:
 - `milo-eval --rescore eval_results/<run>.jsonl` — tables identical to the baseline
 
 A dependency version that changes the model's behaviour should fail the build, not ship.
+
+---
+
+## Decoding notes carried into Phase 4
+
+**Trim, don't slide.** The KV cache is rebuilt from scratch on every step once the
+context passes 512 tokens, because a sliding window moves every RoPE position. We
+deliberately did *not* build a sliding cache (it would need keys stored pre-rotation
+and would no longer be bit-exact against the plain path). Instead, Phase 4 must trim
+conversation history so that *prompt + max_new_tokens* always fits in 512.
+`milo.agent.decoding.generate` logs a warning the first time a generation crosses the
+window, so if trimming is ever wrong it says so in the serving logs rather than just
+getting slow.
+
+**Re-benchmark precision on the serving GPU.** `configs/generation.yaml` ships
+`amp: false` (fp32) because on an RTX 4060 Laptop at batch 1 we are kernel-launch
+bound: fp16 autocast's per-op casts cost more than the math saves, and fp32 also makes
+cached and uncached decoding numerically identical. Measured there, 100 new tokens,
+greedy, no constraint:
+
+| prompt tokens | fp16 uncached | fp16 cached | fp32 uncached | fp32 cached |
+|---|---|---|---|---|
+| 35 | 76.4 t/s | 88.9 | 52.9 | **111.0** |
+| 140 | 59.9 t/s | 88.3 | 32.8 | **106.5** |
+| 280 | 43.2 t/s | 84.8 | 19.7 | **91.2** |
+
+That ordering is hardware- and batch-size-specific. On the EC2 GPU (bigger, possibly
+batching several merchants' traffic) fp16 may well win. Re-run the sweep there before
+choosing `amp`, and if fp16 wins, expect the one near-tie case to resolve differently —
+it is a ±0.01 logit tie, not a correctness problem.

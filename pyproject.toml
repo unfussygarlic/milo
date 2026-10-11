@@ -55,6 +55,7 @@ pythonpath = ["src"]
 addopts = "-q -m 'not slow'"
 markers = [
     "slow: minutes-long invariant sweeps; run with `pytest -m slow`",
+    "gpu: needs a CUDA device and the tool-use checkpoint; skipped cleanly without them",
 ]
 
 [tool.ruff]
