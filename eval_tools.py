@@ -612,14 +612,23 @@ CAT_ORDER = ["store_product", "store_faq", "store_nomatch", "store_chain", "rout
              "search", "weather", "code", "no_tool", "ALL"]
 
 
+def split_columns(names, result_sets, split):
+    """(name, results) pairs for one split, dropping runs with no cases in it — a results
+    file holding only test cases must not add an empty column to the dev table."""
+    cols = [(n, [r for r in rs if r["case"].get("split", "dev") == split])
+            for n, rs in zip(names, result_sets)]
+    return [(n, rs) for n, rs in cols if rs]
+
+
 def print_table(names, summaries):
     print("\n" + "PASS RATE (%) by category" + "".join(f"  {n[:18]:>18}" for n in names))
     for cat in CAT_ORDER:
-        if cat not in summaries[0]:
+        present = [s[cat] for s in summaries if cat in s]
+        if not present:
             continue
-        line = f"  {cat:<15} n={summaries[0][cat]['n']:<3}"
+        line = f"  {cat:<15} n={present[0]['n']:<3}"
         for s in summaries:
-            line += f"  {fmt(s[cat]['pass']):>18}"
+            line += f"  {fmt(s[cat]['pass'] if cat in s else None):>18}"
         print(line)
     print("  " + "-" * (24 + 20 * len(summaries)))
     print(f"  {'ALL + guard':<21}" + "".join(f"  {fmt(s['ALL']['pass_guarded']):>18}" for s in summaries))
@@ -668,10 +677,10 @@ def main():
                 r["score"] = score(r["case"], r["response"], [tuple(c) for c in r["calls"]])
             names.append(os.path.basename(path).replace(".jsonl", "")); sums.append(rows); last = rows
         for split in ("dev", "test"):
-            rs = [[r for r in rows_ if r["case"].get("split", "dev") == split] for rows_ in sums]
-            if rs[0]:
-                print(f"\n══ {split.upper()} SPLIT ({len(rs[0])} cases) ══")
-                print_table(names, [summarize(r) for r in rs])
+            cols = split_columns(names, sums, split)
+            if cols:
+                print(f"\n══ {split.upper()} SPLIT ({len(cols[0][1])} cases) ══")
+                print_table([n for n, _ in cols], [summarize(rs) for _, rs in cols])
         print_failures(last, args.show_failures)
         return
     if not args.checkpoint:
@@ -698,10 +707,10 @@ def main():
         names.append(name); all_results.append(results)
         del agent
     for split in ("dev", "test"):
-        rs = [[r for r in res if r["case"].get("split", "dev") == split] for res in all_results]
-        if rs[0]:
-            print(f"\n══ {split.upper()} SPLIT ({len(rs[0])} cases){' — held out' if split == 'test' else ' — leaked into v4.1+ data'} ══")
-            print_table(names, [summarize(r) for r in rs])
+        cols = split_columns(names, all_results, split)
+        if cols:
+            print(f"\n══ {split.upper()} SPLIT ({len(cols[0][1])} cases){' — held out' if split == 'test' else ' — leaked into v4.1+ data'} ══")
+            print_table([n for n, _ in cols], [summarize(rs) for _, rs in cols])
     print_failures(all_results[-1], args.show_failures)
     print(f"\nFull traces: eval_results/<name>.jsonl")
 
